@@ -9,12 +9,13 @@ bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "rules_cc", version = "0.2.16")
 bazel_dep(name = "rules_oci", version = "2.2.7")
 bazel_dep(name = "aspect_bazel_lib", version = "2.7.2")
-
 bazel_dep(
-    name = "rules_python",  # We can refer to this Bazel module with "rules_python". Alternatively, by specifying repo_name, we could assign another name
-    version = "1.4.1",
+    name = "rules_python",   # We can refer to this Bazel module with "rules_python". Alternatively, by specifying repo_name, we could assign another name
+    version = "1.6.3",
     dev_dependency = True,
 )
+bazel_dep(name = "aspect_rules_py", version = "1.6.4-rc2")
+bazel_dep(name = "rules_uv", version = "0.88.0")
 
 # Directives related to module extensions
 register_toolchains(

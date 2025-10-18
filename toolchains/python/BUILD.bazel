@@ -1,10 +1,42 @@
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@rules_uv//uv:pip.bzl", "pip_compile")
+load("@rules_uv//uv:venv.bzl", "create_venv", "sync_venv")
 
-# This rule adds a convenient way to update the requirements file.
-compile_pip_requirements(
-    name = "requirements",
-    extra_args = ["--allow-unsafe"],
+pip_compile(name = "generate_requirements")
+
+pip_compile(
+    name = "generate_requirements_linux",
+    py3_runtime = "@python_3_10//:py3_runtime",
+    python_platform = "x86_64-unknown-linux-gnu",
     requirements_in = "requirements3_bazel.in",
-    requirements_windows = "requirements3_windows.txt",
-    requirements_txt = "requirements3_bazel_lock.txt",
+    requirements_txt = "requirements3_linux.txt",
 )
+
+pip_compile(
+    name = "generate_requirements_windows",
+    py3_runtime = "@python_3_10//:py3_runtime",
+    python_platform = "x86_64-pc-windows-msvc",
+    requirements_in = "requirements3_bazel.in",
+    requirements_txt = "requirements3_windows.txt",
+)
+
+pip_compile(
+    name = "generate_requirements_darwin",
+    py3_runtime = "@python_3_10//:py3_runtime",
+    python_platform = "x86_64-apple-darwin",
+    requirements_in = "requirements3_bazel.in",
+    requirements_txt = "requirements3_darwin.txt",
+)
+
+create_venv(name = "create-venv")
+
+sync_venv(
+    name = "sync-venv-darwin",
+    requirements_txt = "requirements3_darwin.txt",
+)
+
+# Expose it so other packages can depend on it
+# use_extension("@rules_uv//uv:extensions.bzl", "sync_venv_ext")
+# use_repo(sync_venv_ext, "sync_venv_darwin")
+# use_repo(sync_venv_ext, "sync_venv_linux")
+# use_repo(sync_venv_ext, "sync_venv_windows")

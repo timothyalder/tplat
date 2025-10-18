@@ -5,8 +5,8 @@ load("@rules_python//python:packaging.bzl", "py_wheel")
 py_library(
     name = "translate", 
     deps = [
-        "@pypi//tqdm:pkg",
-        "@pypi//deep_translator:pkg",
+        "@sync_venv_darwin//tqdm",
+        "@sync_venv_darwin//deep_translator",
     ], 
     srcs = [
         "translate/__init__.py",
