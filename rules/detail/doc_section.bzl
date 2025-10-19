@@ -13,22 +13,47 @@ def assert_valid_extension(f):
 
 
 def doc_section_rule(ctx):
+    validation_outputs = []
+
+    def validate_page(page):
+        validation_output = ctx.actions.declare_file(("/".join([ctx.attr.name, page.path])))
+
+        # TODO: Run a lint checker
+        ctx.actions.write(
+            output = validation_output,
+            content = "validated: %s" % page.path,
+        )
+
+        validation_outputs.append(validation_output)
+
+    # In the future, could have pdf_pages
     site_pages = []
 
-    if ctx.file.index:
-        assert_valid_extension(ctx.file.index)
-
     for dep in ctx.attr.srcs:
-        for f in dep[DocSectionInfo].site_pages:
-            page = DocPageInfo(
-                file = f.file,
-                path = "/".join([str(dep.label).replace("@//","").replace(":","_").replace("/","_"), f.path]),
-                data = f.data,
-                depth = f.depth + 1
-            )
-            site_pages.append(page)
+        # Enable recursion (doc_section target in doc_section srcs)
+        if DocSectionInfo in dep:
+            for f in dep[DocSectionInfo].site_pages:
+                page = DocPageInfo(
+                    file = f.file,
+                    path = "/".join([str(dep.label).replace("@//","").replace(":","_").replace("/","_"), f.path]),
+                    data = f.data,
+                    depth = f.depth + 1
+                )
+                site_pages.append(page)
+        else:
+            for f in dep.files.to_list():
+                page = DocPageInfo(
+                    file = f,
+                    path = "/".join([f.basename]),
+                    data = ctx.files.data,
+                    depth = 2
+                )
+                site_pages.append(page)
 
-    return DocSectionInfo(site_pages=site_pages)
+                if not ctx.attr.skip_validation:
+                    validate_page(page)
+
+    return (DocSectionInfo(site_pages=site_pages), validation_outputs)
 
 
 def _doc_section_impl(ctx):

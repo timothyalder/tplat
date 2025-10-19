@@ -5,7 +5,7 @@ doc_publish(
     srcs = [
         "//projects/translate/docs",
     ],
-    site_index = "index.md",
+    index = "index.md",
     title = "Projects",
     visibility = ["//visibility:public"],
 )
