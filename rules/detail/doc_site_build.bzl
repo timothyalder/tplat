@@ -1,7 +1,6 @@
-load(":_deterministic_tar_cmd.bzl", "deterministic_tar_cmd")
+load(":_doc_providers.bzl", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 load(":_doc_site_args.bzl", "DOC_SITE_ARGS")
-load(":_doc_providers.bzl", "DocSectionInfo")
 
 def _doc_site_build_impl(ctx):
     output_dir = ctx.actions.declare_directory(ctx.label.name + ".output")
@@ -44,9 +43,8 @@ def _doc_site_build_impl(ctx):
     )
 
     return [
-        DefaultInfo(files = depset([output_dir]))
+        DefaultInfo(files = depset([output_dir])),
     ]
-
 
 doc_site_build = rule(
     attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS | {

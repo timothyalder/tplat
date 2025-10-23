@@ -1,11 +1,10 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
-
 py_binary(
-        name = "jekyll_site_formatter",
-        deps = [],
-        srcs = ["jekyll_site_formatter.py"],
-        data = [],
-        main = "jekyll_site_formatter.py",
-        visibility = ["//visibility:public"]
-    )
+    name = "jekyll_site_formatter",
+    srcs = ["jekyll_site_formatter.py"],
+    data = [],
+    main = "jekyll_site_formatter.py",
+    visibility = ["//visibility:public"],
+    deps = [],
+)
