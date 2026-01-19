@@ -19,9 +19,9 @@ def flight_callback(flights: list[FlightData]) -> None:
 def main():
     # Output from triangulate (example values)
     # Hawaii
-    latitude = 21.388961
-    longitude = -157.734384
-    heading = 60.0  # degrees
+    # latitude = 21.388961
+    # longitude = -157.734384
+    # heading = 60.0  # degrees
     # Fadden
     latitude = -35.401512
     longitude = 149.114405
