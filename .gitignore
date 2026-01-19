@@ -23,3 +23,6 @@ projects/car
 **/*.wpc
 **/*.xml
 **/*.cache
+
+# vscode
+.vscode
