@@ -29,9 +29,18 @@ def _extract_flights(data: dict) -> List[FlightData]:
         return flights
     
     for state in states:
+        state = dict(enumerate(state))
+        velocity = state.get(9, "")
+        latitude = state.get(6, "")
+        longitude = state.get(5, "")
+        geo_altitude = state.get(13, "")
+        category = state.get(17, "")
+        
+        print(f"{velocity=}, {latitude=}, {longitude=}, {geo_altitude=}, {category=}")
+        
         flights.append(
             FlightData(
-                callsign=(state[1] or "").strip(),
+                callsign=state.get(1, "").strip(),
                 origin=None,
                 destination=None,
                 make=None,

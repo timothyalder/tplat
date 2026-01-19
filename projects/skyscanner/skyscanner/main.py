@@ -23,8 +23,9 @@ def main():
     longitude = -157.734384
     heading = 60.0  # degrees
     # Fadden
-    # latitude = -35.401512
-    # longitude = 149.114405
+    latitude = -35.401512
+    longitude = 149.114405
+    heading = 150.0
     roi = define_roi(
         latitude=latitude,
         longitude=longitude,
