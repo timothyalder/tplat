@@ -1,6 +1,7 @@
 import math
 import random
-from typing import List, Tuple
+from typing import List, Tuple, Union
+from time import time
 
 from sympy import isprime, mod_inverse
 
@@ -10,7 +11,7 @@ from cryptography.utils import vectorise
 def iscoprime(a, b) -> bool:
     return math.gcd(a, b) == 1
 
-def encrypt(m: str, p: int, q: int) -> Tuple[List[int], int]:
+def encrypt(m: Union[str, int], p: int, q: int) -> Tuple[List[int], int]:
     random.seed(42)
     assert isprime(p) and isprime(q), "Error! Arguments p, and q must be prime numbers."
     
@@ -25,7 +26,14 @@ def encrypt(m: str, p: int, q: int) -> Tuple[List[int], int]:
             break
     e = pow(base=d, exp=-1, mod=phi)
     
-    c = [pow(m_int, e, n) for m_int in vectorise(m=m, n=n)]
+    if isinstance(m, str):
+        m = vectorise(m=m, n=n)
+    elif isinstance(m, int):
+        m = [m]
+    else:
+        raise TypeError("Error! Argument m must be of type 'str' or 'int'")
+        
+    c = [pow(m_int, e, n) for m_int in m]
     
     return c, d
     
@@ -41,7 +49,7 @@ def decrypt(c: List[int], p: int, q: int, d: int):
     
     return b.decode("utf-8")
 
-def bruteforce(c: List[int], d: int, max_prime: int=100):
+def bruteforce(c: List[int], d: int, max_prime: int=500):
     candidates = []
     num_candidates = 0
     primes = [p for p in range(2, max_prime) if isprime(p)]
@@ -52,11 +60,11 @@ def bruteforce(c: List[int], d: int, max_prime: int=100):
             # Check if d has an inverse mod phi(n) (i.e., is valid)
             if math.gcd(d, phi) != 1:
                 continue
+            num_candidates += 1
             try:
                 e = mod_inverse(d, phi)
             except ValueError:
                 continue
-            num_candidates += 1
             try:
                 plaintext = decrypt(c=c, p=p, q=q, d=d)
                 candidates.append(plaintext)
@@ -82,23 +90,30 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     from pathlib import Path
     from tqdm import tqdm
-    m = "Hi"
-    primes = [p for p in range(17, 100) if isprime(p)]
+    m = 4
+    primes = [p for p in range(5, 500) if isprime(p)]
     num_candidates = []
     ns = []
+    runtimes = []
     
     for i, p in tqdm(enumerate(primes), desc="Generating plot", total=len(primes)):
         for q in primes[i:]:
             n = p*q
             ns.append(n)
             c, d = encrypt(m=m, p=p, q=q)
+            runtimes.append
+            t0 = time()
             num_candidates.append(bruteforce(c=c, d=d)[1])
+            runtimes.append(time()-t0)
+            # print(n, num_candidates[-1])
     
-    # Plot
-    plt.figure(figsize=(10,6))
-    plt.scatter(ns, num_candidates)
-    plt.xlabel("RSA modulus n = p * q")
-    plt.ylabel("Number of possible decryption candidates")
-    plt.title("Number of possible RSA decryption candidates vs n (primes 2-100)")
-    plt.grid(True)
-    plt.savefig(Path(__file__).parent/"complexity.png")
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+    ax1.scatter(ns, num_candidates)
+    ax1.set_xlabel("RSA modulus n = p × q")
+    ax1.set_ylabel("Number of possible decryption candidates")
+    ax1.grid(True)
+    ax2 = ax1.twinx()
+    ax2.scatter(ns, runtimes)
+    ax2.set_ylabel("Brute-force runtime (seconds)")
+    plt.title("RSA brute-force complexity vs n (primes ≤ 100)")
+    plt.savefig(Path(__file__).parent / "complexity.png")
