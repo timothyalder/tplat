@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from cryptography.enigma.scrambler import Scrambler
 from cryptography.enigma.plugboard import Plugboard
@@ -6,11 +6,12 @@ from cryptography.enigma.plugboard import Plugboard
 
 class Enigma:
     
-    def __init__(self, seed: Optional[int]=None):
-        self.p = Plugboard(seed=seed)
-        self.s1 = Scrambler(seed=seed)
-        self.s2 = Scrambler(seed=seed)
-        self.s3 = Scrambler(seed=seed)
+    def __init__(self, alphabet: Optional[List[str]]=None, seed: Optional[int]=None):
+        alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] if alphabet is None else alphabet
+        self.p = Plugboard(alphabet=alphabet, seed=seed)
+        self.s1 = Scrambler(divisor=1, alphabet=alphabet, seed=seed)
+        self.s2 = Scrambler(divisor=len(alphabet), alphabet=alphabet, seed=seed)
+        self.s3 = Scrambler(divisor=len(alphabet)**2, alphabet=alphabet, seed=seed)
     
     def __call__(self, m: str):
         m = m.replace(" ", "")
@@ -23,6 +24,7 @@ class Enigma:
     
 if __name__ == "__main__":
     m = "Hello World"
-    e = Enigma()
+    seed = 42
+    e = Enigma(seed=seed)
     c = e(m)
     print(c)
