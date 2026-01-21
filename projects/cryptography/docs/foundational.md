@@ -152,31 +152,8 @@ Attack models include:
 
 ---
 
-## Frequency Analysis
+## Crib
 
-**Frequency analysis** exploits the statistical properties of language.
-
-* Certain letters appear more often (e.g., E, T, A in English).
-* In monoalphabetic ciphers, frequencies are preserved.
-
-**Historical origin:**
-
-* Developed by **Al-Kindi** in the 9th century.
-* First systematic cryptanalytic technique.
-
-**Process:**
-
-1. Count letter frequencies in ciphertext
-2. Compare with known language statistics
-3. Guess substitutions and refine using patterns
-
-**Effectiveness:**
-
-* Extremely effective against monoalphabetic substitution
-* Ineffective against strong modern ciphers
+A known piece of plaintext appearing within a piece of ciphertext. Turing used a crib when cracking the Enigma machine, knowing that at 06:05 each day the German's transmitted a weather report containing the plaintext "wetter" (German for weather).
 
 ---
-
-## References
-
-Singh, S. (1999). *The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography*. Doubleday.
