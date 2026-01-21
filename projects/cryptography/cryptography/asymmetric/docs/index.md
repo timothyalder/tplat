@@ -2,11 +2,11 @@
 
 Regular arithmetic is two-way
 
-2^x is easily reversible
+$3^x$ is easily reversible. If I told you $3^x=81$, you could solve this algebraically using $log_{3}(81)$. You could even guess $3^5$ which would give $243$, meaning you would then know to guess a smaller exponent, leading you to the correct answer.
 
-mod arithmetic is an example of one-way function
+mod arithmetic is an example of one-way function. For example $3^x mod(7)=1$ is not trivial to solve. In this case, you might try $3^5 mod(7)$ but that equals $5$. You may think this means you should try a smaller exponent, but that would lead you in the wrong direction. The actual answer is $3^6 mod(7)=1$. As you can imagine, for large numbers, this problem becomes drastically more difficult. For example, I can very quickly calculate $2^{143} mod(2167)=1306$, but it would take you much longer to determine the exponent given $2^x mod(2167)=1306$.
 
-Called asymmetric because the decryption process is one-way. The encryption function is a one-way function that 
+Unlike symmetric encryption, which uses the same key and function for encryption and decryption, an asymmetric encryption function is one-way. Knowing the encryption function is not enough to perform decryption. In fact, the whole purpose of asymmetric encryption was for everyone to know a users encryption function, thereby avoiding the problem of key sharing.
 
 Alice Bob and Eve. Alice wants to send a personal message to Bob, which Eve is trying to read. 
 
