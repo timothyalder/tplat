@@ -13,7 +13,7 @@ def caesar_shift(m: str, i: int, alphabet: List[str]=None):
     shifted = deque(alphabet.copy())
     shifted.rotate(i)
     substitution_mapping = dict(zip(alphabet, shifted))
-    c = [substitution_mapping[plaintext] for plaintext in m.upper()]
+    c = "".join([substitution_mapping[plaintext] for plaintext in m.upper()])
     return c
 
 if __name__ == "__main__":
