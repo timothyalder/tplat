@@ -2,8 +2,8 @@ from typing import Optional, List
 import math
 from itertools import zip_longest
 
-from cryptography.symmetric.caesar_shift import caesar_shift
-from cryptography.symmetric.frequency_analysis import frequency_analysis
+from cryptography.symmetric.caesar_shift import caesar_shift, determine_i
+from cryptography.symmetric.frequency_analysis import frequency_distribution, typical_reference_distribution
 
 
 def find_repetitions(c: str, min_length: int=3, max_length: int=10):
@@ -46,13 +46,27 @@ def vigenere(m: str, key: str, alphabet: Optional[List[str]]=None) -> str:
     return c
 
 
-def kasiski(c: str, key_length: int):
+def kasiski(c: str, key_length: int, alphabet: Optional[List[str]]=None):
+    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] if alphabet is None else alphabet
     c = c.replace(" ", "").upper()
     plaintext_columns = []
     monoalphabetic_ciphertexts = [c[i::key_length] for i in range(key_length)]
-    for monoalphabetic_ciphertext in monoalphabetic_ciphertexts:
-        substitution_mapping = frequency_analysis(c=monoalphabetic_ciphertext)
-        plaintext_columns.append([substitution_mapping[ciphertext] for ciphertext in monoalphabetic_ciphertext])
+    for idx, monoalphabetic_ciphertext in enumerate(monoalphabetic_ciphertexts):
+        ciphertext_distribution = frequency_distribution(m=monoalphabetic_ciphertext, alphabet=alphabet)
+        reference_distribution = typical_reference_distribution(alphabet=alphabet)
+        print(ciphertext_distribution[:5])
+        print(reference_distribution[:5])
+        i = determine_i(m=ciphertext_distribution[0][0], c=reference_distribution[0][0])
+        if idx == 2:
+            i = determine_i(m=ciphertext_distribution[0][0], c="a")
+        if idx == 3:
+            i = determine_i(m=ciphertext_distribution[0][0], c="a")
+            # i = determine_i(m="R",c="C")
+        if idx == 4:
+            ...
+            # i = determine_i(m=ciphertext_distribution[0][0], c="a")
+        plaintext = caesar_shift(m=monoalphabetic_ciphertext, i=i, alphabet=alphabet)
+        plaintext_columns.append(plaintext)
          
     m = "".join(
         ch
@@ -79,6 +93,3 @@ if __name__ == "__main__":
     # Let's now try and apply frequency analysis assuming a key length of 6
     m = kasiski(c=c, key_length=6)
     print(m)
-    # Let's test some 6-letter keys: "cipher"
-    # m = vigenere(m=c, key="cipher")
-    # print(m)
