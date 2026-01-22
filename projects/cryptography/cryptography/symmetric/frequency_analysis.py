@@ -50,7 +50,7 @@ def compile_reference_distribution(alphabet: List[str]) -> List[Tuple[str, float
 
 def frequency_distribution(m: str, alphabet: List[str]) -> List[Tuple[str, float]]:
     frequencies = [m.count(plaintext)/len(m) for plaintext in alphabet]
-    return sorted(list(zip(alphabet, frequencies)), key=lambda x: x[1])
+    return sorted(list(zip(alphabet, frequencies)), key=lambda x: x[1], reverse=True)
     
 
 def frequency_analysis(c: str, alphabet: Optional[List[str]]=None, reference_distribution: Optional[List[Tuple[str, float]]]=None) -> Dict[str, str]:
@@ -80,27 +80,22 @@ if __name__ == "__main__":
     m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
     print(m)
     # At this point, we can start to recognise some fragments of words which inform us of errors in our substitution mapping
-    # Correct: E, A
-    # To swap: S -> H, O -> I
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="S", b="H")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="O", b="I")
-    m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
-    # print(m)
-    # Correct: E, A, T, H, A, I
-    # To swap: S -> U, P -> Y
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="S", b="U")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="P", b="Y")
-    m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
-    # print(m)
-    # Mostly there
-    # To swap: P -> B, N -> S
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="P", b="B")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="N", b="S")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="P", b="F")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="M", b="D")
+    # It seems like the message is signed off "ECGAH ADDAR WOE" -> "EDGAR ALLAN POE"
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="C", b="D")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="H", b="R")
     substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="R", b="N")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="R", b="M")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="G", b="P")
-    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="R", b="C")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="W", b="P")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="N", b="R")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="C", b="L")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="H", b="N")
+    m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
+    print(m)
+    # We can now infer the remainder of the cipher
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="S", b="H")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="B", b="W")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="M", b="Y")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="M", b="F")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="V", b="K")
+    substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="S", b="I")
     m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
     print(m)
