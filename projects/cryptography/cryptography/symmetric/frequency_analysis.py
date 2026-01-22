@@ -67,5 +67,3 @@ if __name__ == "__main__":
     substitution_mapping = swap_mapping(substitution_mapping=substitution_mapping, a="R", b="C")
     m = "".join([substitution_mapping[ciphertext] for ciphertext in c.upper()])
     print(m)
-    
-    "C U D R Y H S O D B O D G R Z A F D N R F C R Q T EL C T H N V X S O H S G N N B Z N S R R Q H V R O O C L N T W H R E L H H P E L N G I O E W H R P O Q H R A F O Z S U G H R U H W N V T U H S B Q O S E E A M A Z L N O D B O D G R D W R D L G K Y Y R N Q R N O D N X H R U H A C S L V H D U L S T H N V X S G R M N Q Y C U O O O  E Z V H V V I A Y E A W I B Q S V Q C Y X D R W H R V P R H D B P E G H R N Q D G KEPRWPDTPKEE"

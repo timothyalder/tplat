@@ -2,7 +2,7 @@ import random
 from typing import List, Dict
 from collections import deque
 
-from cryptography.enigma.enigma import Enigma
+from cryptography.symmetric.enigma.enigma import Enigma
 
 
 def bruteforce(m: str):

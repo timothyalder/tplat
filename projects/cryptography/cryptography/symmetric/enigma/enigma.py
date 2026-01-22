@@ -1,7 +1,7 @@
 from typing import Optional, List
 
-from cryptography.enigma.scrambler import Scrambler
-from cryptography.enigma.plugboard import Plugboard
+from cryptography.symmetric.enigma.scrambler import Scrambler
+from cryptography.symmetric.enigma.plugboard import Plugboard
 
 
 class Enigma:

@@ -1,1 +1,1 @@
-from cryptography.asymmetric import rsa as rsa
+import cryptography.asymmetric.rsa as rsa
