@@ -1,45 +1,10 @@
 from pathlib import Path
-from typing import List, Optional, Tuple, Dict
+from typing import List, Optional, Tuple, Dict, Union
+
+from cryptography.core.alphabet import Alphabet
 
 
-def typical_reference_distribution(alphabet: List[str]) -> List[Tuple[str, float]]:
-    # https://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html
-    reference_distribution = [
-        ("E", 12.02),
-        ("T", 9.10),
-        ("A", 8.12),
-        ("O", 7.68),
-        ("I", 7.31),
-        ("N", 6.95),
-        ("S", 6.28),
-        ("R", 6.02),
-        ("H", 5.92),
-        ("D", 4.32),
-        ("L", 3.98),
-        ("U", 2.88),
-        ("C", 2.71),
-        ("M", 2.61),
-        ("F", 2.30),
-        ("Y", 2.11),
-        ("W", 2.09),
-        ("G", 2.03),
-        ("P", 1.82),
-        ("B", 1.49),
-        ("V", 1.11),
-        ("K", 0.69),
-        ("X", 0.17),
-        ("Q", 0.11),
-        ("J", 0.10),
-        ("Z", 0.07),
-    ]
-    reference_alphabet, _ = zip(*reference_distribution) 
-    if any(plaintext not in reference_alphabet for plaintext in alphabet):
-        raise ValueError("Error! Alphabet not supported by this reference distribution")
-    return [(plaintext, frequency) for plaintext, frequency in reference_distribution if plaintext in alphabet]
-
-
-
-def compile_reference_distribution(alphabet: List[str]) -> List[Tuple[str, float]]:
+def compile_reference_distribution(alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None) -> Alphabet:
     docs = Path(__file__).parents[3].glob("**/*.md")
     text = ""
     for doc in docs:
@@ -48,13 +13,14 @@ def compile_reference_distribution(alphabet: List[str]) -> List[Tuple[str, float
     return frequency_distribution(m=text.upper(), alphabet=alphabet)
 
 
-def frequency_distribution(m: str, alphabet: List[str]) -> List[Tuple[str, float]]:
-    frequencies = [m.count(plaintext)/len(m) for plaintext in alphabet]
-    return sorted(list(zip(alphabet, frequencies)), key=lambda x: x[1], reverse=True)
+def frequency_distribution(m: str, alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None) -> Alphabet:
+    alphabet = Alphabet(alphabet)
+    alphabet.calculate_distribution(m=m)
+    alphabet.frequency_sort()
+    return alphabet
     
 
-def frequency_analysis(c: str, alphabet: Optional[List[str]]=None, reference_distribution: Optional[List[Tuple[str, float]]]=None) -> Dict[str, str]:
-    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] if alphabet is None else alphabet
+def frequency_analysis(c: str, alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None, reference_distribution: Optional[List[Tuple[str, float]]]=None) -> Dict[str, str]:
     # reference_distribution = compile_reference_distribution(alphabet=alphabet) if reference_distribution is None else reference_distribution
     reference_distribution = typical_reference_distribution(alphabet=alphabet)
     ciphertext_distribution = frequency_distribution(m=c.upper(), alphabet=alphabet)

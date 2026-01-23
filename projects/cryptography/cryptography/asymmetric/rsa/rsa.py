@@ -5,7 +5,7 @@ from time import time
 
 from sympy import isprime, mod_inverse
 
-from cryptography.utils import vectorise
+from cryptography.utils.utils import vectorise
 
 
 def iscoprime(a, b) -> bool:
