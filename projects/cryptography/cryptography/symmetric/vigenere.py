@@ -1,9 +1,10 @@
-from typing import Optional, List
+from typing import Union, List, Tuple
 import math
 from itertools import zip_longest
 
+from cryptography.core.alphabet import Alphabet
 from cryptography.symmetric.caesar_shift import caesar_shift, determine_i
-from cryptography.symmetric.frequency_analysis import frequency_distribution, typical_reference_distribution
+from cryptography.symmetric.frequency_analysis import frequency_distribution
 
 
 def find_repetitions(c: str, min_length: int=3, max_length: int=10):
@@ -35,8 +36,8 @@ def common_factors(x, y):
     return common_factors
 
 
-def vigenere(m: str, key: str, alphabet: Optional[List[str]]=None) -> str:
-    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] if alphabet is None else alphabet
+def vigenere(m: str, key: str, alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None) -> str:
+    alphabet = Alphabet(alphabet=alphabet)
     m = m.replace(" ", "").upper()
     key = key.replace(" ", "").upper()
     c = ""
@@ -46,27 +47,24 @@ def vigenere(m: str, key: str, alphabet: Optional[List[str]]=None) -> str:
     return c
 
 
-def kasiski(c: str, key_length: int, alphabet: Optional[List[str]]=None):
-    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] if alphabet is None else alphabet
+def kasiski(c: str, key_length: int, alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None):
+    alphabet = Alphabet(alphabet=alphabet)
+    reference_distribution = Alphabet()
+    reference_distribution.canonical_sort()
     c = c.replace(" ", "").upper()
     plaintext_columns = []
     monoalphabetic_ciphertexts = [c[i::key_length] for i in range(key_length)]
+    alphabets = []
     for idx, monoalphabetic_ciphertext in enumerate(monoalphabetic_ciphertexts):
         ciphertext_distribution = frequency_distribution(m=monoalphabetic_ciphertext, alphabet=alphabet)
-        reference_distribution = typical_reference_distribution(alphabet=alphabet)
-        print(ciphertext_distribution[:5])
-        print(reference_distribution[:5])
+        ciphertext_distribution.canonical_sort()
+        alphabets += [ciphertext_distribution]
+        
         i = determine_i(m=ciphertext_distribution[0][0], c=reference_distribution[0][0])
-        if idx == 2:
-            i = determine_i(m=ciphertext_distribution[0][0], c="a")
-        if idx == 3:
-            i = determine_i(m=ciphertext_distribution[0][0], c="a")
-            # i = determine_i(m="R",c="C")
-        if idx == 4:
-            ...
-            # i = determine_i(m=ciphertext_distribution[0][0], c="a")
         plaintext = caesar_shift(m=monoalphabetic_ciphertext, i=i, alphabet=alphabet)
-        plaintext_columns.append(plaintext)
+        plaintext_columns.append(plaintext) 
+    distributions_fig = reference_distribution.plot_distributions(alphabets=alphabets)
+    distributions_fig.savefig("distributions.png")
          
     m = "".join(
         ch
@@ -82,11 +80,8 @@ if __name__ == "__main__":
     c = "C U D R Y H S O D B O D G R Z A F D N R F C R Q T EL C T H N V X S O H S G N N B Z N S R R Q H V R O O C L N T W H R E L H H P E L N G I O E W H R P O Q H R A F O Z S U G H R U H W N V T U H S B Q O S E E A M A Z L N O D B O D G R D W R D L G K Y Y R N Q R N O D N X H R U H A C S L V H D U L S T H N V X S G R M N Q Y C U O O O  E Z V H V V I A Y E A W I B Q S V Q C Y X D R W H R V P R H D B P E G H R N Q D G KEPRWPDTPKEE"
     repetitions = find_repetitions(c=c, min_length=6)
     print(repetitions) # ODBODGR and THNVXS appear twice in the ciphertext
-    distance = find_distance_between_repititions(c=c, repitition = "ODBODGR")
-    print(distance) # ODBODGR appears 102 characters apart
-    distance = find_distance_between_repititions(c=c, repitition = "THNVXS")
-    print(distance) # THNVXS appears 120 characters apart
-    # Common factors
+    distance = find_distance_between_repititions(c=c, repitition = "ODBODGR") # ODBODGR appears 102 characters apart
+    distance = find_distance_between_repititions(c=c, repitition = "THNVXS") # THNVXS appears 120 characters apart
     candidates = common_factors(102, 120)
     print(candidates) # The keyword is likely 1, 2, 3, or 6 characters long
     # 1, 2, and 3 are all suspiciously small. 6 seems like the most likely candidate
