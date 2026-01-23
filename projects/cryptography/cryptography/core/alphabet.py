@@ -71,7 +71,7 @@ class Alphabet:
         for attr in ["alphabet", "probabilities"]:
             shifted = deque(self.__getattribute__(attr).copy())
             shifted.rotate(i)
-            self.__setattr__(attr, shifted)
+            self.__setattr__(attr, list(shifted))
 
     def calculate_distribution(self, m: str) -> None:
         frequencies = [m.count(plaintext)/len(m) for plaintext in self.alphabet]

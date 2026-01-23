@@ -3,7 +3,7 @@ import math
 from itertools import zip_longest
 
 from cryptography.core.alphabet import Alphabet
-from cryptography.symmetric.caesar_shift import caesar_shift, determine_i
+from cryptography.symmetric.caesar_shift import caesar_shift, determine_i, estimate_i_from_pdf
 from cryptography.symmetric.frequency_analysis import frequency_distribution
 
 
@@ -56,14 +56,34 @@ def kasiski(c: str, key_length: int, alphabet: Union[List[str], List[Tuple[str,f
     monoalphabetic_ciphertexts = [c[i::key_length] for i in range(key_length)]
     alphabets = []
     for idx, monoalphabetic_ciphertext in enumerate(monoalphabetic_ciphertexts):
-        ciphertext_distribution = frequency_distribution(m=monoalphabetic_ciphertext, alphabet=alphabet)
+        ciphertext_distribution = frequency_distribution(m=monoalphabetic_ciphertext, alphabet=alphabet.alphabet)
+        # ciphertext_distribution.frequency_sort()
+        # reference_distribution.frequency_sort()
+        # naive_i = determine_i(m=ciphertext_distribution[0][0], c=reference_distribution[0][0])
+        # reference_distribution.canonical_sort()
         ciphertext_distribution.canonical_sort()
-        alphabets += [ciphertext_distribution]
+        i = estimate_i_from_pdf(m=reference_distribution, c=ciphertext_distribution)
+        print(i)
+        if idx == 0:
+            i = 1 # Not so confident - lots of X's
+        if idx == 1:
+            i = -13 # Pretty confident
+        if idx == 2:
+            i = -3 # Pretty confident
+        if idx == 3:
+            i = -10 # -9, -10, -11 # Not very confident
+        if idx == 4:
+            i = -10 # Not so confident - lots of K; Q looks good though
+        if idx == 5:
+            i = -3 # Very confident
+        ciphertext_distribution.rotate(i)
         
-        i = determine_i(m=ciphertext_distribution[0][0], c=reference_distribution[0][0])
+        alphabets += [ciphertext_distribution]
+        # print(f"i from pdf: {i}, i from max freq {naive_i}")
+        
         plaintext = caesar_shift(m=monoalphabetic_ciphertext, i=i, alphabet=alphabet)
-        plaintext_columns.append(plaintext) 
-    distributions_fig = reference_distribution.plot_distributions(alphabets=alphabets)
+        plaintext_columns.append(plaintext)
+    distributions_fig = reference_distribution.plot_distributions(alphabets=alphabets[4:5])
     distributions_fig.savefig("distributions.png")
          
     m = "".join(
