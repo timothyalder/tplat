@@ -66,6 +66,9 @@ class Alphabet:
     
     def __getitem__(self, i: int):
         return (self.alphabet[i], self.probabilities[i])
+    
+    def index(self, *args, **kwargs):
+        return self.alphabet.index(*args, **kwargs)
         
     def rotate(self, i: int):
         for attr in ["alphabet", "probabilities"]:

@@ -20,10 +20,9 @@ def frequency_distribution(m: str, alphabet: Union[List[str], List[Tuple[str,flo
     return alphabet
     
 
-def frequency_analysis(c: str, alphabet: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None, reference_distribution: Optional[List[Tuple[str, float]]]=None) -> Dict[str, str]:
-    # reference_distribution = compile_reference_distribution(alphabet=alphabet) if reference_distribution is None else reference_distribution
-    reference_distribution = typical_reference_distribution(alphabet=alphabet)
-    ciphertext_distribution = frequency_distribution(m=c.upper(), alphabet=alphabet)
+def frequency_analysis(c: str, reference_distribution: Union[List[str], List[Tuple[str,float]], Alphabet, None]=None) -> Dict[str, str]:
+    reference_distribution = Alphabet(alphabet=reference_distribution)
+    ciphertext_distribution = frequency_distribution(m=c.upper(), alphabet=reference_distribution.alphabet)
     referencetext_ordered, _ = map(list, zip(*reference_distribution))
     ciphertext_ordered, _ = map(list, zip(*ciphertext_distribution))
     substitution_mapping = {ciphertext: plaintext for ciphertext, plaintext in zip(ciphertext_ordered, referencetext_ordered)}
