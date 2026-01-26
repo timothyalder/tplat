@@ -1,6 +1,8 @@
 from typing import List, Tuple, Union
 from collections import deque
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
@@ -55,8 +57,11 @@ class Alphabet:
         elif isinstance(alphabet[0], tuple):
             self.alphabet, self.propabilities = map(list, zip(*alphabet))
         else:
+            self.canonical_alphabet.append("")
+            self.canonical_probabilities.append(0.0) # For undefined characters
             self.alphabet = alphabet
-            self.probabilities = [self.canonical_probabilities[self.canonical_index[plaintext]] for plaintext in alphabet]
+            canonical_index = [self.canonical_index.get(plaintext, -1) for plaintext in alphabet]
+            self.probabilities = [self.canonical_probabilities[idx]/100 for idx in canonical_index]
             
     def __len__(self) -> int:
         return len(self.alphabet)
@@ -73,7 +78,7 @@ class Alphabet:
     def rotate(self, i: int):
         for attr in ["alphabet", "probabilities"]:
             shifted = deque(self.__getattribute__(attr).copy())
-            shifted.rotate(i)
+            shifted.rotate(-i) # Although confusing, negate the index to match typical cryptography syntax
             self.__setattr__(attr, list(shifted))
 
     def calculate_distribution(self, m: str) -> None:
@@ -95,13 +100,10 @@ class Alphabet:
     def frequency_sort(self) -> None:
         self.alphabet, self.probabilities = map(
             list,
-            zip(
-                *sorted(
-                    list(zip(self.alphabet, self.probabilities)),
-                    key=lambda x: x[1],
-                    reverse=True,
-                )
-            ),
+            zip(*sorted(
+                zip(self.alphabet, self.probabilities),
+                key=lambda x: (-x[1], x[0])
+            ))
         )
 
     def plot_distribution(self) -> Figure:

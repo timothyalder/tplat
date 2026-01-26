@@ -81,7 +81,7 @@ def kasiski(
         if idx == 0:
             i = 0
         if idx == 1:
-            i = -13
+            i = 13
         if idx == 2:
             i = -3
         ciphertext_distribution.rotate(i)
@@ -130,3 +130,5 @@ if __name__ == "__main__":
     m = kasiski(c=c, key_length=3)
     print(m)
     # CHARLESBABBAGEWASANECCENTRICGENIUSBESTKNOWNFORDEVELOPINGTHEBLUEPRINTFORTHEMODERNCOMPUTERHEWASTHESONOFBENJAMINBABBAGEAWEALTHYLONDONBANKERHEAPPLIEDHISGENIUSTOMANYPROBLEMSHISINVENTIONSINCLUDETHESPEEDOMETERANDTHECOWCATCHER
+    # We can now see THNVXS -> GENIUS
+    # ODBODGR -> BABBAGE
