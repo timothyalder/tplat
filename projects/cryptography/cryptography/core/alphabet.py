@@ -151,7 +151,7 @@ class Alphabet:
                 ]
             )
             losses.append(loss)
-        return losses.index(min(losses)) + 1 # index 0 == rotate(1)
+        return losses.index(min(losses)) + 1  # index 0 == rotate(1)
 
     def plot_distribution(self) -> Figure:
         fig, ax = plt.subplots()

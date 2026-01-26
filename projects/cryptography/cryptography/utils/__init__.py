@@ -1,1 +1,0 @@
-from cryptography.utils.utils import vectorise as vectorise
