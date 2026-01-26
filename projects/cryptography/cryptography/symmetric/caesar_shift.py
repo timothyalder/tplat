@@ -1,5 +1,4 @@
 from typing import List, Union, Tuple
-from collections import deque
 
 from cryptography.core.alphabet import Alphabet
 

@@ -3,11 +3,7 @@ import math
 from itertools import zip_longest
 
 from cryptography.core.alphabet import Alphabet
-from cryptography.symmetric.caesar_shift import (
-    caesar_shift,
-    determine_i,
-    estimate_i_from_pdf,
-)
+from cryptography.symmetric.caesar_shift import caesar_shift
 from cryptography.symmetric.frequency_analysis import frequency_distribution
 
 
@@ -66,24 +62,12 @@ def kasiski(
     plaintext_columns = []
     monoalphabetic_ciphertexts = [c[i::key_length] for i in range(key_length)]
     alphabets = []
-    for idx, monoalphabetic_ciphertext in enumerate(monoalphabetic_ciphertexts):
+    for monoalphabetic_ciphertext in monoalphabetic_ciphertexts:
         ciphertext_distribution = frequency_distribution(
             m=monoalphabetic_ciphertext, alphabet=reference_distribution.alphabet
         )
-        ciphertext_distribution.frequency_sort()
-        reference_distribution.frequency_sort()
-        i = determine_i(m=ciphertext_distribution[0][0], c=reference_distribution[0][0])
-        print("Naive i", i)
-        reference_distribution.canonical_sort()
         ciphertext_distribution.canonical_sort()
-        i = estimate_i_from_pdf(m=reference_distribution, c=ciphertext_distribution)
-        print("Loss i", i)
-        if idx == 0:
-            i = 0
-        if idx == 1:
-            i = 13
-        if idx == 2:
-            i = -3
+        i = ciphertext_distribution.estimate_i_from_pdf(c=reference_distribution)
         ciphertext_distribution.rotate(i)
         alphabets += [ciphertext_distribution]
 
@@ -91,10 +75,6 @@ def kasiski(
             m=monoalphabetic_ciphertext, i=i, alphabet=ciphertext_distribution
         )
         plaintext_columns.append(plaintext)
-    distributions_fig = reference_distribution.plot_distributions(
-        alphabets=alphabets[:]
-    )
-    distributions_fig.savefig("distributions.png")
 
     m = "".join(
         ch for row in zip_longest(*plaintext_columns) for ch in row if ch is not None

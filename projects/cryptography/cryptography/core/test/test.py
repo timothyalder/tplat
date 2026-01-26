@@ -35,10 +35,10 @@ def test_distribution():
 
 def test_shift_calculation():
     a = Alphabet()
-    assert a.determine_i(m="A", c="b") == 1
     c = Alphabet()
     i = 4
     c.rotate(i)
+    assert a.determine_i(m=a[0][0],c=c[0][0]) == i
     c.probabilities = [prob + random.uniform(-0.005, 0.005) for prob in c.probabilities]
     integral = sum(c.probabilities)
     c.probabilities = [prob / integral for prob in c.probabilities]
