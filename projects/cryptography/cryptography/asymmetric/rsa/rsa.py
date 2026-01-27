@@ -6,13 +6,10 @@ from time import time
 from sympy import isprime, mod_inverse
 
 from cryptography.core.vectorise import vectorise
+from cryptography.core.math import iscoprime
 
 
-def iscoprime(a, b) -> bool:
-    return math.gcd(a, b) == 1
-
-
-def encrypt(m: Union[str, int], p: int, q: int) -> Tuple[List[int], int]:
+def encrypt(m: Union[str, int, List[int]], p: int, q: int) -> Tuple[List[int], int]:
     random.seed(42)
     assert isprime(p) and isprime(q), "Error! Arguments p, and q must be prime numbers."
 
@@ -31,6 +28,8 @@ def encrypt(m: Union[str, int], p: int, q: int) -> Tuple[List[int], int]:
         m = vectorise(m=m, n=n)
     elif isinstance(m, int):
         m = [m]
+    elif isinstance(m, list):
+        pass
     else:
         raise TypeError("Error! Argument m must be of type 'str' or 'int'")
 
@@ -75,18 +74,6 @@ def bruteforce(c: List[int], d: int, max_prime: int = 500):
 
 
 if __name__ == "__main__":
-    m = "Hello World"
-    p = 61
-    q = 53
-    print(f"Encryption message, '{m}' with prime numbers p={p} and q={q}")
-    c, d = encrypt(m=m, p=p, q=q)
-    print(f"Ciphertext: '{c}'")
-    m = decrypt(c=c, p=p, q=q, d=d)
-    print(f"Decrypted message: '{m}'")
-    possible_m, _ = bruteforce(c=c, d=d)
-    for m in possible_m:
-        print(m)
-
     import matplotlib.pyplot as plt
     from pathlib import Path
     from tqdm import tqdm
@@ -110,7 +97,7 @@ if __name__ == "__main__":
 
     fig, ax1 = plt.subplots(figsize=(10, 6))
     ax1.scatter(ns, num_candidates)
-    ax1.set_xlabel("RSA modulus n = p × q")
+    ax1.set_xlabel("RSA modulus n = p x q")
     ax1.set_ylabel("Number of possible decryption candidates")
     ax1.grid(True)
     ax2 = ax1.twinx()

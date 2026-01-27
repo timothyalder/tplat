@@ -171,7 +171,7 @@ def test_cryptogram_four():
         find_distance_between_repititions(c=c, repitition="THNVXS") == 120
     )  # THNVXS appears 120 characters apart
     candidates = common_factors(102, 120)
-    assert candidates == [1,2,3,6]
+    assert candidates == [1, 2, 3, 6]
     m, predicted_key = kasiski(c=c, key_length=3)
     assert m == (
         "CHARLESBABBAGEWASANECCENTRICGENIUSBESTKNOWNFORDEVELOPINGTHEBLUEPRINTFORTHE"

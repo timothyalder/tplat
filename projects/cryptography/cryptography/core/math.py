@@ -8,3 +8,7 @@ def common_factors(x, y):
         if common_divisor % i == 0:
             common_factors.append(i)
     return sorted(common_factors)
+
+
+def iscoprime(a, b) -> bool:
+    return math.gcd(a, b) == 1
