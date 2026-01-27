@@ -12,5 +12,7 @@ def caesar_shift(
     shifted = Alphabet(alphabet=alphabet)
     shifted.rotate(i)
     substitution_mapping = dict(zip(alphabet, shifted.alphabet))
-    c = "".join([substitution_mapping[plaintext] for plaintext in m.upper()])
+    c = "".join(
+        [substitution_mapping[plaintext] for plaintext in m.replace(" ", "").upper()]
+    )
     return c

@@ -83,15 +83,15 @@ class Alphabet:
     def __str__(self) -> str:
         return str(list(zip(self.alphabet, self.probabilities)))
 
-    def __getitem__(self, i: Union[int, str]):
+    def __getitem__(self, i: Union[int, str]) -> Tuple[str, float]:
         if isinstance(i, str):
             i = self.alphabet.index(i.upper())
         return (self.alphabet[i], self.probabilities[i])
 
-    def index(self, *args, **kwargs):
+    def index(self, *args, **kwargs) -> int:
         return self.alphabet.index(*args, **kwargs)
 
-    def rotate(self, i: int):
+    def rotate(self, i: int) -> None:
         for attr in ["alphabet", "probabilities"]:
             shifted = deque(self.__getattribute__(attr).copy())
             shifted.rotate(
@@ -127,13 +127,13 @@ class Alphabet:
             ),
         )
 
-    def determine_i(self, m: str, c: str):
+    def determine_i(self, m: str, c: str) -> int:
         assert all(char.upper() in self.alphabet for char in [m, c])
         return self.alphabet.index(c.upper()) - self.alphabet.index(m.upper())
 
     def estimate_i_from_pdf(
         self, c: Union["Alphabet", List[str], List[Tuple[str, float]], None] = None
-    ):
+    ) -> int:
         c = Alphabet(c)
         c = Alphabet(c.alphabet)
         assert self.__len__() == len(
