@@ -58,7 +58,7 @@ def kasiski(
         ciphertext_distribution.canonical_sort()
         i = ciphertext_distribution.estimate_i_from_pdf(c=reference_distribution)
         ciphertext_distribution.rotate(i)
-        predicted_key += reference_distribution[i][0]
+        predicted_key += reference_distribution[i-1][0]
         alphabets += [ciphertext_distribution]
 
         plaintext = caesar_shift(

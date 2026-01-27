@@ -146,18 +146,20 @@ def test_cryptogram_three():
     )
 
 
-def dtest_cryptogram_four():
+def test_cryptogram_four():
     from cryptography.core.math import common_factors
 
-    c = "C U D R Y H S O D B O D G R Z A F D N R F C R Q T E L \
-        C T H N V X S O H S G N N B Z N S R R Q H V R O O \
-        C L N T W H R E L H H P E L N G I O E W H R P O Q \
-        H R A F O Z S U G H R U H W N V T U H S B Q O S E E \
-        A M A Z L N O D B O D G R D W R D L G K Y Y R N \
-        Q R N O D N X H R U H A C S L V H D U L S T H N V \
-        X S G R M N Q Y C U O O O E Z V H V V I A Y E A W I B \
-        Q S V Q C Y X D R W H R V P R H D B P E G H R N Q D G \
-        KEPRWPDTPKEE"
+    c = (
+        "C U D R Y H S O D B O D G R Z A F D N R F C R Q T E L "
+        "C T H N V X S O H S G N N B Z N S R R Q H V R O O "
+        "C L N T W H R E L H H P E L N G I O E W H R P O Q "
+        "H R A F O Z S U G H R U H W N V T U H S B Q O S E E "
+        "A M A Z L N O D B O D G R D W R D L G K Y Y R N "
+        "Q R N O D N X H R U H A C S L V H D U L S T H N V "
+        "X S G R M N Q Y C U O O O E Z V H V V I A Y E A W I B "
+        "Q S V Q C Y X D R W H R V P R H D B P E G H R N Q D G "
+        "KEPRWPDTPKEE"
+    )
     repetitions = find_repetitions(c=c, min_length=6)
     assert all(
         seq in repetitions for seq in ["ODBODGR", "THNVXS"]
@@ -169,17 +171,13 @@ def dtest_cryptogram_four():
         find_distance_between_repititions(c=c, repitition="THNVXS") == 120
     )  # THNVXS appears 120 characters apart
     candidates = common_factors(102, 120)
-    print(candidates)  # The keyword is likely 1, 2, 3, or 6 characters long
+    assert candidates == [1,2,3,6]
     m, predicted_key = kasiski(c=c, key_length=3)
-    assert (
-        (
-            m
-            == "CHARLESBABBAGEWASANECCENTRICGENIUSBESTKNOWNFORDEVELOPINGTHEBLUEPRINTFORTHE \
-        MODERNCOMPUTERHEWASTHESONOFBENJAMINBABBAGEAWEALTHYLONDONBANKERHEAPPLIEDHISGENIUSTO \
-        MANYPROBLEMSHISINVENTIONSINCLUDETHESPEEDOMETERANDTHECOWCATCHER"
-        )
-        and (predicted_key == "ADF")
-    )
+    assert m == (
+        "CHARLESBABBAGEWASANECCENTRICGENIUSBESTKNOWNFORDEVELOPINGTHEBLUEPRINTFORTHE"
+        "MODERNCOMPUTERHEWASTHESONOFBENJAMINBABBAGEAWEALTHYLONDONBANKERHEAPPLIEDHISGENIUSTO"
+        "MANYPROBLEMSHISINVENTIONSINCLUDETHESPEEDOMETERANDTHECOWCATCHER"
+    ) and (predicted_key == "ZMW")
     # We can now see THNVXS -> GENIUS
     # ODBODGR -> BABBAGE
 
