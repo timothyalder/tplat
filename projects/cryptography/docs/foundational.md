@@ -38,10 +38,6 @@ There are three historically distinct approaches:
 
 ---
 
-Here’s an expanded **Transposition** section including the **scytale example**:
-
----
-
 ## Transposition
 
 A **transposition** cipher rearranges the characters of a message according to a fixed system.

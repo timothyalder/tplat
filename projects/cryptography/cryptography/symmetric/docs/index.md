@@ -1,28 +1,42 @@
-# Symmetric
+# Symmetric Cryptography
 
-Called symmetric because the encryption function is a two-way operation. The same key is used to encrypt and decrypt the message.
+**Symmetric cryptography** is called “symmetric” because the same secret key is used for both encryption and decryption. Anyone who possesses the key can both encrypt and decrypt messages.
+
+This category includes nearly all classical ciphers and many modern block and stream ciphers.
+
+---
 
 ## Frequency Analysis
 
-**Frequency analysis** exploits the statistical properties of language.
+**Frequency analysis** exploits the statistical structure of natural language.
 
-* Certain letters appear more often (e.g., E, T, A in English).
-* In monoalphabetic ciphers, frequencies are preserved.
+* Certain letters occur more frequently (e.g., E, T, A in English).
+* In monoalphabetic substitution ciphers, these frequencies are preserved.
+* Digraphs and trigraphs (e.g., TH, HE, ING) provide additional structure.
 
-**Historical origin:**
+---
+
+### Historical Origin
 
 * Developed by **Al-Kindi** in the 9th century.
-* First systematic cryptanalytic technique.
+* First known systematic cryptanalytic technique.
+* Documented in *A Manuscript on Deciphering Cryptographic Messages*.
 
-**Process:**
+---
 
-1. Count letter frequencies in ciphertext
-2. Compare with known language statistics
-3. Guess substitutions and refine using patterns
+### Method
 
-**Effectiveness:**
+1. Count letter frequencies in the ciphertext
+2. Compare against known language distributions
+3. Propose substitutions
+4. Refine guesses using word patterns and context
+
+---
+
+### Effectiveness
 
 * Extremely effective against monoalphabetic substitution
-* Ineffective against strong modern ciphers
+* Weak against polyalphabetic ciphers
+* Ineffective against modern cryptographic systems
 
 ---

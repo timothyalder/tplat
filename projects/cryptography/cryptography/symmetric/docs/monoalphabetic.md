@@ -1,53 +1,82 @@
 # Monoalphabetic Substitution Cipher
 
-A **monoalphabetic substitution cipher** replaces each plaintext letter with exactly one ciphertext letter.
+A **monoalphabetic substitution cipher** replaces each plaintext character with exactly one ciphertext character.
 
-* The mapping is fixed for the entire message.
-* Caesar cipher is a special case.
-* Example: A->Q, B->M, C->L, etc.
+* The mapping remains fixed for the entire message.
+* The cipher alphabet is a permutation of the plaintext alphabet.
+* The Caesar cipher is a special case.
 
-**Properties:**
+**Example mapping:**
+A → Q, B → M, C → L, ...
 
-* Preserves letter frequency distributions.
-* Vulnerable to frequency analysis.
-* Can be strengthened slightly with nulls or homophones.
+---
 
+## Properties
+
+* Preserves letter frequency distributions
+* Vulnerable to frequency analysis
+* Can be marginally strengthened using nulls or homophones
+
+---
 
 ## Caesar Cipher
 
-The **Caesar cipher** is a simple substitution cipher.
+The **Caesar cipher** is the simplest substitution cipher.
 
-* Each letter is shifted by a fixed number in the alphabet.
+* Each letter is shifted by a fixed offset.
 * Traditionally uses a shift of 3.
 
 **Example (shift = 3):**
 
 ```
-PLAINTEXT:  ATTACK
+PLAINTEXT: ATTACK
 CIPHERTEXT: DWWDFN
 ```
 
-**Properties:**
+
+---
+
+### Properties
 
 * Monoalphabetic substitution
-* Very small key space (25 possible keys)
-* Trivially broken with brute force or frequency analysis
+* Key space of size 25
+* Trivially broken by brute force or frequency analysis
 
 ---
 
 ## Keyword Cipher
 
-A **keyword substitution cipher** is a type of monoalphabetic substitution cipher in which the substitution alphabet is constructed using a chosen keyword. Repeated letters in the keyword are removed, and the remaining letters of the alphabet are appended in order to form a keyed alphabet. Each plaintext letter is then replaced by the corresponding letter in this substitution alphabet. While stronger than a simple Caesar cipher, keyword substitution ciphers preserve letter frequency and are therefore vulnerable to frequency analysis.
+A **keyword cipher** constructs the substitution alphabet using a keyword.
+
+**Construction:**
+1. Choose a keyword
+2. Remove repeated letters
+3. Append remaining alphabet characters
+
+**Example:**
+
+```
+Keyword: CIPHER
+Substitution alphabet: C I P H E R A B D F G ...
+```
+
+---
+
+### Notes
+
+* Stronger than Caesar
+* Still preserves frequency
+* Vulnerable to frequency analysis
 
 ---
 
 ## Nulls
 
-**Nulls** are meaningless characters added to ciphertext to obscure patterns.
+**Nulls** are meaningless characters inserted into the ciphertext.
 
-* Decryptor knows which characters to ignore.
-* Used to defeat simple frequency or pattern matching.
-* Common in classical hand ciphers.
+* Known to the intended recipient
+* Obscure patterns and frequencies
+* Historically common in hand ciphers
 
 **Example:**
 
@@ -56,6 +85,6 @@ CIPHERTEXT: XQDAZWWXDFNQZ
 (remove X, Z, Q → DWWDFN)
 ```
 
-**Note:** Nulls add confusion but *do not provide cryptographic security*.
-
----
+> **Note:** 
+> 
+> Nulls increase confusion but do not provide cryptographic security.
