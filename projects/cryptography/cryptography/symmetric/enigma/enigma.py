@@ -20,8 +20,7 @@ class Enigma:
 
     def __call__(self, m: str):
         m = m.replace(" ", "").upper()
-        for p_in, p_out in self.p:  # Fix this
-            c0 = m.replace(p_in, p_out)
+        c0 = "".join([self.p[plaintext] for plaintext in m])
         c1 = self.s1(c0)
         c2 = self.s2(c1)
         c3 = self.s3(c2)
