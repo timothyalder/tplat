@@ -1,7 +1,3 @@
-import random
-from typing import List, Dict
-from collections import deque
-
 from cryptography.symmetric.enigma.enigma import Enigma
 
 
@@ -30,18 +26,17 @@ def bruteforce(m: str):
                     table[c[0]] = c[
                         -1
                     ]  # Rejewski's solution hinged on the fact he knew the first and fourth letter of each message was the same
-                print(table)
+                print(f"{table=}")
                 chain = []
                 for start_chain in table.keys():
                     plaintext = start_chain
                     chain.append(plaintext)
-                    print(plaintext)
                     while table[plaintext] != start_chain:
                         plaintext = table[plaintext]
-                        print(plaintext)
                         chain.append(plaintext)
                 chains[s1_i][s2_i][s3_i][plaintext] = chain
-                print(chain)
+                print(f"{chain=}")
+    print(f"{chains=}")
 
     # message_keys = ["".join(random.sample(alphabet, k=3)) for _ in range(100)]
     # m = [f"{message_key*2} {'abba ' * 10}" for message_key in message_keys]

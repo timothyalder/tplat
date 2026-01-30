@@ -73,6 +73,20 @@ RSA relies on the fact that:
 1. Choose two large distinct prime numbers $p$ and $q$
    (typically hundreds or thousands of bits each)
 
+> **Note:**
+>
+> In 1977, Martin Gardner published a column in Scientific America with a message encrypted using RSA-129 (129 indicating 129-bits). The purpose of the message was to highlight the security of the RSA encryption method. 17 years later, the message was finally decoded. The factorisation was performed over 6 months by a team of 600 volunteer researchers using approximately 1600 computers.
+>
+> ```RSA-129 = 114381625757888867669235779976146612010218296721242362562561842935706935245733897830597123563958705058989075147599290026879543541
+> RSA-129 = 3490529510847650949147849619903898133417764638493387843990820577 * 32769132993266709549961988190834461413177642967992942539798288533
+> ```
+>
+> When decrypted using the factorization the message was revealed to be *"The Magic Words are Squeamish Ossifrage"*.
+>
+> In 2015, RSA-129 was factored in about one day, with the CADO-NFS open source implementation of number field sieve, using a commercial cloud computing service for about $30.[12]
+>
+> Present implementations of RSA use 1024-2048 bits. This would take millions of years to break (many orders of magnitude longer than the age of the universe). [This 3Blue1Brown video](https://www.youtube.com/watch?v=S9JGmA5_unY) gives a helpful intuitive explanation of just how large this is.
+
 2. Compute:
    $$
    n = pq

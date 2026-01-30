@@ -2,7 +2,7 @@ from typing import Union, List, Tuple
 from itertools import zip_longest
 
 from cryptography.core.alphabet import Alphabet
-from cryptography.symmetric.caesar_shift import caesar_shift
+from cryptography.symmetric.monoalphabetic.caesar_shift import caesar_shift
 
 
 def find_repetitions(c: str, min_length: int = 3, max_length: int = 10):
