@@ -2,6 +2,8 @@ import pytest
 import random
 
 from cryptography.core.alphabet import Alphabet
+from cryptography.core.vectorise import vectorise
+from cryptography.core.array import ColumnMajorByteArray
 
 
 def test_alphabet():
@@ -43,6 +45,25 @@ def test_shift_calculation():
     integral = sum(c.probabilities)
     c.probabilities = [prob / integral for prob in c.probabilities]
     assert c.estimate_i_from_pdf(a) == i
+
+
+def test_vectorise():
+    n = 61 * 53
+    m = vectorise(m="Hello World", n=n)
+    assert m == [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+
+
+def test_columnmajorbytearray():
+    m = b"0123456789ABCDEF" * 2
+    d = ColumnMajorByteArray(data=m, shape=(-1, 4, 4))
+    assert d.stride == (16, 4, 1)
+    assert d.shape == (2, 4, 4)
+    assert d[0, 0, 0] == 48
+    assert len(d[0]) == 16
+    assert d[0] == d.data[:16]
+    assert d[0, 0] == bytearray(b"0123")
+    assert d[0, 1] == bytearray(b"4567")
+    assert d[0] == d[1]
 
 
 if __name__ == "__main__":
