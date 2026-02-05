@@ -63,7 +63,10 @@ def test_columnmajorbytearray():
     assert d[0] == d.data[:16]
     assert d[0, 0] == bytearray(b"0123")
     assert d[0, 1] == bytearray(b"4567")
+    assert d[0, :, 0] == bytearray(b"048C")
     assert d[0] == d[1]
+    d[0, 0, 0] = 49
+    assert d[0, 0, 0] == 49 == d[0, 0, 1]
 
 
 if __name__ == "__main__":
