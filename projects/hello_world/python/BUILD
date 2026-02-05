@@ -1,9 +1,9 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
 
 py_binary(
     name = "python",
-    main = "main.py",
     srcs = [
         "main.py",
     ],
+    main = "main.py",
 )
