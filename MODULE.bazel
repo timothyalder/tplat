@@ -7,6 +7,9 @@ module(
 # Specify direct dependencies on other Bazel modules
 bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "rules_rust", version = "0.68.1")
+bazel_dep(name = "apple_support", version = "1.24.1", repo_name = "build_bazel_apple_support")
+bazel_dep(name = "rules_swift", version = "3.1.2", repo_name = "build_bazel_rules_swift")
 bazel_dep(name = "rules_oci", version = "2.2.7")
 bazel_dep(name = "aspect_bazel_lib", version = "2.7.2")
 bazel_dep(name = "rules_python", version = "1.8.3")
@@ -15,6 +18,30 @@ bazel_dep(name = "rules_uv", version = "0.89.2")
 bazel_dep(name = "rules_multirun", version = "0.13.0")
 
 # Directives related to module extensions
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2024",
+    versions = ["1.93.0"],
+)
+use_repo(rust, "rust_toolchains")
+
+crate = use_extension(
+    "@rules_rust//crate_universe:extensions.bzl",
+    "crate",
+)
+crate.from_cargo(
+    name = "crates",
+    cargo_lockfile = "//toolchains/rust:Cargo.lock",
+    manifests = ["//toolchains/rust:Cargo.toml"],
+)
+use_repo(crate, "crates")
+
+crate.annotation(
+    additive_build_file = "//toolchains/rust:BUILD",
+    crate = "anyhow",
+    data = [":cargo_toml"],
+)
+
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
     configure_coverage_tool = True,
@@ -53,5 +80,6 @@ register_toolchains(
     "//toolchains/cpp:darwin_x86_64_toolchain",
     "//toolchains/cpp:linux_x86_64_toolchain",
     "//toolchains/cpp:windows_x86_64_toolchain",
+    "@rust_toolchains//:all",
     "@python_versions//:all",
 )
