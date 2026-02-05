@@ -16,7 +16,7 @@ bazel_dep(
 
 # Directives related to module extensions
 register_toolchains(
-    "//toolchains/cpp:cc_toolchain_for_linux_x86_64",
+    "//toolchains/cpp:platform_based_toolchain",
 )
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")

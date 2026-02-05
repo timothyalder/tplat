@@ -1,34 +1,36 @@
 load("@rules_cc//cc/toolchains:cc_toolchain.bzl", "cc_toolchain")
+load(":toolchain_config.bzl", "cc_toolchain_config")
 
 package(default_visibility = ["//visibility:public"])
 
-filegroup(name = "empty")
+cc_toolchain_config(
+    name = "toolchain_semantics",
+)
 
 cc_toolchain(
-    name = "linux_x86_64_toolchain",
+    name = "cpp_toolchain",
     all_files = ":empty",
+    ar_files = ":empty",
     compiler_files = ":empty",
     dwp_files = ":empty",
     linker_files = ":empty",
     objcopy_files = ":empty",
     strip_files = ":empty",
-    supports_param_files = 0,
-    toolchain_config = ":linux_x86_64_toolchain_config",
-    toolchain_identifier = "linux_x86_64-toolchain",
+    toolchain_config = ":toolchain_semantics",
+)
+
+filegroup(
+    name = "empty",
 )
 
 toolchain(
-    name = "cc_toolchain_for_linux_x86_64",
-    exec_compatible_with = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    target_compatible_with = [
-        "@platforms//cpu:x86_64",
-        "@platforms//os:linux",
-    ],
-    toolchain = ":linux_x86_64_toolchain",
+    name = "platform_based_toolchain",
+    target_compatible_with = ["@platforms//cpu:x86_64"],
+    toolchain = ":cpp_toolchain",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
-filegroup(name = "linux_x86_64_toolchain_config")
+platform(
+    name = "x86_platform",
+    constraint_values = ["@platforms//cpu:x86_64"],
+)
