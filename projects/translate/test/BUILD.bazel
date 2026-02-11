@@ -5,11 +5,15 @@ py_test(
     srcs = [
         "test.py",
     ],
-    deps = [
-        "//projects/translate:translate",
-        "@pypi//pytest:pkg",
-    ],
     data = [
-        "data"
-    ]
+        "data",
+    ],
+    deps = [
+        "//projects/translate",
+    ] + select({
+        "@platforms//os:macos": ["@sync_venv_darwin//pytest"],
+        "@platforms//os:linux": ["@sync_venv_linux//pytest"],
+        "@platforms//os:windows": ["@sync_venv_windows//pytest"],
+        "//conditions:default": [],
+    }),
 )
