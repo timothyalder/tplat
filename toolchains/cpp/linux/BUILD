@@ -9,7 +9,6 @@ cc_toolchain_config(
 
 cc_toolchain(
     name = "cpp_toolchain",
-    toolchain_config = ":config",
     all_files = ":empty",
     ar_files = ":empty",
     compiler_files = ":empty",
@@ -17,6 +16,7 @@ cc_toolchain(
     linker_files = ":empty",
     objcopy_files = ":empty",
     strip_files = ":empty",
+    toolchain_config = ":config",
 )
 
 filegroup(name = "empty")
