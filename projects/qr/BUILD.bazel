@@ -1,6 +1,4 @@
-# load("@rules_python//python:defs.bzl", "py_library")
-load("@rules_python//python:packaging.bzl", "py_wheel")
-load("@aspect_rules_py//py:defs.bzl", "py_library")
+load("@rules_python//python:defs.bzl", "py_library", "py_wheel")
 
 # Defining a python library. We will package this library as a wheel
 py_library(
