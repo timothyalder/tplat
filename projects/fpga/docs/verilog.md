@@ -55,13 +55,13 @@ assign Z=~Z;
 
 ### reg
 
-``reg`` is a data objecty that holds its value from one procedural assignment to the next.
+``reg`` is a data object that holds its value from one procedural assignment to the next.
 
 It does not necessarily imply a physical register or flip-flop.
 
 It can be used to store values of both sequential and combinational logic.
 
-Its value can always only be assigned inside the module where it is declared or by a procedural block like ``always`` and ``intial``.
+Its value can always only be assigned inside the module where it is declared or by a procedural block like ``always`` and ``initial``.
 
 ```
 reg a; // single 1-bit register variable
@@ -267,7 +267,7 @@ always @ (*) begin
 end
 ```
 
-In the above case, each time the block is execccuted the value of a RHS term is changed (actually, two: X, Y), causing the block to be executed again for infinity.
+In the above case, each time the block is executed the value of a RHS term is changed (actually, two: X, Y), causing the block to be executed again for infinity.
 
 #### Sequential Logic
 

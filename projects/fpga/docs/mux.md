@@ -30,7 +30,7 @@ In **Table 2**, there are two prime implicants. The first prime implicant corres
 
 Thus, the minimum Boolean logic expression is:
 
-$Z=(X\cdotS)+(Y\cdot S')
+$Z=(X\cdot S)+(Y\cdot S')$
 
 The corresponding schematic is shown in **Figure 1**.
 
