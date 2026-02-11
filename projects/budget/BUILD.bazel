@@ -1,11 +1,12 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_wheel")
+load("@pypi//:requirements.bzl", "requirement")
 
 # Defining a python library. We will package this library as a wheel
 py_library(
     name = "budget", 
     deps = [
-        "@py3_deps//pandas:pkg",
-        "@py3_deps//pytest:pkg",
+        requirement("pandas"),
+        requirement("py_test"),
     ], 
     srcs = [
         "budget/__init__.py",

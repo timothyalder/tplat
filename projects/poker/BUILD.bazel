@@ -1,12 +1,12 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_wheel")
+load("@pypi//:requirements.bzl", "requirement")
 
 # Defining a python library. We will package this library as a wheel
 py_library(
     name = "poker", 
     deps = [
-        "@py3_deps//pandas:pkg",
-        "@py3_deps//scipy:pkg",
-        "@py3_deps//pytest:pkg",
+        requirement("pandas"),
+        requirement("scipy")
     ], 
     srcs = [
         "poker/__init__.py",
