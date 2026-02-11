@@ -2,7 +2,3 @@ startup --windows_enable_symlinks
 build --enable_runfiles
 common --enable_bzlmod
 common --lockfile_mode=off
-
-build:darwin   --repo_env=SYNC_VENV_REPO=@sync_venv_darwin
-build:linux    --repo_env=SYNC_VENV_REPO=@sync_venv_linux
-build:windows  --repo_env=SYNC_VENV_REPO=@sync_venv_windows
