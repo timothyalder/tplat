@@ -7,9 +7,8 @@ module(
 # Specify direct dependencies on other Bazel modules
 bazel_dep(name = "platforms", version = "0.0.10")
 bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "rules_rust", version = "0.68.1")
-bazel_dep(name = "apple_support", version = "1.24.1", repo_name = "build_bazel_apple_support")
-bazel_dep(name = "rules_swift", version = "3.1.2", repo_name = "build_bazel_rules_swift")
 bazel_dep(name = "rules_oci", version = "2.2.7")
 bazel_dep(name = "aspect_bazel_lib", version = "2.7.2")
 bazel_dep(name = "rules_python", version = "1.8.3")
@@ -26,8 +25,7 @@ rust.toolchain(
 use_repo(rust, "rust_toolchains")
 
 crate = use_extension(
-    "@rules_rust//crate_universe:extensions.bzl",
-    "crate",
+    "@rules_rust//crate_universe:extensions.bzl", "crate"
 )
 crate.from_cargo(
     name = "crates",
@@ -39,7 +37,15 @@ use_repo(crate, "crates")
 crate.annotation(
     additive_build_file = "//toolchains/rust:BUILD",
     crate = "anyhow",
-    data = [":cargo_toml"],
+    # Defined in additive_build_file.
+    data = ["//toolchains/rust:cargo_toml"],
+    # Optional, you probably don't need this. Defaults to all from_cargo
+    # invocations in this module.
+    repositories = [
+        "crates",
+    ],
+    # Optional, you probably don't need this, defaults to "*".
+    version = "*",
 )
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
