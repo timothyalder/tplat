@@ -31,40 +31,16 @@ crate.spec(
     version = "1.0.77"
 )
 crate.from_specs(
-    name = "crates_in_workspace",
+    name = "crates",
     cargo_lockfile = "//toolchains/rust:Cargo.lock",
     supported_platform_triples = [
-        # "@platforms//cpu:x86_64",
-        "x86_64-apple-darwin"
-        # "aarch64-apple-darwin"
-        # "@platforms//os:osx",
+        "x86_64-apple-darwin",
+        "aarch64-apple-darwin",
+        "x86_64-unknown-linux-gnu",
+        "x86_64-pc-windows-msvc",
     ],
 )
-# crate.from_cargo(
-#     name = "crates_in_workspace",
-#     cargo_lockfile = "//toolchains/rust:Cargo.lock",
-#     manifests = ["//toolchains/rust:Cargo.toml"],
-#     supported_platform_triples = [
-#         # "@platforms//cpu:x86_64",
-#         "aarch64-apple-darwin"
-#         # "@platforms//os:osx",
-#     ],
-# )
-use_repo(crate, "crates_in_workspace")
-
-# crate.annotation(
-#     additive_build_file = "//:BUILD.anyhow.bazel",
-#     crate = "anyhow",
-#     # Defined in additive_build_file.
-#     data = [":cargo_toml"],
-#     # Optional, you probably don't need this. Defaults to all from_cargo
-#     # invocations in this module.
-#     repositories = [
-#         "crates_in_workspace",
-#     ],
-#     # Optional, you probably don't need this, defaults to "*".
-#     version = "*",
-# )
+use_repo(crate, "crates")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
