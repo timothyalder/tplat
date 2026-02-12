@@ -1,0 +1,17 @@
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.12",
+)
+use_repo(python, "python_3_12", "python_versions")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    download_only = True,
+    hub_name = "pypi",
+    python_version = "3.12",
+    requirements_darwin = "//toolchains/python:requirements3_darwin.txt",
+    requirements_linux = "//toolchains/python:requirements3_linux.txt",
+    requirements_windows = "//toolchains/python:requirements3_windows.txt",
+)
+use_repo(pip, "pypi")
