@@ -18,29 +18,7 @@ bazel_dep(name = "rules_uv", version = "0.89.2")
 bazel_dep(name = "rules_multirun", version = "0.13.0")
 
 # Directives related to module extensions
-rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-rust.toolchain(
-    edition = "2024",
-    versions = ["1.93.0"],
-)
-use_repo(rust, "rust_toolchains")
-
-crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
-crate.spec(
-    package = "anyhow",
-    version = "1.0.77"
-)
-crate.from_specs(
-    name = "crates",
-    cargo_lockfile = "//toolchains/rust:Cargo.lock",
-    supported_platform_triples = [
-        "x86_64-apple-darwin",
-        "aarch64-apple-darwin",
-        "x86_64-unknown-linux-gnu",
-        "x86_64-pc-windows-msvc",
-    ],
-)
-use_repo(crate, "crates")
+include("//toolchains/rust:rust.MODULE.bazel")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
