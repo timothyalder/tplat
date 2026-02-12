@@ -1,4 +1,17 @@
-startup --windows_enable_symlinks
-build --enable_runfiles
+# startup --windows_enable_symlinks
+# build --enable_runfiles
+# common --lockfile_mode=off
 common --enable_bzlmod
-common --lockfile_mode=off
+
+# Write build outputs in a platform-specific directory;
+# avoid outputs being wiped and rewritten when switching between platforms.
+common --experimental_platform_in_output_dir
+
+# https://github.com/bazelbuild/bazel/issues/8195
+build --incompatible_disallow_empty_glob=true
+
+# https://github.com/bazelbuild/bazel/issues/12821
+build --nolegacy_external_runfiles
+
+# https://github.com/bazelbuild/bazel/issues/23043.
+build --incompatible_autoload_externally=

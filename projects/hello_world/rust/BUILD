@@ -6,6 +6,6 @@ rust_binary(
     name = "rust",
     srcs = ["main.rs"],
     deps = [
-        "@crates//:anyhow",
+        "@crates_in_workspace//:anyhow",
     ],
 )

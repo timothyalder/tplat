@@ -1,12 +1,10 @@
 [workspace]
-[package]
-name = "third-party"
-version = "0.0.0"
-edition = "2021"
-publish = false
 
-[lib]
-path = "fake.rs"
+members = [
+    "projects/hello_world/rust"
+]
 
-[dependencies]
+resolver = "3"
+
+[workspace.dependencies]
 anyhow = "1.0.77"

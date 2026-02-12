@@ -1,0 +1,4 @@
+alias(
+    name = "cargo_toml",
+    actual = "//toolchains/rust:Cargo.toml",
+)
