@@ -5,16 +5,19 @@ module(
 )
 
 # Specify direct dependencies on other Bazel modules
-bazel_dep(name = "platforms", version = "0.0.10")
+bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "rules_rust", version = "0.68.1")
 bazel_dep(name = "rules_oci", version = "2.2.7")
-bazel_dep(name = "aspect_bazel_lib", version = "2.7.2")
+bazel_dep(name = "aspect_bazel_lib", version = "2.19.3")
 bazel_dep(name = "rules_python", version = "1.8.3")
 bazel_dep(name = "aspect_rules_py", version = "1.8.4")
 bazel_dep(name = "rules_uv", version = "0.89.2")
 bazel_dep(name = "rules_multirun", version = "0.13.0")
 
 # Directives related to module extensions
+include("//toolchains/rust:rust.MODULE.bazel")
+
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
     configure_coverage_tool = True,
@@ -53,5 +56,6 @@ register_toolchains(
     "//toolchains/cpp:darwin_x86_64_toolchain",
     "//toolchains/cpp:linux_x86_64_toolchain",
     "//toolchains/cpp:windows_x86_64_toolchain",
+    "@rust_toolchains//:all",
     "@python_versions//:all",
 )
