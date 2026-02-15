@@ -2,10 +2,10 @@ load("//rules:doc.bzl", "doc_section")
 
 doc_section(
     name = "docs",
+    index = "index.md",
     srcs = [
-        "index.md",
         "translate_srt.md",
-        "//projects/budget/docs"
+        "//projects/budget/docs",
     ],
     data = [
         "//projects/translate/docs/data",

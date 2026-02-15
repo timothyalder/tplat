@@ -1,2 +1,2 @@
-DocPageInfo = provider(fields = ["file", "path", "data", "depth"])
+DocPageInfo = provider(fields = ["file", "path"])
 DocSectionInfo = provider(fields = ["site_pages"])

@@ -1,67 +1,76 @@
 load(":_doc_providers.bzl", "DocPageInfo", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 
-def valid_extension(f):
-    if f.extension in ["md"]:
-        return True
-    return False
+def _doc_section_impl(ctx):
+    section_files = []
+    data_files = []
 
-def assert_valid_extension(f):
-    if not valid_extension(f):
-        fail("Error %s is not a valid extension for doc_section. Should be .md" % f.path)
+    output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
+    script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
 
-def doc_section_rule(ctx):
-    validation_outputs = []
-
-    def validate_page(page):
-        validation_output = ctx.actions.declare_file(("/".join([ctx.attr.name, page.path])))
-
-        # TODO: Run a lint checker
-        ctx.actions.write(
-            output = validation_output,
-            content = "validated: %s" % page.path,
-        )
-
-        validation_outputs.append(validation_output)
-
-    # In the future, could have pdf_pages
-    site_pages = []
-
+    script_lines = [
+        "#!/usr/bin/env bash",
+        "set -euo pipefail",
+        "",
+        "mkdir -p '{output}'".format(output=output_dir.path),
+        "mkdir -p '{output}/data'".format(output=output_dir.path),
+        # Copy index file
+        "cp '{index}' '{output}/index.md'".format(index=ctx.file.index.path, output=output_dir.path),
+        "",
+        "# Copy markdown and data files",
+    ]
     for dep in ctx.attr.srcs:
         # Enable recursion (doc_section target in doc_section srcs)
-        if DocSectionInfo in dep:
-            for f in dep[DocSectionInfo].site_pages:
-                page = DocPageInfo(
-                    file = f.file,
-                    path = "/".join([str(dep.label).replace("@//", "").replace(":", "_").replace("/", "_"), f.path]),
-                    data = f.data,
-                    depth = f.depth + 1,
-                )
-                site_pages.append(page)
+        if OutputGroupInfo in dep:
+            for section in dep.files.to_list():
+                section_files.append(section)
+                script_lines.append("cp -r '{src}' '{output}/{file}/'".format(
+                    src=section.path,
+                    output=output_dir.path,
+                    file=section.basename,
+                ))
         else:
-            for f in dep.files.to_list():
-                page = DocPageInfo(
-                    file = f,
-                    path = "/".join([f.basename]),
-                    data = ctx.files.data,
-                    depth = 2,
-                )
-                site_pages.append(page)
+            for file in dep.files.to_list():
+                section_files.append(file)
+                script_lines.append("cp '{src}' '{output}/{file}'".format(
+                    src=file.path,
+                    output=output_dir.path,
+                    file=file.basename,
+                ))
+    for dep in ctx.attr.data:
+        for file in dep.files.to_list():
+            data_files.append(file)
+            script_lines.append("cp '{src}' '{output}/data/{file}'".format(
+                src=file.path,
+                output=output_dir.path,
+                file=file.basename,
+            ))
+    deps = [ctx.file.index] + section_files + data_files
+    ctx.actions.write(
+        output=script,
+        content="\n".join(script_lines),
+        is_executable=True,
+    )
+    ctx.actions.run(
+        inputs = depset(deps),
+        outputs=[output_dir],
+        executable=script,
+        progress_message="Building doc_section for %s" % ctx.attr.name,
+        use_default_shell_env=True,
+    )
 
-                if not ctx.attr.skip_validation:
-                    validate_page(page)
-
-    return (DocSectionInfo(site_pages = site_pages), validation_outputs)
-
-def _doc_section_impl(ctx):
-    section, validation_outputs = doc_section_rule(ctx)
     return [
-        section,
-        OutputGroupInfo(_validation = depset(validation_outputs)),
+        DefaultInfo(
+            executable = script,
+            runfiles = ctx.runfiles(files = [script]),
+            files = depset([output_dir])
+        ),
+        OutputGroupInfo(files = depset([output_dir]))
     ]
 
 doc_section = rule(
     attrs = DOC_SECTION_ARGS,
     implementation = _doc_section_impl,
     doc = "Declares a section which is a nestable chunk of content.",
+    executable = True,
 )
