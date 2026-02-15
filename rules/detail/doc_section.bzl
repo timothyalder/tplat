@@ -65,12 +65,11 @@ def _doc_section_impl(ctx):
             runfiles = ctx.runfiles(files = [script]),
             files = depset([output_dir])
         ),
-        OutputGroupInfo(files = depset([output_dir]))
+        OutputGroupInfo(files = depset([output_dir])) # Can do 'file' instead of 'files'?
     ]
 
 doc_section = rule(
     attrs = DOC_SECTION_ARGS,
     implementation = _doc_section_impl,
     doc = "Declares a section which is a nestable chunk of content.",
-    executable = True,
 )

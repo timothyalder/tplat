@@ -1,35 +1,38 @@
-
 def _doc_serve_impl(ctx):
-    serve_script = ctx.actions.declare_file(ctx.label.name + ".sh")
+    script = ctx.actions.declare_file(ctx.label.name + ".sh")
 
-    site_name = ctx.attr.site_target_name
     script_content = """#!/usr/bin/env bash
 set -euo pipefail
 
 # Locate Bazel runfiles dir
-RUNFILES_DIR="${RUNFILES_DIR:-$(dirname $0)/../..}"
+RUNFILES_DIR="${{PWD}}"
 
 # Compute the output dir for the site
-SITE_OUTPUT="${RUNFILES_DIR}/projects/docs/{site}.output"
+SITE_OUTPUT="${{RUNFILES_DIR}}/projects/docs/{site}.output"
 
-echo "Serving Jekyll from ${SITE_OUTPUT}"
-cd "${SITE_OUTPUT}"
+echo "Serving Jekyll from ${{SITE_OUTPUT}}"
+cd "${{SITE_OUTPUT}}"
 bundle exec jekyll serve
-""".format(site = site_name)
+""".format(site = ctx.attr.site_dir)
+
+    # Set an environment variable to pass output dir?
 
     ctx.actions.write(
-        output = serve_script,
+        output = script,
         content = script_content,
         is_executable = True,
     )
 
     return DefaultInfo(
-        executable = serve_script,
-        runfiles = ctx.runfiles(files = [serve_script]),
+        executable = script,
+        runfiles = ctx.runfiles(files = [script]),
     )
 
 
 doc_site_serve = rule(
     implementation = _doc_serve_impl,
+    attrs = {
+        "site_dir": attr.string(mandatory = True),
+    },
     executable = True,
 )

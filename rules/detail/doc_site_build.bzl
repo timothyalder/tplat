@@ -68,13 +68,7 @@ def _doc_site_build_impl(ctx):
     ]
 
 doc_site_build = rule(
-    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS | {
-        "_formatter": attr.label(
-            default = Label("//rules/utils:jekyll_site_formatter"),
-            executable = True,
-            cfg = "exec",
-        ),
-    },
+    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS,
     implementation = _doc_site_build_impl,
     doc = "Creates the necessary folder structure and copies markdown/data files for a documentation site.",
 )
