@@ -1,4 +1,3 @@
-load(":_doc_providers.bzl", "DocPageInfo", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 
 def _doc_section_impl(ctx):
@@ -8,6 +7,7 @@ def _doc_section_impl(ctx):
     output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
 
+    # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
