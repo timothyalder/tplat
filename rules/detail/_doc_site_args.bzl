@@ -5,14 +5,8 @@ DOC_SITE_ARGS = {
         mandatory = True,
         doc = "Index for the publication",
     ),
-    "config": attr.label_list(
-        allow_files = True,
-        mandatory = False,
-        doc = "List of configs that will be applied to Jekyll with latter configs capable of overriding earlier configs",
+    "theme": attr.string(
+        default = "just-the-docs",
+        doc = "Theme to be applied to Jekyll site",
     ),
-    # "themes": attr.label_list(
-    #     allow_files = True,
-    #     default = ...,
-    #     doc = "List of themes that will be applied to Jekyll with latter themes capable of overriding earlier themes",
-    # ),
 }

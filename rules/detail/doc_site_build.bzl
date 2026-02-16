@@ -8,6 +8,8 @@ def _doc_site_build_impl(ctx):
 
     output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
+    gem_template = ctx.file._gemfile_template
+    conf_template = ctx.file._config_template
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -16,6 +18,11 @@ def _doc_site_build_impl(ctx):
         "",
         "mkdir -p '{output}'".format(output=output_dir.path),
         "mkdir -p '{output}/data'".format(output=output_dir.path),
+        # Copy and update theme for Gemfile and _config.yml
+        "cp '{tmpl}' '{out}/Gemfile'".format(tmpl=gem_template.path, out=output_dir.path),
+        "echo 'gem \"{theme}\"' >> '{out}/Gemfile'".format(theme=ctx.attr.theme, out=output_dir.path),
+        "cp '{tmpl}' '{out}/_config.yml'".format(tmpl=conf_template.path, out=output_dir.path),
+        "echo 'theme: \"{theme}\"' >> '{out}/_config.yml'".format(theme=ctx.attr.theme, out=output_dir.path),
         # Copy index file
         "cp '{index}' '{output}/index.md'".format(index=ctx.file.index.path, output=output_dir.path),
         "",
@@ -46,7 +53,7 @@ def _doc_site_build_impl(ctx):
                 output=output_dir.path,
                 file=file.basename,
             ))
-    deps = [ctx.file.index] + section_files + data_files
+    deps = [gem_template, conf_template, ctx.file.index] + section_files + data_files
     ctx.actions.write(
         output=script,
         content="\n".join(script_lines),
@@ -72,7 +79,16 @@ def _doc_site_build_impl(ctx):
     ]
 
 doc_site_build = rule(
-    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS,
+    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS | {
+        "_gemfile_template": attr.label(
+            default = "//rules/detail:Gemfile",
+            allow_single_file = True,
+        ),
+        "_config_template": attr.label(
+            default = "//rules/detail:_config.yml",
+            allow_single_file = True,
+        ),
+    },
     implementation = _doc_site_build_impl,
     doc = "Creates the necessary folder structure and copies markdown/data files for a documentation site.",
 )

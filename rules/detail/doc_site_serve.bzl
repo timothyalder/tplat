@@ -9,6 +9,7 @@ set -euo pipefail
 pwd
 echo "Serving Jekyll from {site}"
 cd "{site}"
+bundle
 bundle exec jekyll serve
 """.format(site = site_output.short_path)
 
