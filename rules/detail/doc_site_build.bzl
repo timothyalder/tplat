@@ -1,5 +1,6 @@
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 load(":_doc_site_args.bzl", "DOC_SITE_ARGS")
+load(":_doc_providers.bzl", "DocSiteInfo")
 
 def _doc_site_build_impl(ctx):
     section_files = []
@@ -64,6 +65,9 @@ def _doc_site_build_impl(ctx):
             executable = script,
             runfiles = ctx.runfiles(files = [script]),
             files=depset([output_dir]),
+        ),
+        DocSiteInfo(
+            output_dir = output_dir,
         ),
     ]
 

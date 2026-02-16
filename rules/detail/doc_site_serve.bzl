@@ -1,19 +1,16 @@
+load(":_doc_providers.bzl", "DocSiteInfo")
+
 def _doc_serve_impl(ctx):
+    site_output = ctx.attr.site[DocSiteInfo].output_dir
     script = ctx.actions.declare_file(ctx.label.name + ".sh")
 
     script_content = """#!/usr/bin/env bash
 set -euo pipefail
-
-# Locate Bazel runfiles dir
-RUNFILES_DIR="${{PWD}}"
-
-# Compute the output dir for the site
-SITE_OUTPUT="${{RUNFILES_DIR}}/projects/docs/{site}.output"
-
-echo "Serving Jekyll from ${{SITE_OUTPUT}}"
-cd "${{SITE_OUTPUT}}"
+pwd
+echo "Serving Jekyll from {site}"
+cd "{site}"
 bundle exec jekyll serve
-""".format(site = ctx.attr.site_dir)
+""".format(site = site_output.short_path)
 
     # Set an environment variable to pass output dir?
 
@@ -25,14 +22,17 @@ bundle exec jekyll serve
 
     return DefaultInfo(
         executable = script,
-        runfiles = ctx.runfiles(files = [script]),
+        runfiles = ctx.runfiles(files = [script, site_output]),
     )
 
 
 doc_site_serve = rule(
     implementation = _doc_serve_impl,
     attrs = {
-        "site_dir": attr.string(mandatory = True),
+        "site": attr.label(
+            providers = [DocSiteInfo],
+            mandatory = True,
+        ),
     },
     executable = True,
 )
