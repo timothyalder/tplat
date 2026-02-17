@@ -14,10 +14,14 @@ bazel_dep(name = "rules_python", version = "1.8.3")
 bazel_dep(name = "aspect_rules_py", version = "1.8.4")
 bazel_dep(name = "rules_uv", version = "0.89.2")
 bazel_dep(name = "rules_multirun", version = "0.13.0")
+bazel_dep(name = "rules_ruby", version = "0.21.1")
 
 # Directives related to module extensions
 include("//toolchains/rust:rust.MODULE.bazel")
+
 include("//toolchains/python:python.MODULE.bazel")
+
+include("//toolchains/ruby:ruby.MODULE.bazel")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
@@ -41,4 +45,5 @@ register_toolchains(
     "//toolchains/cpp:windows_x86_64_toolchain",
     "@rust_toolchains//:all",
     "@python_versions//:all",
+    "@ruby_toolchains//:all",
 )

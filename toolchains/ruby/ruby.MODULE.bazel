@@ -1,0 +1,19 @@
+ruby = use_extension("@rules_ruby//ruby:extensions.bzl", "ruby")
+ruby.toolchain(
+    name = "ruby",
+    version = "3.2.8",
+)
+use_repo(ruby, "ruby")
+ruby.bundle_fetch(
+    name = "bundle",
+    # gem_checksums = {
+    #     "jekyll-3.9.4": "5d5e0b931c203ce129a16b2d2d5094a905a088749d24452fa8d82e1078315eff",
+    #     "jekyll-feed-0.17.0": "689aab16c877949bb9e7a5c436de6278318a51ecb974792232fd94d8b3acfcc3",
+    #     "jekyll-sass-converter-1.5.2": "53773669e414dc3bb070113befacb808576025a28cfa4a4accc682e90a9c1101",
+    #     "jekyll-seo-tag-2.8.0": "3f2ed1916d56f14ebfa38e24acde9b7c946df70cb183af2cb5f0598f21ae6818",
+    #     "jekyll-watch-2.2.1": "bc44ed43f5e0a552836245a54dbff3ea7421ecc2856707e8a1ee203a8387a7e1",
+    # },
+    gemfile = "//:Gemfile",
+    gemfile_lock = "//:Gemfile.lock",
+)
+use_repo(ruby, "bundle", "ruby_toolchains")

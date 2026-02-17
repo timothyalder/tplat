@@ -27,3 +27,6 @@ gem "http_parser.rb", "~> 0.6.0", platforms: [:jruby]
 
 # WEBrick required for Ruby 3.0+ (Jekyll uses it for the server)
 gem "webrick", ">= 1.9.1"
+
+# Themes
+gem "just-the-docs"
