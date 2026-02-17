@@ -16,15 +16,17 @@ def _doc_site_build_impl(ctx):
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         "",
-        "mkdir -p '{output}'".format(output=output_dir.path),
-        "mkdir -p '{output}/data'".format(output=output_dir.path),
+        "mkdir -p '{out}'".format(out=output_dir.path),
+        "mkdir -p '{out}/data'".format(out=output_dir.path),
         # Copy and update theme for Gemfile and _config.yml
         "cp '{tmpl}' '{out}/Gemfile'".format(tmpl=gem_template.path, out=output_dir.path),
         "echo 'gem \"{theme}\"' >> '{out}/Gemfile'".format(theme=ctx.attr.theme, out=output_dir.path),
         "cp '{tmpl}' '{out}/_config.yml'".format(tmpl=conf_template.path, out=output_dir.path),
         "echo 'theme: \"{theme}\"' >> '{out}/_config.yml'".format(theme=ctx.attr.theme, out=output_dir.path),
+        "cd '{out}'".format(out=output_dir.path),
+        "bundle install --path='vendor/bundle' --retry 3",
         # Copy index file
-        "cp '{index}' '{output}/index.md'".format(index=ctx.file.index.path, output=output_dir.path),
+        "cp '{index}' '{out}/index.md'".format(index=ctx.file.index.path, out=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]
@@ -32,25 +34,25 @@ def _doc_site_build_impl(ctx):
         if OutputGroupInfo in dep:
             for section in dep.files.to_list():
                 section_files.append(section)
-                script_lines.append("cp -r '{src}' '{output}/{file}/'".format(
+                script_lines.append("cp -r '{src}' '{out}/{file}/'".format(
                     src=section.path,
-                    output=output_dir.path,
+                    out=output_dir.path,
                     file=section.basename,
                 ))
         else:
             for file in dep.files.to_list():
                 section_files.append(file)
-                script_lines.append("cp '{src}' '{output}/{file}'".format(
+                script_lines.append("cp '{src}' '{out}/{file}'".format(
                     src=file.path,
-                    output=output_dir.path,
+                    out=output_dir.path,
                     file=file.basename,
                 ))
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
             data_files.append(file)
-            script_lines.append("cp '{src}' '{output}/data/{file}'".format(
+            script_lines.append("cp '{src}' '{out}/data/{file}'".format(
                 src=file.path,
-                output=output_dir.path,
+                out=output_dir.path,
                 file=file.basename,
             ))
     deps = [gem_template, conf_template, ctx.file.index] + section_files + data_files
