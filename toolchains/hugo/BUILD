@@ -1,0 +1,1 @@
+exports_files(["rules_hugo_module.patch"])

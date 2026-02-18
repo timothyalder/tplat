@@ -1,0 +1,13 @@
+RULES_HUGO_COMMIT = "294a8ec626a394011d35397108c930be631ab9fa"
+
+RULES_HUGO_SHA256 = "sha256-jfNw83TccnAbZbfIqK3YzLhCOoRelzmT+pxo+LUWyb4="
+
+bazel_dep(name = "rules_hugo", version = "0.0.0")
+archive_override(
+    module_name = "rules_hugo",
+    integrity = RULES_HUGO_SHA256,
+    patch_args = ["-p0"],
+    patches = ["//toolchains/hugo:rules_hugo.patch"],
+    strip_prefix = "rules_hugo-%s" % RULES_HUGO_COMMIT,
+    urls = ["https://github.com/stackb/rules_hugo/archive/%s.zip" % RULES_HUGO_COMMIT],
+)

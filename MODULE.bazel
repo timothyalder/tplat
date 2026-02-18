@@ -25,6 +25,8 @@ include("//toolchains/python:python.MODULE.bazel")
 
 include("//toolchains/ruby:ruby.MODULE.bazel")
 
+include("//toolchains/hugo:hugo.MODULE.bazel")
+
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "distroless_base",
@@ -48,4 +50,5 @@ register_toolchains(
     "@rust_toolchains//:all",
     "@python_versions//:all",
     "@ruby_toolchains//:all",
+    "@rules_hugo//hugo:all",
 )
