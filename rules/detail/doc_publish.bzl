@@ -52,6 +52,7 @@ def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs
         name = name + "_site.serve",
         srcs = [
             ":site_serve_file",
+            ":" + name + "_site.build",
         ],
         args = [
             "$(location @bundle//bin:jekyll)",
@@ -63,7 +64,7 @@ def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs
             "_config.yml",
         ],
         data = [
-            ":" + name + "_site.build",
+            # ":" + name + "_site.build",
             "@bundle//bin:jekyll",
         ],
     )

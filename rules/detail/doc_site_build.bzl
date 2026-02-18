@@ -6,7 +6,7 @@ def _doc_site_build_impl(ctx):
     section_files = []
     data_files = []
 
-    output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
+    output_dir = ctx.actions.declare_directory("_site")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
     gem = ctx.file._gem
     gem_lockfile = ctx.file._gem_lockfile
