@@ -2,3 +2,4 @@ startup --windows_enable_symlinks
 build --enable_runfiles
 common --enable_bzlmod
 common --lockfile_mode=off
+common --incompatible_disallow_struct_provider_syntax=false

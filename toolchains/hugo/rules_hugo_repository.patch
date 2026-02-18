@@ -1,0 +1,17 @@
+--- hugo/internal/hugo_repository.bzl
++++ hugo/internal/hugo_repository.bzl
+@@ -14,11 +14,11 @@
+ 
+     os_name = repository_ctx.os.name.lower()
+     if os_name.startswith("mac os"):
+-        os_arch = "macOS-64bit"
++        os_arch = "darwin-universal"
+     elif os_name.find("windows") != -1:
+-        os_arch = "Windows-64bit"
++        os_arch = "windows-amd64"
+     else:
+-        os_arch = "Linux-64bit"
++        os_arch = "linux-amd64"
+     
+     url = "https://github.com/gohugoio/hugo/releases/download/v{version}/{hugo}_{version}_{os_arch}.tar.gz".format(
+         hugo = hugo,

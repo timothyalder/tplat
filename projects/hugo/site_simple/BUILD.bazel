@@ -1,0 +1,29 @@
+load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_site", "hugo_theme", "hugo_serve")
+
+hugo_theme(
+    name = "book",
+    srcs = [
+        "@com_github_alex_shpak_hugo_book//:files",
+    ],
+)
+
+hugo_site(
+    name = "site_simple",
+    config = "config.yaml",
+    content = glob(["content/**"]),
+    # static = glob(["static/**"]),
+    # layouts = glob(["layouts/**"]),
+    theme = ":book",
+)
+
+hugo_serve(
+    name = "site_serve",
+    dep = [":site_simple"],
+    quiet = False, # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
+)
+
+sh_test(
+    name = "site_test",
+    srcs = ["site_test.sh"],
+    data = [":site_simple"],
+)
