@@ -2,6 +2,11 @@ load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_site", "hugo_theme", "hugo
 load(":doc_site_build.bzl", "doc_site_build")
 
 def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
+
+    supported_themes = ["book", "geekdoc"]
+    if theme not in supported_themes:
+        fail("theme must be one of {}, but got '{}'".format(supported_themes, theme))
+
     doc_site_build(
         name = name + "_site.prepare",
         skip_validation = skip_validation,
@@ -9,20 +14,22 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
         **kwargs,
     )
 
-    hugo_theme(
-        name = "book",
-        srcs = [
-            "@com_github_alex_shpak_hugo_book//:files",
-        ],
-    )
+    if not native.existing_rule("book"):
+        hugo_theme(
+            name = "book",
+            srcs = [
+                "@com_github_alex_shpak_hugo_book//:files",
+            ],
+        )
 
-    hugo_theme(
-        name = "geekdoc",
-        theme_name = "hugo-geekdoc",
-        srcs = [
-            "@com_github_thegeeklab_hugo_geekdoc//:files",
-        ],
-    )
+    if not native.existing_rule("geekdoc"):
+        hugo_theme(
+            name = "geekdoc",
+            theme_name = "hugo-geekdoc",
+            srcs = [
+                "@com_github_thegeeklab_hugo_geekdoc//:files",
+            ],
+        )
 
     hugo_site(
         name = name + "_site.build",
@@ -30,7 +37,7 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
         content = [":" + name + "_site.prepare"],
         # static = glob(["static/**"]),
         # layouts = glob(["layouts/**"]),
-        theme = ":geekdoc",
+        theme = ":" + theme,
     )
 
     hugo_serve(
