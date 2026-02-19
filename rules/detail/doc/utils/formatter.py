@@ -5,6 +5,15 @@ def transform(src, dest):
     with open(src, 'r') as f:
         lines = f.readlines()
 
+    if not lines:
+        print(f"ERROR: {src} is empty.")
+        sys.exit(1)
+
+    if not lines[0].strip().startswith("# "):
+        print(f"ERROR: {src} must begin with a H1 title (e.g., '# My Title').")
+        print(f"Found: '{lines[0].strip()}'")
+        sys.exit(1)
+        
     title = lines[0].strip().replace("# ", "")
     
     front_matter = [
