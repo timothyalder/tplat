@@ -8,6 +8,7 @@ def _doc_site_build_impl(ctx):
 
     output_dir = ctx.actions.declare_directory("content/docs")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
+    formatter = ctx.executable._formatter
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -33,10 +34,10 @@ def _doc_site_build_impl(ctx):
         else:
             for file in dep.files.to_list():
                 section_files.append(file)
-                script_lines.append("cp '{src}' '{out}/{file}'".format(
-                    src=file.path,
-                    out=output_dir.path,
-                    file=file.basename,
+                script_lines.append("'{formatter}' '{src}' '{dest}'".format(
+                    formatter = formatter.path,
+                    src = file.path,
+                    dest = file.basename
                 ))
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
@@ -56,6 +57,7 @@ def _doc_site_build_impl(ctx):
         inputs = depset(deps),
         outputs=[output_dir],
         executable=script,
+        tools=[formatter],
         progress_message="Building doc_section for %s" % ctx.attr.name,
         use_default_shell_env=True,
     )
@@ -72,7 +74,13 @@ def _doc_site_build_impl(ctx):
     ]
 
 doc_site_build = rule(
-    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS,
+    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS | {
+        "_formatter": attr.label(
+            default = "//rules/detail/doc/utils:formatter",
+            executable = True,
+            cfg = "exec",
+        ),
+    },
     implementation = _doc_site_build_impl,
     doc = "Creates the necessary folder structure and copies markdown/data files for a documentation site.",
 )

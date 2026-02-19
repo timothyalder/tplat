@@ -6,6 +6,7 @@ def _doc_section_impl(ctx):
 
     output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
+    formatter = ctx.executable._formatter
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -15,7 +16,8 @@ def _doc_section_impl(ctx):
         "mkdir -p '{output}'".format(output=output_dir.path),
         "mkdir -p '{output}/data'".format(output=output_dir.path),
         # Copy index file
-        "cp '{index}' '{output}/_index.md'".format(index=ctx.file.index.path, output=output_dir.path),
+        "'{formatter}' '{index}' '{output}/_index.md'".format(formatter = formatter.path, index=ctx.file.index.path, output=output_dir.path),
+        # "cp '{index}' '{output}/_index.md'".format(index=ctx.file.index.path, output=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]
@@ -32,10 +34,11 @@ def _doc_section_impl(ctx):
         else:
             for file in dep.files.to_list():
                 section_files.append(file)
-                script_lines.append("cp '{src}' '{output}/{file}'".format(
-                    src=file.path,
+                script_lines.append("'{formatter}' '{src}' '{output}/{file}'".format(
+                    formatter = formatter.path,
+                    src = file.path,
                     output=output_dir.path,
-                    file=file.basename,
+                    file = file.basename,
                 ))
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
@@ -54,6 +57,7 @@ def _doc_section_impl(ctx):
     ctx.actions.run(
         inputs = depset(deps),
         outputs=[output_dir],
+        tools=[formatter],
         executable=script,
         progress_message="Building doc_section for %s" % ctx.attr.name,
         use_default_shell_env=True,
@@ -69,7 +73,13 @@ def _doc_section_impl(ctx):
     ]
 
 doc_section = rule(
-    attrs = DOC_SECTION_ARGS,
+    attrs = DOC_SECTION_ARGS | {
+        "_formatter": attr.label(
+            default = "//rules/detail/doc/utils:formatter",
+            executable = True,
+            cfg = "exec",
+        ),
+    },
     implementation = _doc_section_impl,
     doc = "Declares a section which is a nestable chunk of content.",
 )
