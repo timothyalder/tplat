@@ -6,11 +6,8 @@ def _doc_site_build_impl(ctx):
     section_files = []
     data_files = []
 
-    output_dir = ctx.actions.declare_directory("_site")
+    output_dir = ctx.actions.declare_directory("content")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
-    gem = ctx.file._gem
-    gem_lockfile = ctx.file._gem_lockfile
-    conf_template = ctx.file._config_template
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -19,13 +16,8 @@ def _doc_site_build_impl(ctx):
         "",
         "mkdir -p '{out}'".format(out=output_dir.path),
         "mkdir -p '{out}/data'".format(out=output_dir.path),
-        # Copy and update theme for Gemfile and _config.yml
-        "cp '{gem}' '{out}/Gemfile'".format(gem=gem.path, out=output_dir.path),
-        "cp '{gem_lockfile}' '{out}/Gemfile.lock'".format(gem_lockfile=gem_lockfile.path, out=output_dir.path),
-        "cp '{tmpl}' '{out}/_config.yml'".format(tmpl=conf_template.path, out=output_dir.path),
-        "echo 'theme: \"{theme}\"' >> '{out}/_config.yml'".format(theme=ctx.attr.theme, out=output_dir.path),
         # Copy index file
-        "cp '{index}' '{out}/index.md'".format(index=ctx.file.index.path, out=output_dir.path),
+        "cp '{index}' '{out}/_index.md'".format(index=ctx.file.index.path, out=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]
@@ -54,7 +46,7 @@ def _doc_site_build_impl(ctx):
                 out=output_dir.path,
                 file=file.basename,
             ))
-    deps = [gem, gem_lockfile, conf_template, ctx.file.index] + section_files + data_files
+    deps = [ctx.file.index] + section_files + data_files
     ctx.actions.write(
         output=script,
         content="\n".join(script_lines),
@@ -80,20 +72,7 @@ def _doc_site_build_impl(ctx):
     ]
 
 doc_site_build = rule(
-    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS | {
-        "_gem": attr.label(
-            default = "//toolchains/ruby:Gemfile",
-            allow_single_file = True,
-        ),
-        "_gem_lockfile": attr.label(
-            default = "//toolchains/ruby:Gemfile.lock",
-            allow_single_file = True,
-        ),
-        "_config_template": attr.label(
-            default = "//rules/detail:_config.yml",
-            allow_single_file = True,
-        ),
-    },
+    attrs = DOC_SECTION_ARGS | DOC_SITE_ARGS,
     implementation = _doc_site_build_impl,
     doc = "Creates the necessary folder structure and copies markdown/data files for a documentation site.",
 )

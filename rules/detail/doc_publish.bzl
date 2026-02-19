@@ -1,70 +1,32 @@
-load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_site", "hugo_theme", "hugo_serve")
 load(":doc_site_build.bzl", "doc_site_build")
 
 def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs):
-    # Build the static site first
     doc_site_build(
-        name = name + "_site",
+        name = name + "_site.prepare",
         skip_validation = skip_validation,
         theme = theme,
         **kwargs,
     )
-    run_binary(
-        name = name + "_site.build",
+
+    hugo_theme(
+        name = "book",
         srcs = [
-            ":" + name + "_site",
+            "@com_github_alex_shpak_hugo_book//:files",
         ],
-        args = [
-            "build",
-            "--destination",
-            "$(GENDIR)/_site",
-            "--config",
-            "_config.yml",
-        ],
-        env = {
-            "LC_ALL": "C.UTF-8",
-            "LANG": "en_US.UTF-8",
-            "LANGUAGE": "en_US.UTF-8",
-        },
-        execution_requirements = {"no-sandbox": "1"},
-        mnemonic = "JekyllBuild",
-        out_dirs = [
-            "_site",
-        ],
-        tool = "@bundle//bin:jekyll",
     )
 
-    # Define a separate `bazel run` target for serving
-    write_file(
-        name = "site_serve_file",
-        out = "site_serve_file.sh",
-        content = [
-            "#!/bin/bash",
-            # rules_ruby needs RUNFILES_DIR to be set
-            "export RUNFILES_DIR=$(readlink -f ../)",
-            "EXEC_ROOT=$(pwd)",
-            "$EXEC_ROOT/$1 ${@:2}",
-        ],
+    hugo_site(
+        name = name + "_site.build",
+        config = "//rules/detail:config.yaml",
+        content = [":" + name + "_site.prepare"],
+        # static = glob(["static/**"]),
+        # layouts = glob(["layouts/**"]),
+        theme = ":book",
     )
-    sh_binary(
+
+    hugo_serve(
         name = name + "_site.serve",
-        srcs = [
-            ":site_serve_file",
-            ":" + name + "_site.build",
-        ],
-        args = [
-            "$(location @bundle//bin:jekyll)",
-            "serve",
-            "--destination",
-            "_site",
-            "--skip-initial-build",
-            "--config",
-            "_config.yml",
-        ],
-        data = [
-            # ":" + name + "_site.build",
-            "@bundle//bin:jekyll",
-        ],
+        dep = [":" + name + "_site.prepare"],
+        quiet = False, # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
     )
