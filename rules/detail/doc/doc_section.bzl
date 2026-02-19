@@ -1,6 +1,16 @@
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 
+def valid_extension(f):
+    if f.extension in ["md"]:
+        return True
+    return False
+
+def assert_valid_extension(f):
+    if not valid_extension(f):
+        fail("Error %s is not a valid extension for doc_section. Should be .md" % f.path)
+
 def _doc_section_impl(ctx):
+
     section_files = []
     data_files = []
 
@@ -34,6 +44,7 @@ def _doc_section_impl(ctx):
         else:
             for file in dep.files.to_list():
                 section_files.append(file)
+                assert_valid_extension(file)
                 script_lines.append("'{formatter}' '{src}' '{output}/{file}'".format(
                     formatter = formatter.path,
                     src = file.path,
