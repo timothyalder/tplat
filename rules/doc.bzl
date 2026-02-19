@@ -1,5 +1,5 @@
-load("//rules/detail:doc_publish.bzl", _doc_publish = "doc_publish")
-load("//rules/detail:doc_section.bzl", _doc_section = "doc_section")
+load("//rules/detail/doc:doc_publish.bzl", _doc_publish = "doc_publish")
+load("//rules/detail/doc:doc_section.bzl", _doc_section = "doc_section")
 
 def doc_section(**kwargs):
     tags = kwargs.pop("tags", [])

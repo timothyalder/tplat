@@ -18,7 +18,7 @@ def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs
 
     hugo_site(
         name = name + "_site.build",
-        config = "//rules/detail:config.yaml",
+        config = "//rules/detail/doc/data:config.yaml",
         content = [":" + name + "_site.prepare"],
         # static = glob(["static/**"]),
         # layouts = glob(["layouts/**"]),
