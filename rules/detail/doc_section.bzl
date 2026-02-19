@@ -15,7 +15,7 @@ def _doc_section_impl(ctx):
         "mkdir -p '{output}'".format(output=output_dir.path),
         "mkdir -p '{output}/data'".format(output=output_dir.path),
         # Copy index file
-        "cp '{index}' '{output}/index.md'".format(index=ctx.file.index.path, output=output_dir.path),
+        "cp '{index}' '{output}/_index.md'".format(index=ctx.file.index.path, output=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]

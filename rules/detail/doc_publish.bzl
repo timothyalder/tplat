@@ -27,6 +27,6 @@ def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs
 
     hugo_serve(
         name = name + "_site.serve",
-        dep = [":" + name + "_site.prepare"],
+        dep = [":" + name + "_site.build"],
         quiet = False, # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
     )

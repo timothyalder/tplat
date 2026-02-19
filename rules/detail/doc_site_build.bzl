@@ -6,7 +6,7 @@ def _doc_site_build_impl(ctx):
     section_files = []
     data_files = []
 
-    output_dir = ctx.actions.declare_directory("content")
+    output_dir = ctx.actions.declare_directory("content/docs")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
 
     # Collect all doc_sections, markdown files, and data from deps
