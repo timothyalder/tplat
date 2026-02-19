@@ -2,7 +2,7 @@
 +++ MODULE.bazel
 @@ -0,0 +1,5 @@
 +module(
-+    name = "rules_hugo_geekdoc",
++    name = "com_github_thegeeklab_hugo_geekdoc",
 +    version = "0.0.0",
 +    compatibility_level = 1,
 +)

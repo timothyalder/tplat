@@ -32,9 +32,9 @@ filegroup(
     url = "https://github.com/alex-shpak/hugo-book/archive/refs/tags/v13.tar.gz",
 )
 
-bazel_dep(name = "rules_hugo_geekdoc", version = "0.0.0")
+bazel_dep(name = "com_github_thegeeklab_hugo_geekdoc", version = "0.0.0")
 archive_override(
-    module_name = "rules_hugo_geekdoc",
+    module_name = "com_github_thegeeklab_hugo_geekdoc",
     build_file_content = """
 filegroup(
     name = "files",
@@ -43,7 +43,7 @@ filegroup(
 )
     """,
     patch_args = ["-p0"],
-    patches = ["//toolchains/hugo:rules_hugo_geekdoc.patch"],
-    sha256 = "7fdd57f7d4450325a778629021c0fff5531dc8475de6c4ec70ab07e9484d400e",
-    url = "https://github.com/thegeeklab/hugo-geekdoc/releases/download/v0.34.2/hugo-geekdoc.tar.gz",
+    patches = ["//toolchains/hugo:com_github_thegeeklab_hugo_geekdoc.patch"],
+    integrity = "sha256-CjxpgYqjbsQxjA+2fym0mTY/8iqk9zvjLnUqIk7Ls5U=",
+    url = "https://github.com/thegeeklab/hugo-geekdoc/releases/download/v2.0.0/hugo-geekdoc.tar.gz",
 )

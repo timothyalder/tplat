@@ -1,7 +1,7 @@
 load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_site", "hugo_theme", "hugo_serve")
 load(":doc_site_build.bzl", "doc_site_build")
 
-def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs):
+def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
     doc_site_build(
         name = name + "_site.prepare",
         skip_validation = skip_validation,
@@ -16,13 +16,21 @@ def doc_publish(name, theme = "just-the-docs", skip_validation = False, **kwargs
         ],
     )
 
+    hugo_theme(
+        name = "geekdoc",
+        theme_name = "hugo-geekdoc",
+        srcs = [
+            "@com_github_thegeeklab_hugo_geekdoc//:files",
+        ],
+    )
+
     hugo_site(
         name = name + "_site.build",
         config = "//rules/detail/doc/data:config.yaml",
         content = [":" + name + "_site.prepare"],
         # static = glob(["static/**"]),
         # layouts = glob(["layouts/**"]),
-        theme = ":book",
+        theme = ":geekdoc",
     )
 
     hugo_serve(
