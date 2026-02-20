@@ -48,7 +48,7 @@ def transform_file(src: str, dest: str, weight: int = 10):
     ]
     
     body_text = "\n".join([line.rstrip() for line in lines])
-    body_text = re.sub(r'\((?:.*?\/)?([^\/)]+\.[a-zA-Z0-9]+)\)', r'(\1)', body_text)
+    body_text = re.sub(r'\((?:.*?\/)?([^\/)]+\.[a-zA-Z0-9]+)\)', r'(../\1)', body_text)
 
     with open(dest, 'w') as f:
         f.write("\n".join(front_matter) + body_text)

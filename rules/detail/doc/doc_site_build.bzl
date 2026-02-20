@@ -62,7 +62,7 @@ def _doc_site_build_impl(ctx):
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
             data_files.append(file)
-            script_lines.append("cp '{src}' '{out}/data/{file}'".format(
+            script_lines.append("cp '{src}' '{out}/{file}'".format(
                 src=file.path,
                 out=output_dir.path,
                 file=file.basename,
