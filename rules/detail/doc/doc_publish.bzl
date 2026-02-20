@@ -41,8 +41,8 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
         name = name + "_site.build",
         config = ":" + name + "_site.prepare.config",
         content = [":" + name + "_site.prepare"],
-        # static = glob(["static/**"]),
-        # layouts = glob(["layouts/**"]),
+        # static = native.glob(["static/**"]),
+        layouts = ["//rules/detail/doc/data:layouts"],
         theme = ":" + theme,
     )
 

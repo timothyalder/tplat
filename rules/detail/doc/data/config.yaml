@@ -2,28 +2,42 @@
 
 # baseURL: https://rules_hugo.github.com/
 baseURL: /
-theme: book
 # themesDir: ../..
 
 # Book configuration
 disablePathToLower: true
 enableGitInfo: false
 
-# Needed for mermaid/katex shortcodes
+# Needed for mermaid/katex shortcodes and latex math
 markup:
   goldmark:
     renderer:
       unsafe: true
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - '\['
+            - '\]'
+          - - $$
+            - $$
+          inline:
+          - - '\('
+            - '\)'
+          - - $
+            - $
+        enable: true
   tableOfContents:
     startLevel: 1
   highlight:
-    style: base16-snazzy
+    style: base16-snazzy  
 
 # Code highlight
 # pygmentsStyle: monokailight
 pygmentsCodeFences: true
 
 params:
+  math: true
   # (Optional, default 6) Set how many table of contents levels to be showed on page.
   # Use false/off to hide ToC, note that 0 will default to 6 (https://gohugo.io/functions/default/)
   # You can also specify this parameter per page in front matter

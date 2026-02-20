@@ -25,10 +25,11 @@ def _doc_site_build_impl(ctx):
             tmpl = ctx.file._config_tmpl.path, 
             config = config.path,
         ),
-        "echo '\n  BookDateFormat: {date}\n\ntitle: {title}\n' >> '{config}'".format(
+        "echo '\n  BookDateFormat: {date}\n\ntitle: {title}\ntheme: {theme}\n' >> '{config}'".format(
             date = "20th February 2026", # TODO: make this resolve dynamically
             title = ctx.attr.title, 
             config = config.path,
+            theme = ctx.attr.theme,
         ),
         # Copy index file
         "cp '{index}' '{out}/_index.md'".format(index=ctx.file.index.path, out=output_dir.path),
