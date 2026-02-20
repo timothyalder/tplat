@@ -2,14 +2,22 @@
 
 # baseURL: https://rules_hugo.github.com/
 baseURL: /
-title: stackb/rules_hugo
 theme: book
-disableKinds: ['taxonomy', 'taxonomyTerm']
 # themesDir: ../..
 
 # Book configuration
 disablePathToLower: true
 enableGitInfo: false
+
+# Needed for mermaid/katex shortcodes
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 1
+  highlight:
+    style: base16-snazzy
 
 # Code highlight
 # pygmentsStyle: monokailight
@@ -34,11 +42,11 @@ params:
 
   # Include JS scripts in pages. Disabled by default.
   # - Keep side menu on same scroll position during navigation
-  BookEnableJS: true
+  # BookEnableJS: true
 
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
-  BookRepo: https://github.com/stackb/rules_hugo
+  # BookRepo: https://github.com/stackb/rules_hugo
 
   # Enable "Edit this page" links for 'doc' page type.
   # Disabled by default. Uncomment to enable. Requires 'BookRepo' param.
@@ -48,4 +56,3 @@ params:
   # Configure the date format used on the pages
   # - In git information
   # - In blog posts
-  BookDateFormat: 'Jan 2, 2006'

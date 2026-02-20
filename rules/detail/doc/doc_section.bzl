@@ -1,4 +1,5 @@
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
+load(":_doc_providers.bzl", "DocSectionInfo")
 
 def valid_extension(f):
     if f.extension in ["md"]:
@@ -13,6 +14,7 @@ def _doc_section_impl(ctx):
 
     section_files = []
     data_files = []
+    weight = 10
 
     output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + ".output")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
@@ -45,16 +47,18 @@ def _doc_section_impl(ctx):
             for file in dep.files.to_list():
                 section_files.append(file)
                 assert_valid_extension(file)
-                script_lines.append("'{formatter}' '{src}' '{output}/{file}'".format(
+                script_lines.append("'{formatter}' '{src}' '{output}/{file}' --weight {weight}".format(
                     formatter = formatter.path,
                     src = file.path,
                     output=output_dir.path,
                     file = file.basename,
+                    weight=weight,
                 ))
+                weight += 10
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
             data_files.append(file)
-            script_lines.append("cp '{src}' '{output}/data/{file}'".format(
+            script_lines.append("cp '{src}' '{output}/{file}'".format(
                 src=file.path,
                 output=output_dir.path,
                 file=file.basename,
@@ -80,7 +84,7 @@ def _doc_section_impl(ctx):
             runfiles = ctx.runfiles(files = [script]),
             files = depset([output_dir])
         ),
-        OutputGroupInfo(files = depset([output_dir])) # Can do 'file' instead of 'files'?
+        DocSectionInfo(output_dir = output_dir),
     ]
 
 doc_section = rule(

@@ -6,7 +6,8 @@ doc_publish(
     srcs = [
         "//projects/translate/docs",
         "//projects/fpga/docs",
+        "test.md",
     ],
-    title = "Projects",
+    title = "tplat",
     visibility = ["//visibility:public"],
 )

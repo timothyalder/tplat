@@ -1,14 +1,17 @@
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 load(":_doc_site_args.bzl", "DOC_SITE_ARGS")
-load(":_doc_providers.bzl", "DocSiteInfo")
+load(":_doc_providers.bzl", "DocSiteInfo", "DocSectionInfo")
 
 def _doc_site_build_impl(ctx):
     section_files = []
     data_files = []
+    weight = 1
 
     output_dir = ctx.actions.declare_directory("content/docs")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//","").replace(":","_").replace("/","_") + "_build.sh")
+    config = ctx.actions.declare_file("conf/config.yaml")
     formatter = ctx.executable._formatter
+    config_tmpl = ctx.file._config_tmpl
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -17,28 +20,44 @@ def _doc_site_build_impl(ctx):
         "",
         "mkdir -p '{out}'".format(out=output_dir.path),
         "mkdir -p '{out}/data'".format(out=output_dir.path),
+        # Declare config
+        "cp '{tmpl}' '{config}'".format(
+            tmpl = ctx.file._config_tmpl.path, 
+            config = config.path,
+        ),
+        "echo '\n  BookDateFormat: {date}\n\ntitle: {title}\n' >> '{config}'".format(
+            date = "20th February 2026", # TODO: make this resolve dynamically
+            title = ctx.attr.title, 
+            config = config.path,
+        ),
         # Copy index file
         "cp '{index}' '{out}/_index.md'".format(index=ctx.file.index.path, out=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]
     for dep in ctx.attr.srcs:
-        if OutputGroupInfo in dep:
-            for section in dep.files.to_list():
-                section_files.append(section)
-                script_lines.append("cp -r '{src}' '{out}/{file}/'".format(
-                    src=section.path,
-                    out=output_dir.path,
-                    file=section.basename,
-                ))
+        if DocSectionInfo in dep:
+            section = dep[DocSectionInfo].output_dir
+            section_files.append(section)
+            script_lines.append("'{formatter}' '{src}' '{out}/{file}/' --weight {weight}".format(
+                formatter = formatter.path,
+                src=section.path,
+                out=output_dir.path,
+                file=section.basename,
+                weight=weight
+            ))
+            weight += 1
         else:
-            for file in dep.files.to_list():
-                section_files.append(file)
-                script_lines.append("'{formatter}' '{src}' '{dest}'".format(
-                    formatter = formatter.path,
-                    src = file.path,
-                    dest = file.basename
-                ))
+            file = dep.files.to_list()[0] # Hacky
+            section_files.append(file)
+            script_lines.append("'{formatter}' '{src}' '{out}/{file}' --weight {weight}".format(
+                formatter = formatter.path,
+                src = file.path,
+                out = output_dir.path,
+                file = file.basename,
+                weight = weight,
+            ))
+            weight += 1
     for dep in ctx.attr.data:
         for file in dep.files.to_list():
             data_files.append(file)
@@ -47,7 +66,7 @@ def _doc_site_build_impl(ctx):
                 out=output_dir.path,
                 file=file.basename,
             ))
-    deps = [ctx.file.index] + section_files + data_files
+    deps = [config_tmpl, ctx.file.index] + section_files + data_files
     ctx.actions.write(
         output=script,
         content="\n".join(script_lines),
@@ -55,7 +74,7 @@ def _doc_site_build_impl(ctx):
     )
     ctx.actions.run(
         inputs = depset(deps),
-        outputs=[output_dir],
+        outputs=[output_dir, config],
         executable=script,
         tools=[formatter],
         progress_message="Building doc_section for %s" % ctx.attr.name,
@@ -65,8 +84,12 @@ def _doc_site_build_impl(ctx):
     return [
         DefaultInfo(
             executable = script,
+            files = depset([output_dir, config]),
             runfiles = ctx.runfiles(files = [script]),
-            files=depset([output_dir]),
+        ),
+        OutputGroupInfo(
+            config = depset([config]),
+            files = depset([output_dir]),
         ),
         DocSiteInfo(
             output_dir = output_dir,
@@ -79,6 +102,10 @@ doc_site_build = rule(
             default = "//rules/detail/doc/utils:formatter",
             executable = True,
             cfg = "exec",
+        ),
+        "_config_tmpl": attr.label(
+            default = "//rules/detail/doc/data:config.yaml",
+            allow_single_file = True
         ),
     },
     implementation = _doc_site_build_impl,

@@ -31,9 +31,15 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
             ],
         )
 
+    native.filegroup(
+        name = name + "_site.prepare.config",
+        srcs = [":" + name + "_site.prepare"],
+        output_group = "config",
+    )
+
     hugo_site(
         name = name + "_site.build",
-        config = "//rules/detail/doc/data:config.yaml",
+        config = ":" + name + "_site.prepare.config",
         content = [":" + name + "_site.prepare"],
         # static = glob(["static/**"]),
         # layouts = glob(["layouts/**"]),
