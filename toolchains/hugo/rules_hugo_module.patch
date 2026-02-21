@@ -1,0 +1,10 @@
+--- /dev/null
++++ MODULE.bazel
+@@ -0,0 +1,7 @@
++module(
++    name = "build_stack_rules_hugo",
++    version = "0.0.0",
++)
++
++hugo_ext = use_extension("//hugo:extensions.bzl", "hugo_ext")
++use_repo(hugo_ext, "hugo")

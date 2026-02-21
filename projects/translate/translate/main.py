@@ -32,6 +32,6 @@ def translate_srt(input_path: str, output_path: Optional[str] = None) -> List[st
 
 
 if __name__ == "__main__":    
-    input_path = sys.argv[1]
-    output_path = sys.argv[2]
+    input_path = sys.argv[1] if len(sys.argv)>1 else "/Users/timothyalder/Downloads/Love Sucks/S1E03/Love_Sucks-Jäger_und_Gejagte-0776117932.srt"
+    output_path = sys.argv[2] if len(sys.argv)>2 else None
     translate_srt(input_path=input_path, output_path=output_path)

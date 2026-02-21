@@ -11,8 +11,8 @@ py_library(
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
-        "@sync_venv_darwin//deep_translator",
-        "@sync_venv_darwin//tqdm",
+        "@pypi//deep_translator:pkg",
+        "@pypi//tqdm:pkg",
     ],
 )
 

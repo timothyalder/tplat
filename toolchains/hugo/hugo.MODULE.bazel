@@ -1,0 +1,49 @@
+RULES_HUGO_COMMIT = "294a8ec626a394011d35397108c930be631ab9fa"
+
+bazel_dep(name = "build_stack_rules_hugo", version = "0.0.0")
+archive_override(
+    module_name = "build_stack_rules_hugo",
+    integrity = "sha256-jfNw83TccnAbZbfIqK3YzLhCOoRelzmT+pxo+LUWyb4=",
+    patch_args = ["-p0"],
+    patches = [
+        "//toolchains/hugo:rules_hugo_module.patch", 
+        "//toolchains/hugo:rules_hugo_extension.patch",
+        "//toolchains/hugo:rules_hugo_repository.patch",
+        # "//toolchains/hugo:rules_hugo_site.patch",
+    ],
+    strip_prefix = "rules_hugo-%s" % RULES_HUGO_COMMIT,
+    url = "https://github.com/stackb/rules_hugo/archive/%s.zip" % RULES_HUGO_COMMIT,
+)
+
+bazel_dep(name = "com_github_alex_shpak_hugo_book", version = "0.0.0")
+archive_override(
+    module_name = "com_github_alex_shpak_hugo_book",
+    build_file_content = """
+filegroup(
+    name = "files",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"]
+)
+    """,
+    integrity = "sha256-tK2yDQgre9+m741UMQd5jfxjQT5n6d1zzB3CXw0skqs=",
+    patch_args = ["-p0"],
+    patches = ["//toolchains/hugo:com_github_alex_shpak_hugo_book.patch"],
+    strip_prefix = "hugo-book-13",
+    url = "https://github.com/alex-shpak/hugo-book/archive/refs/tags/v13.tar.gz",
+)
+
+bazel_dep(name = "com_github_thegeeklab_hugo_geekdoc", version = "0.0.0")
+archive_override(
+    module_name = "com_github_thegeeklab_hugo_geekdoc",
+    build_file_content = """
+filegroup(
+    name = "files",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"]
+)
+    """,
+    patch_args = ["-p0"],
+    patches = ["//toolchains/hugo:com_github_thegeeklab_hugo_geekdoc.patch"],
+    integrity = "sha256-CjxpgYqjbsQxjA+2fym0mTY/8iqk9zvjLnUqIk7Ls5U=",
+    url = "https://github.com/thegeeklab/hugo-geekdoc/releases/download/v2.0.0/hugo-geekdoc.tar.gz",
+)

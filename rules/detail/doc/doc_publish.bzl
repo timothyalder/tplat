@@ -1,0 +1,52 @@
+load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_serve", "hugo_site", "hugo_theme")
+load(":doc_site_build.bzl", "doc_site_build")
+
+def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
+    supported_themes = ["book", "geekdoc"]
+    if theme not in supported_themes:
+        fail("theme must be one of {}, but got '{}'".format(supported_themes, theme))
+
+    doc_site_build(
+        name = name + "_site.prepare",
+        skip_validation = skip_validation,
+        theme = theme,
+        **kwargs
+    )
+
+    if not native.existing_rule("book"):
+        hugo_theme(
+            name = "book",
+            srcs = [
+                "@com_github_alex_shpak_hugo_book//:files",
+            ],
+        )
+
+    if not native.existing_rule("geekdoc"):
+        hugo_theme(
+            name = "geekdoc",
+            theme_name = "hugo-geekdoc",
+            srcs = [
+                "@com_github_thegeeklab_hugo_geekdoc//:files",
+            ],
+        )
+
+    native.filegroup(
+        name = name + "_site.prepare.config",
+        srcs = [":" + name + "_site.prepare"],
+        output_group = "config",
+    )
+
+    hugo_site(
+        name = name + "_site.build",
+        config = ":" + name + "_site.prepare.config",
+        content = [":" + name + "_site.prepare"],
+        # static = native.glob(["static/**"]),
+        layouts = ["//rules/detail/doc/data:layouts"],
+        theme = ":" + theme,
+    )
+
+    hugo_serve(
+        name = name + "_site.serve",
+        dep = [":" + name + "_site.build"],
+        quiet = False,  # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
+    )
