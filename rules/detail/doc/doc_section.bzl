@@ -35,27 +35,27 @@ def _doc_section_impl(ctx):
     ]
     for dep in ctx.attr.srcs:
         # Enable recursion (doc_section target in doc_section srcs)
-        if OutputGroupInfo in dep:
-            for section in dep.files.to_list():
-                section_files.append(section)
-                script_lines.append("cp -r '{src}' '{output}/{file}/'".format(
-                    src=section.path,
-                    output=output_dir.path,
-                    file=section.basename,
-                ))
+        if DocSectionInfo in dep:
+            section = dep[DocSectionInfo].output_dir
+            section_files.append(section)
+            script_lines.append("cp -r '{src}' '{output}/{file}/'".format(
+                src=section.path,
+                output=output_dir.path,
+                file=section.basename,
+            ))
         else:
-            for file in dep.files.to_list():
-                section_files.append(file)
-                assert_valid_extension(file)
-                script_lines.append("'{formatter}' '{src}' '{output}/{file}' --weight {weight}".format(
-                    formatter = formatter.path,
-                    src = file.path,
-                    output=output_dir.path,
+            file = dep.files.to_list()[0]
+            section_files.append(file)
+            assert_valid_extension(file)
+            script_lines.append("'{formatter}' '{src}' '{output}/{file}' --weight {weight}".format(
+                formatter = formatter.path,
+                src = file.path,
+                output=output_dir.path,
                     file = file.basename,
-                    weight=weight,
-                ))
-                weight += 10
-    for dep in ctx.attr.data:
+                weight=weight,
+            ))
+            weight += 10
+    for dep in ctx.attr.data: # Should be able to use ctx.files to remove unnecessary enumeration
         for file in dep.files.to_list():
             data_files.append(file)
             script_lines.append("cp '{src}' '{output}/{file}'".format(
@@ -77,7 +77,7 @@ def _doc_section_impl(ctx):
         progress_message="Building doc_section for %s" % ctx.attr.name,
         use_default_shell_env=True,
     )
-
+    
     return [
         DefaultInfo(
             executable = script,
