@@ -2,7 +2,6 @@ load("//rules:doc.bzl", "doc_section")
 
 doc_section(
     name = "docs",
-    index = "index.md",
     srcs = [
         "translate_srt.md",
         "//projects/budget/docs",
@@ -10,5 +9,6 @@ doc_section(
     data = [
         "//projects/translate/docs/data",
     ],
+    index = "index.md",
     visibility = ["//visibility:public"],
 )

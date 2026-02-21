@@ -1,8 +1,7 @@
-load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_site", "hugo_theme", "hugo_serve")
+load("@build_stack_rules_hugo//hugo:rules.bzl", "hugo_serve", "hugo_site", "hugo_theme")
 load(":doc_site_build.bzl", "doc_site_build")
 
 def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
-
     supported_themes = ["book", "geekdoc"]
     if theme not in supported_themes:
         fail("theme must be one of {}, but got '{}'".format(supported_themes, theme))
@@ -11,7 +10,7 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
         name = name + "_site.prepare",
         skip_validation = skip_validation,
         theme = theme,
-        **kwargs,
+        **kwargs
     )
 
     if not native.existing_rule("book"):
@@ -49,5 +48,5 @@ def doc_publish(name, theme = "book", skip_validation = False, **kwargs):
     hugo_serve(
         name = name + "_site.serve",
         dep = [":" + name + "_site.build"],
-        quiet = False, # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
+        quiet = False,  # Bugged https://github.com/stackb/rules_hugo/blob/294a8ec626a394011d35397108c930be631ab9fa/hugo/internal/hugo_site.bzl#L247-L248
     )
