@@ -20,7 +20,6 @@ def _doc_site_build_impl(ctx):
         "",
         "mkdir -p '{out}'".format(out = output_dir.path),
         "mkdir -p '{out}/data'".format(out = output_dir.path),
-        # Declare config
         "cp '{tmpl}' '{config}'".format(
             tmpl = ctx.file._config_tmpl.path,
             config = config.path,
@@ -31,10 +30,7 @@ def _doc_site_build_impl(ctx):
             config = config.path,
             theme = ctx.attr.theme,
         ),
-        # Copy index file
         "cp '{index}' '{out}/_index.md'".format(index = ctx.file.index.path, out = output_dir.path),
-        "",
-        "# Copy markdown and data files",
     ]
     for dep in ctx.attr.srcs:
         if DocSectionInfo in dep:
@@ -67,6 +63,7 @@ def _doc_site_build_impl(ctx):
                 out = output_dir.path,
                 file = file.basename,
             ))
+    print(section_files)
     deps = [config_tmpl, ctx.file.index] + section_files + data_files
     ctx.actions.write(
         output = script,
