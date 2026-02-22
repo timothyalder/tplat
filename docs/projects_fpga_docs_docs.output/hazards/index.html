@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hazards# The 1-bit multiplexer and 1-bit full adder exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.
+Note:
+All combinational circuits are asynchronous.
+Consider the previously defined 1-bit multiplexer.
+Figure 1: Schematic description of 1-bit MUX.
+Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_fpga_docs_docs.output/hazards/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Hazards">
+  <meta property="og:description" content="Hazards# The 1-bit multiplexer and 1-bit full adder exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.
+Note:
+All combinational circuits are asynchronous.
+Consider the previously defined 1-bit multiplexer.
+Figure 1: Schematic description of 1-bit MUX.
+Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Hazards">
+  <meta itemprop="description" content="Hazards# The 1-bit multiplexer and 1-bit full adder exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.
+Note:
+All combinational circuits are asynchronous.
+Consider the previously defined 1-bit multiplexer.
+Figure 1: Schematic description of 1-bit MUX.
+Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.">
+  <meta itemprop="wordCount" content="362">
+
+<title>Hazards | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_fpga_docs_docs.output/hazards/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="active">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Hazards</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#hazards">Hazards</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="hazards">Hazards<a class="anchor" href="#hazards">#</a></h1>
+<p>The <a href="../mux">1-bit multiplexer</a> and <a href="../full-adder">1-bit full adder</a> exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.</p>
+<blockquote class='book-hint '>
+<p><strong>Note:</strong></p></blockquote><blockquote class='book-hint '>
+<p>All combinational circuits are asynchronous.</p></blockquote><p>Consider the previously defined <a href="../mux">1-bit multiplexer</a>.</p>
+<p><img src="../mux-schematic.png" alt="1-bit MUX" />
+<strong>Figure 1:</strong> Schematic description of 1-bit MUX.</p>
+<p>Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.</p>
+<p>The Karnaugh map (<strong>Table 1</strong>) can also confirm the likely presence of hazards. This circuit is implemented as a sum of products. <em>1-hazards can exist where any two adjacent 1s in the table are not covered by the same prime implicant loop.</em> This is indeed the case for our MUX.</p>
+<p><strong>Table 1:</strong> Karnaugh map for 1-bit MUX.</p>
+<table>
+  <thead>
+      <tr>
+          <th>S\XY</th>
+          <th>00</th>
+          <th>10</th>
+          <th>11</th>
+          <th>01</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>0</strong></td>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td><strong>1</strong></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+      </tr>
+  </tbody>
+</table>
+<p>In the hazards subfolder, a new project of a MUX with delays is implemented in Vivado for a Basys 3 FPGA board, part number: xc7a35tcpg236-1, to demonstrated the impact of timing hazards.</p>
+<p>In demonstrating the timing hazards, we define the intermediate signals:</p>
+<p>$ C = S'$</p>
+<p>$ A = X\cdot S$</p>
+<p>$ B = Y \cdot C$</p>
+<p>We add a 5ns delay to each of these signals, then define $Z$ as $A + B$ also with a 5ns delay.</p>
+<p><img src="../timing-hazard.png" alt="1-bit MUX timing hazard" />
+<strong>Figure 1:</strong> Timing hazard for 1-bit MUX with delays. A timing hazard occurs in the output, Z, around timestamp 75ns.</p>
+<p>As shown in <strong>Figure 1</strong>, the delays introduce a timing hazard which manifests in the output Z around timestep 75ns. This timing hazard is caused by the delay in the transition of B, which leaves a 5ns period where both A and B are 0 meaning Z is 0.</p>
+<p>To resolve the hazard, we need to add the problematic prime implicant from the Karnaugh map to our Boolean logic expression. The new expression is given by:</p>
+<p>$Z = (Y\cdot S') | (X\cdot S) | (X\cdot Y)$</p>
+<p>Where the intermediate signal $D=X\cdot Y$.</p>
+<p><img src="../resolved-timing-hazard.png" alt="1-bit MUX resolved timing hazard" />
+<strong>Figure 2:</strong> The timing hazard is resolved by the new combinational logic expression.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>1-bit Full Addder</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="flex align-center">
+        <span>Overflow Counter</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#hazards">Hazards</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

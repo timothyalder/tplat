@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Verilog# Keywords# wire# wire keyword represents a physical wire in a circuit and is used to connect gates or modules.
+wire is a type of net that describes digital signals connecting multiple hardware elements.
+wire does not store its value but must be driven by a continuous assignment statement assign or by connecting it to the output of a gate or module.
+Value of a wire can be read or assigned inside a module but never inside procedural code such as intial or always blocks.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_fpga_docs_docs.output/verilog/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Verilog">
+  <meta property="og:description" content="Verilog# Keywords# wire# wire keyword represents a physical wire in a circuit and is used to connect gates or modules.
+wire is a type of net that describes digital signals connecting multiple hardware elements.
+wire does not store its value but must be driven by a continuous assignment statement assign or by connecting it to the output of a gate or module.
+Value of a wire can be read or assigned inside a module but never inside procedural code such as intial or always blocks.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Verilog">
+  <meta itemprop="description" content="Verilog# Keywords# wire# wire keyword represents a physical wire in a circuit and is used to connect gates or modules.
+wire is a type of net that describes digital signals connecting multiple hardware elements.
+wire does not store its value but must be driven by a continuous assignment statement assign or by connecting it to the output of a gate or module.
+Value of a wire can be read or assigned inside a module but never inside procedural code such as intial or always blocks.">
+  <meta itemprop="wordCount" content="1135">
+
+<title>Verilog | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_fpga_docs_docs.output/verilog/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="active">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Verilog</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#verilog">Verilog</a>
+      <ul>
+        <li><a href="#keywords">Keywords</a>
+          <ul>
+            <li><a href="#wire">wire</a></li>
+            <li><a href="#assign">assign</a></li>
+            <li><a href="#reg">reg</a></li>
+            <li><a href="#wire-vs-reg">wire vs reg</a></li>
+            <li><a href="#input-output-inout">input, output, inout</a></li>
+            <li><a href="#parameter">parameter</a></li>
+          </ul>
+        </li>
+        <li><a href="#number-specification">Number Specification</a></li>
+        <li><a href="#operators">Operators</a>
+          <ul>
+            <li><a href="#arithmetic-operators">Arithmetic Operators</a></li>
+            <li><a href="#relational-operators">Relational Operators</a></li>
+            <li><a href="#bit-wise-operators">Bit-wise Operators</a></li>
+            <li><a href="#logical-operators">Logical Operators</a></li>
+            <li><a href="#reduction-operators">Reduction Operators</a></li>
+            <li><a href="#shift-operators">Shift Operators</a></li>
+            <li><a href="#conditional-operators">Conditional Operators</a></li>
+          </ul>
+        </li>
+        <li><a href="#procedural-block">Procedural Block</a>
+          <ul>
+            <li><a href="#always">always</a></li>
+          </ul>
+        </li>
+        <li><a href="#blocking-and-non-blocking-assignments">Blocking and Non-Blocking Assignments</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="verilog">Verilog<a class="anchor" href="#verilog">#</a></h1>
+<h2 id="keywords">Keywords<a class="anchor" href="#keywords">#</a></h2>
+<h3 id="wire">wire<a class="anchor" href="#wire">#</a></h3>
+<p><code>wire</code> keyword represents a physical wire in a circuit and is used to connect gates or modules.</p>
+<p><code>wire</code> is a type of net that describes digital signals connecting multiple hardware elements.</p>
+<p><code>wire</code> does not store its value but must be driven by a continuous assignment statement <code>assign</code> or by connecting it to the output of a gate or module.</p>
+<p>Value of a wire can be read or assigned inside a module but <strong>never inside procedural code</strong> such as <code>intial</code> or <code>always</code> blocks.</p>
+<p><code>wire</code> must be a bit or a bus.</p>
+<pre tabindex="0"><code>wire c // simple wire
+assign c = a || b; // a or b
+wire [9:0] A; // a cable (vector) of 10 wires</code></pre><h3 id="assign">assign<a class="anchor" href="#assign">#</a></h3>
+<p><code>assign</code> describes an interconnection between wires.</p>
+<p>Allows you to connect inputs and output directly, without the need for a procedural block.</p>
+<p>Values are immediately updated whenever the input values change. Continuous assignment, meaning:</p>
+<ul>
+<li>order does not matter</li>
+<li>must avoid feedback</li>
+</ul>
+<p><strong>You cannot use <code>assign</code> to allocate value to a <code>reg</code></strong></p>
+<pre tabindex="0"><code>wire K, X, Y, Z;
+wire [3:0] W;
+assign W=4&#39;d15;
+assign X=Y+Z;
+assign K=Y&amp;Z;</code></pre><p>Multiple driver issue:</p>
+<pre tabindex="0"><code>wire X, Y;
+assign Y=X;
+assign Y=~X;</code></pre><p>Feedback issue:</p>
+<pre tabindex="0"><code>wire Z;
+assign Z=~Z;</code></pre><h3 id="reg">reg<a class="anchor" href="#reg">#</a></h3>
+<p><code>reg</code> is a data object that holds its value from one procedural assignment to the next.</p>
+<p>It does not necessarily imply a physical register or flip-flop.</p>
+<p>It can be used to store values of both sequential and combinational logic.</p>
+<p>Its value can always only be assigned inside the module where it is declared or by a procedural block like <code>always</code> and <code>initial</code>.</p>
+<pre tabindex="0"><code>reg a; // single 1-bit register variable
+reg [7:0] tom; // an 8-bit vector; a bank of 8 registers
+reg [5:0] b, c; // two 6-bit variables</code></pre><h3 id="wire-vs-reg">wire vs reg<a class="anchor" href="#wire-vs-reg">#</a></h3>
+<pre tabindex="0"><code>module my_module (
+input a, input b, input reset, input enable, input clk, output reg c, output wire [3:0] led);
+    reg d;
+    reg [3:0] count
+
+    // combinational logic
+    always @(*) begin
+        if (a &amp; b) d = 1;
+        else d = 0;
+        if (a | b) c = d;
+    end
+
+    // sequential logic
+    always @(posedge clk) begin
+        if (reset) count &lt;= 4&#39;b0000;
+        else if (enable) count &lt;= count + 1;
+    end
+        assign led = count;
+endmodule</code></pre><h3 id="input-output-inout">input, output, inout<a class="anchor" href="#input-output-inout">#</a></h3>
+<p>Define input, output, and bidirectional ports of a module through which it communicates with the outside world or other modules.</p>
+<p>An input port can only be read and its value cannot be changed by the module.</p>
+<p>Input and inout ports are of type <code>wire</code>.</p>
+<p>Output can be <code>wire</code> or <code>reg</code> depending on how the signal is generated inside the module.</p>
+<p>Defaults to <code>wire</code>.</p>
+<pre tabindex="0"><code>module Mymod (X,Y,Z);
+    input wire X, Y;
+    output wire Z;
+    wire W;
+    assign Z = Y &amp; W;
+    assign W = ~(X); // order? X is input so assume W gets set before Z?
+endmodule</code></pre><h3 id="parameter">parameter<a class="anchor" href="#parameter">#</a></h3>
+<p>Defines a constant that can be used throughout the design or can be set when you instantiate a module.</p>
+<p>Allows customisation of a module during instantiation.</p>
+<p>Can be used to define constants that are used multiple times in the design, such as clock periods, bus widths, or memory depths.</p>
+<p>Parameters can be specified as integers, real numbers, or strings.</p>
+<pre tabindex="0"><code>parameter n = 4;
+...
+reg [n-1:0] harry; // A 4-bit register whose length is set by paramater n above</code></pre><h2 id="number-specification">Number Specification<a class="anchor" href="#number-specification">#</a></h2>
+<p>Two types of number specification in Verilog: sized and unsized.</p>
+<p><code>&lt;size&gt;'&lt;base format&gt;&lt;number&gt;</code></p>
+<p><code>&lt;size&gt;</code> is written only in decimal and specifies the number of bits in the number.</p>
+<p><code>&lt;base format&gt;</code> can be decimal (d or D), hexadecimal (h or H), binary (b or B) and octal (o or O). By default, is decimal.</p>
+<p><code>&lt;number&gt;</code> is string of digits of base given in <code>&lt;base format&gt;</code></p>
+<pre tabindex="0"><code>8&#39;b00000101;
+8&#39;b101; // leading zeros omitted
+8&#39;h2C;
+8&#39;0001001110; redundant two leading zeros
+4&#39;bz;
+12&#39;habc;
+16&#39;d255;</code></pre><h2 id="operators">Operators<a class="anchor" href="#operators">#</a></h2>
+<p>Operators are <code>unary</code>, <code>binary</code> or <code>ternary</code>.</p>
+<h3 id="arithmetic-operators">Arithmetic Operators<a class="anchor" href="#arithmetic-operators">#</a></h3>
+<pre tabindex="0"><code>+ (addition)
+- (subtraction)
+* (multiplication)
+/ (division)
+% (modulo)</code></pre><h3 id="relational-operators">Relational Operators<a class="anchor" href="#relational-operators">#</a></h3>
+<pre tabindex="0"><code>&lt; (less than)
+&lt;= (less than or equal to)
+&gt; (greater than)
+&gt;= (greater than or equal to)
+== (equal to)
+!= (not equal to)</code></pre><h3 id="bit-wise-operators">Bit-wise Operators<a class="anchor" href="#bit-wise-operators">#</a></h3>
+<pre tabindex="0"><code>~ (bitwise NOT)
+&amp; (bitwise AND)
+| (bitwise OR)
+^ (bitwise XOR)
+~^ or ^~ (bitwise XNOR)</code></pre><h3 id="logical-operators">Logical Operators<a class="anchor" href="#logical-operators">#</a></h3>
+<pre tabindex="0"><code>! (logical NOT)
+&amp;&amp; (logical AND)
+|| (logical OR)</code></pre><h3 id="reduction-operators">Reduction Operators<a class="anchor" href="#reduction-operators">#</a></h3>
+<p>Perform a reduction operation on a vector operand and returns a single result.</p>
+<pre tabindex="0"><code>&amp; (reduction AND)
+| (reduction OR)
+~&amp; (reduction NAND)
+~| (reduction NOR)
+^ (reduction XOR)
+~^ or ^~ (reduction XNOR)</code></pre><h3 id="shift-operators">Shift Operators<a class="anchor" href="#shift-operators">#</a></h3>
+<pre tabindex="0"><code>&lt;&lt; (shift left)
+&gt;&gt; (shift right)</code></pre><h3 id="conditional-operators">Conditional Operators<a class="anchor" href="#conditional-operators">#</a></h3>
+<p>Conditional operators <code>?</code> evaluates one of the two expressions based on a condition. It synthesises to a MUX.</p>
+<p><code>(cond)?(result if cond true):(result if cond false)</code></p>
+<pre tabindex="0"><code>assign a = (g) ? x : y; // a==x if g else y</code></pre><h2 id="procedural-block">Procedural Block<a class="anchor" href="#procedural-block">#</a></h2>
+<h3 id="always">always<a class="anchor" href="#always">#</a></h3>
+<p>Verilog supports behavioural design, i.e., a description of what a module does. This is done through blocks of procedural code, which are introduced by the keyword <code>always</code>.</p>
+<p><code>always</code> can be used to imply both sequential and combinational logic.</p>
+<p>Procedural statements execute sequentially, but <code>always</code> block itself execute concurrently with other statements in the same module.</p>
+<pre tabindex="0"><code>always @ (sensitivity list)
+    begin
+        ... procedural statements ...
+    end</code></pre><p>Sensitivity list is a list of signals. The <code>always</code> block is executed whenever one of these signals changes. <code>*</code> is a special one-fits-all.</p>
+<p><strong>Left hand terms in assignments inside an <code>always</code> block are always of type <code>reg</code>.</strong></p>
+<p>Different procedural statements can be include in the <code>always</code> block:</p>
+<ul>
+<li><code>if ... else</code></li>
+<li><code>case</code></li>
+<li><code>for</code> loop</li>
+<li><code>while</code> loop</li>
+</ul>
+<h4 id="combinational-logic">Combinational Logic<a class="anchor" href="#combinational-logic">#</a></h4>
+<p>Combinational logic is defined using an <code>always @ (*)</code> block. In this case, the sensitivity list automatically includes all signals found on the RHS of any assignment or as the argument of functions.</p>
+<p>Statements in such block are executed in zero &ldquo;circuit time&rdquo;, so you have to be careful not to create feedback loops. For example:</p>
+<pre tabindex="0"><code>always @ (*) begin
+    X = Y | Z;
+    Y = X ^ W;
+end</code></pre><p>In the above case, each time the block is executed the value of a RHS term is changed (actually, two: X, Y), causing the block to be executed again for infinity.</p>
+<h4 id="sequential-logic">Sequential Logic<a class="anchor" href="#sequential-logic">#</a></h4>
+<p>Defined using:</p>
+<pre tabindex="0"><code>always @ (posedge &lt;event&gt;)
+always @ (negedge &lt;event&gt;)</code></pre><h2 id="blocking-and-non-blocking-assignments">Blocking and Non-Blocking Assignments<a class="anchor" href="#blocking-and-non-blocking-assignments">#</a></h2>
+<p>Blocking assignments <code>=</code> mean the right side expression is evaluated and assigned to the left-hand side variable immediately, blocking any other assignments until complete. The next statement in the procedural block cannot be executed until the blocking assignment is completed.</p>
+<ul>
+<li>Typically used to model combinational logic.</li>
+</ul>
+<p>Non-blocking assignments <code>&lt;=</code> mean the right side expression is evaluated but the value is not assigned until all other assignments in the same procedural block have been evaluated. Other statements can be executed in parallel with the non-blocking assignment.</p>
+<ul>
+<li>Typically used to model sequential logic and concurrent data transfers</li>
+<li>Used in procedural block of type <code>always @ (posedge clk)</code></li>
+</ul>
+<p><strong>It is recommended that blocking and non-blocking assignments not be mixed in the same procedural <code>always</code> block.</strong></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>FPGA</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/mux/" class="flex align-center">
+        <span>1-bit MUX</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#verilog">Verilog</a>
+      <ul>
+        <li><a href="#keywords">Keywords</a>
+          <ul>
+            <li><a href="#wire">wire</a></li>
+            <li><a href="#assign">assign</a></li>
+            <li><a href="#reg">reg</a></li>
+            <li><a href="#wire-vs-reg">wire vs reg</a></li>
+            <li><a href="#input-output-inout">input, output, inout</a></li>
+            <li><a href="#parameter">parameter</a></li>
+          </ul>
+        </li>
+        <li><a href="#number-specification">Number Specification</a></li>
+        <li><a href="#operators">Operators</a>
+          <ul>
+            <li><a href="#arithmetic-operators">Arithmetic Operators</a></li>
+            <li><a href="#relational-operators">Relational Operators</a></li>
+            <li><a href="#bit-wise-operators">Bit-wise Operators</a></li>
+            <li><a href="#logical-operators">Logical Operators</a></li>
+            <li><a href="#reduction-operators">Reduction Operators</a></li>
+            <li><a href="#shift-operators">Shift Operators</a></li>
+            <li><a href="#conditional-operators">Conditional Operators</a></li>
+          </ul>
+        </li>
+        <li><a href="#procedural-block">Procedural Block</a>
+          <ul>
+            <li><a href="#always">always</a></li>
+          </ul>
+        </li>
+        <li><a href="#blocking-and-non-blocking-assignments">Blocking and Non-Blocking Assignments</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

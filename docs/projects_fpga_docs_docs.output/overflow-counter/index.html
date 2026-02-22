@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Overflow Counter# An overflow counter is a counter that can overflow back to zero when it fills up.
+In the overflow counter subfolder, a 32-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1.
+The counter has 3 inputs: (1) clk, (2) reset, and (3) enable with the output being a 16-bit bus entity called led. The counter has the following behaviour:
+At every positive (i.e., rising) edge of the clk signal, the counter’s value increases by 1. This is achieved using a procedural block that will be edge-triggered by the clock. This is specified by the condition posedge clk. For condition reset == 1, the counter’s value resets to 0. When reset == 0, the counter increments. The counter increments when enabled (i.e., enable == 1) and stops incrementing when disbled (enable == 0). The full procedural block describing this behaviour is given by:
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_fpga_docs_docs.output/overflow-counter/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Overflow Counter">
+  <meta property="og:description" content="Overflow Counter# An overflow counter is a counter that can overflow back to zero when it fills up.
+In the overflow counter subfolder, a 32-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1.
+The counter has 3 inputs: (1) clk, (2) reset, and (3) enable with the output being a 16-bit bus entity called led. The counter has the following behaviour:
+At every positive (i.e., rising) edge of the clk signal, the counter’s value increases by 1. This is achieved using a procedural block that will be edge-triggered by the clock. This is specified by the condition posedge clk. For condition reset == 1, the counter’s value resets to 0. When reset == 0, the counter increments. The counter increments when enabled (i.e., enable == 1) and stops incrementing when disbled (enable == 0). The full procedural block describing this behaviour is given by:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Overflow Counter">
+  <meta itemprop="description" content="Overflow Counter# An overflow counter is a counter that can overflow back to zero when it fills up.
+In the overflow counter subfolder, a 32-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1.
+The counter has 3 inputs: (1) clk, (2) reset, and (3) enable with the output being a 16-bit bus entity called led. The counter has the following behaviour:
+At every positive (i.e., rising) edge of the clk signal, the counter’s value increases by 1. This is achieved using a procedural block that will be edge-triggered by the clock. This is specified by the condition posedge clk. For condition reset == 1, the counter’s value resets to 0. When reset == 0, the counter increments. The counter increments when enabled (i.e., enable == 1) and stops incrementing when disbled (enable == 0). The full procedural block describing this behaviour is given by:">
+  <meta itemprop="wordCount" content="300">
+
+<title>Overflow Counter | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_fpga_docs_docs.output/overflow-counter/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="active">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Overflow Counter</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overflow-counter">Overflow Counter</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="overflow-counter">Overflow Counter<a class="anchor" href="#overflow-counter">#</a></h1>
+<p>An overflow counter is a counter that can overflow back to zero when it fills up.</p>
+<p>In the overflow counter subfolder, a 32-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1.</p>
+<p>The counter has 3 inputs: (1) <code>clk</code>, (2) <code>reset</code>, and (3) <code>enable</code> with the output being a 16-bit bus entity called <code>led</code>. The counter has the following behaviour:</p>
+<ul>
+<li>At every positive (i.e., rising) edge of the <code>clk</code> signal, the counter&rsquo;s value increases by 1. This is achieved using a procedural block that will be edge-triggered by the clock. This is specified by the condition <code>posedge clk</code>.</li>
+<li>For condition <code>reset == 1</code>, the counter&rsquo;s value resets to 0. When <code>reset == 0</code>, the counter increments.</li>
+<li>The counter increments when enabled (i.e., <code>enable == 1</code>) and stops incrementing when disbled (<code>enable == 0</code>).</li>
+</ul>
+<p>The full procedural block describing this behaviour is given by:</p>
+<pre tabindex="0"><code>always @(posedge clk) begin
+    if (reset == 1’b1) begin
+        counter &lt;= 32’d0;
+    end else if (enable == 1’b1) begin
+        counter &lt;= counter + 1’b1;
+    end else begin
+        counter &lt;= counter; // redundant but harmless line
+    end
+end</code></pre><blockquote class='book-hint '>
+<p><strong>Note:</strong></p></blockquote><blockquote class='book-hint '>
+<p>The contents of <code>@(...)</code> is called a sensitivity list and describes the conditions or events that will activate the process. In this case, our sensitivity list says to enter the procedural block for every rising edge of <code>clk</code>.</p></blockquote><blockquote class='book-hint '>
+<p>This type of procedural b lock is called a <em>clocked process</em> and forms the basis of practically all sequential logic designs in FPGAs. Without clocked processes, the design cannot support dynamic states (i.e., memory, operations, events or conditions that vary over time)</p></blockquote><blockquote class='book-hint '>
+<p><strong>Note:</strong></p></blockquote><blockquote class='book-hint '>
+<p>The operator <code>&lt;=</code> is used to make the assignment instead of using just an equal sign. The operator <code>&lt;=</code> introduces a nonblocking assignment. <strong>You should always use nonblocking assignments inside clocked processes.</strong></p></blockquote></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Hazards</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="flex align-center">
+        <span>Clock Division</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overflow-counter">Overflow Counter</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

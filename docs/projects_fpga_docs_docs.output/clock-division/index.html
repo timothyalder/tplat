@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Clock Division# The overflow counter project uses a 100 MHz clock signal. In many cases, it is necessary to generate clock signals slower than 100 Hz. A very efficient way to do this is to perform clock division using an overflow counter.
+Clock Division using an Overflow Counter# The simplest way to generate a clock divided by a factor of $2^n$ is to output the (n-1)th bit of an overflow counter (n-1 because bus indexing starts at 0).
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_fpga_docs_docs.output/clock-division/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Clock Division">
+  <meta property="og:description" content="Clock Division# The overflow counter project uses a 100 MHz clock signal. In many cases, it is necessary to generate clock signals slower than 100 Hz. A very efficient way to do this is to perform clock division using an overflow counter.
+Clock Division using an Overflow Counter# The simplest way to generate a clock divided by a factor of $2^n$ is to output the (n-1)th bit of an overflow counter (n-1 because bus indexing starts at 0).">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Clock Division">
+  <meta itemprop="description" content="Clock Division# The overflow counter project uses a 100 MHz clock signal. In many cases, it is necessary to generate clock signals slower than 100 Hz. A very efficient way to do this is to perform clock division using an overflow counter.
+Clock Division using an Overflow Counter# The simplest way to generate a clock divided by a factor of $2^n$ is to output the (n-1)th bit of an overflow counter (n-1 because bus indexing starts at 0).">
+  <meta itemprop="wordCount" content="393">
+
+<title>Clock Division | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_fpga_docs_docs.output/clock-division/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="active">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Clock Division</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#clock-division">Clock Division</a>
+      <ul>
+        <li><a href="#clock-division-using-an-overflow-counter">Clock Division using an Overflow Counter</a></li>
+        <li><a href="#flexible-clock-division-and-heartbeat-generator">Flexible Clock Division and Heartbeat Generator</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="clock-division">Clock Division<a class="anchor" href="#clock-division">#</a></h1>
+<p>The <a href="../overflow-counter">overflow counter</a> project uses a 100 MHz clock signal. In many cases, it is necessary to generate clock signals slower than 100 Hz. A very efficient way to do this is to perform clock division using an overflow counter.</p>
+<h2 id="clock-division-using-an-overflow-counter">Clock Division using an Overflow Counter<a class="anchor" href="#clock-division-using-an-overflow-counter">#</a></h2>
+<p>The simplest way to generate a clock divided by a factor of $2^n$ is to output the (n-1)th  bit of an overflow counter (n-1 because bus indexing starts at 0).</p>
+<p>Consider a 4-bit counter being incremented at a rate of 100 MHz.</p>
+<p><img src="../clock-division-overflow-counter.png" alt="Clock division using a 4-bit overflow counter" />
+<strong>Figure 1:</strong> 4-bit overflow counter timing diagram.</p>
+<p>The LSB is of the 4-bit counter is a periodic signal with a frequency of $\frac{100 MHz}{2^1}=50MHz$. The MSB is a preiodic signal with a frequency of $\frac{100 MHz}{2^4}=6.25 MHz$.</p>
+<p>So, if we want to derive a 1 Hz clock from the 100 MHz master clock, we can rearrange the following equation:</p>
+<p>$f_{div}=\frac{f_{clk}}{2^n}$</p>
+<p>$\therefore n=log_2(\frac{f_{clk}}{f_{div}})$</p>
+<p>Solving for $n=26.5754$. Because our overflow counter must be an integer power of 2, rounding to the nearest integer gives 27, which corresponds to a clock with a frequency of 0.7451 Hz.</p>
+<p>In the clock division subfolder, a 27-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1 and used to create a 0.7451 Hz clock.</p>
+<h2 id="flexible-clock-division-and-heartbeat-generator">Flexible Clock Division and Heartbeat Generator<a class="anchor" href="#flexible-clock-division-and-heartbeat-generator">#</a></h2>
+<p>To overcome the limitations of $2^n$ clock division, we need a more flexible method of resetting a counter when it reaches a specific value rather than relying on its periodic overflow behaviour.</p>
+<p>Unlike the clock, which usually have a 50% duty cycle, a <strong>heartbeat</strong> is a signal that delivers a pulse of one clock cycle duration at regular intervals.</p>
+<p><img src="../heartbeat.png" alt="Clock comparisons" />
+<strong>Figure 2:</strong> Example of original clock, divided clock, and a heartbeat.</p>
+<p>With a heartbeat, we can create periodic events occuring at arbitrary subdivisions of the 100 MHz master clock.</p>
+<p>In the clock division subfolder, a heartbeat clock divider is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1 and used to create a 1 Hz clock. Notably, the <code>THRESHOLD</code> parameter can be changed to create heartbeat signals of arbitrary frequencies.</p>
+<p>$f_{heartbeat}=\frac{f_{clk}}{2\times THRESHOLD}$</p>
+<p>Additionally, the clock_divider_HB_2 folder includes an additional parameter <code>ON_TIME</code> that allows the use to change the duty cycle of the heartbeat signal.</p>
+<p>$D_{heartbeat}=\frac{f_{clk}}{ON\_TIME}$</p>
+<blockquote class='book-hint '>
+<p><strong>Note:</strong></p></blockquote><blockquote class='book-hint '>
+<p>Parameters can be used to declare constants. Parameters are useful to support a powerful coding technique called parameter substitution.</p></blockquote></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Overflow Counter</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="flex align-center">
+        <span>Seven Segment Display</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#clock-division">Clock Division</a>
+      <ul>
+        <li><a href="#clock-division-using-an-overflow-counter">Clock Division using an Overflow Counter</a></li>
+        <li><a href="#flexible-clock-division-and-heartbeat-generator">Flexible Clock Division and Heartbeat Generator</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

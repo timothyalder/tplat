@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RSA# Overview# RSA is a public-key (asymmetric) cryptosystem based on the computational difficulty of integer factorisation. It was publicly introduced in 1977 by Rivest, Shamir, and Adleman, following earlier classified work at GCHQ by James Ellis, Clifford Cocks, and Malcolm Williamson.
+RSA provides:
+Confidentiality via public-key encryption Authentication and non-repudiation via digital signatures It is a canonical example of a trapdoor one-way function (../index)).
+Cryptographic Model# Let:
+$M$ be the set of all possible plaintext messages, with $m \in M$ $K$ be the set of all keys, with $k \in K$ For each $k \in K$, there exist two efficiently computable functions:
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="RSA">
+  <meta property="og:description" content="RSA# Overview# RSA is a public-key (asymmetric) cryptosystem based on the computational difficulty of integer factorisation. It was publicly introduced in 1977 by Rivest, Shamir, and Adleman, following earlier classified work at GCHQ by James Ellis, Clifford Cocks, and Malcolm Williamson.
+RSA provides:
+Confidentiality via public-key encryption Authentication and non-repudiation via digital signatures It is a canonical example of a trapdoor one-way function (../index)).
+Cryptographic Model# Let:
+$M$ be the set of all possible plaintext messages, with $m \in M$ $K$ be the set of all keys, with $k \in K$ For each $k \in K$, there exist two efficiently computable functions:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+
+  <meta itemprop="name" content="RSA">
+  <meta itemprop="description" content="RSA# Overview# RSA is a public-key (asymmetric) cryptosystem based on the computational difficulty of integer factorisation. It was publicly introduced in 1977 by Rivest, Shamir, and Adleman, following earlier classified work at GCHQ by James Ellis, Clifford Cocks, and Malcolm Williamson.
+RSA provides:
+Confidentiality via public-key encryption Authentication and non-repudiation via digital signatures It is a canonical example of a trapdoor one-way function (../index)).
+Cryptographic Model# Let:
+$M$ be the set of all possible plaintext messages, with $m \in M$ $K$ be the set of all keys, with $k \in K$ For each $k \in K$, there exist two efficiently computable functions:">
+  <meta itemprop="wordCount" content="636">
+
+<title>RSA | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+<link rel="alternate" type="application/rss+xml" href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/index.xml" title="tplat" />
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-section book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="active">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>RSA</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#rsa">RSA</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#cryptographic-model">Cryptographic Model</a></li>
+        <li><a href="#mathematical-foundation">Mathematical Foundation</a>
+          <ul>
+            <li><a href="#primes">Primes</a></li>
+          </ul>
+        </li>
+        <li><a href="#key-generation">Key Generation</a></li>
+        <li><a href="#encryption-and-decryption">Encryption and Decryption</a>
+          <ul>
+            <li><a href="#encryption">Encryption</a></li>
+            <li><a href="#decryption">Decryption</a></li>
+          </ul>
+        </li>
+        <li><a href="#security-properties">Security Properties</a></li>
+        <li><a href="#historical-context">Historical Context</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="rsa">RSA<a class="anchor" href="#rsa">#</a></h1>
+<h2 id="overview">Overview<a class="anchor" href="#overview">#</a></h2>
+<p><strong>RSA</strong> is a public-key (asymmetric) cryptosystem based on the computational difficulty of integer factorisation. It was publicly introduced in 1977 by <strong>Rivest, Shamir, and Adleman</strong>, following earlier classified work at <strong>GCHQ</strong> by <strong>James Ellis</strong>, <strong>Clifford Cocks</strong>, and <strong>Malcolm Williamson</strong>.</p>
+<p>RSA provides:</p>
+<ul>
+<li><strong>Confidentiality</strong> via public-key encryption</li>
+<li><strong>Authentication and non-repudiation</strong> via digital signatures</li>
+</ul>
+<p>It is a canonical example of a <strong>trapdoor one-way function</strong> (../index)).</p>
+<hr>
+<h2 id="cryptographic-model">Cryptographic Model<a class="anchor" href="#cryptographic-model">#</a></h2>
+<p>Let:</p>
+<ul>
+<li>$M$ be the set of all possible plaintext messages, with $m \in M$</li>
+<li>$K$ be the set of all keys, with $k \in K$</li>
+</ul>
+<p>For each $k \in K$, there exist two efficiently computable functions:</p>
+<ul>
+<li><strong>Encryption:</strong> $E_k : M \rightarrow M$</li>
+<li><strong>Decryption:</strong> $D_k : M \rightarrow M$</li>
+</ul>
+<p>A <strong>public-key cryptosystem</strong> satisfies the following properties:</p>
+<ol>
+<li>
+<p><strong>Correctness</strong>
+For all $m \in M$ and $k \in K$:
+</p>
+$$
+   D_k(E_k(m)) = m
+   $$</li>
+<li>
+<p><strong>Efficiency</strong>
+Both $E_k(m)$ and $D_k(m)$ are computationally feasible to compute.</p>
+</li>
+<li>
+<p><strong>One-wayness</strong>
+Given only $E_k$, it is computationally infeasible to derive $D_k$.</p>
+</li>
+<li>
+<p><strong>Key derivability</strong>
+Given $k$, it is easy to compute both $E_k$ and $D_k$.</p>
+</li>
+</ol>
+<p>If these conditions are met, $E_k$ is called a <strong>trapdoor one-way permutation</strong>: easy to compute in one direction, but infeasible to invert without secret information (the <em>trapdoor</em>).</p>
+<p>In RSA:</p>
+<ul>
+<li>The <strong>encryption key</strong> is made public.</li>
+<li>The <strong>decryption key</strong> is kept private by the recipient.</li>
+</ul>
+<p>This asymmetry eliminates the key-sharing problem inherent to <strong>symmetric cryptography</strong> (../index)).</p>
+<hr>
+<h2 id="mathematical-foundation">Mathematical Foundation<a class="anchor" href="#mathematical-foundation">#</a></h2>
+<p>RSA relies on the fact that:</p>
+<ul>
+<li><strong>Integer multiplication</strong> is computationally easy</li>
+<li><strong>Integer factorisation</strong> is computationally hard for sufficiently large numbers</li>
+</ul>
+<h3 id="primes">Primes<a class="anchor" href="#primes">#</a></h3>
+<blockquote class='book-hint '>
+<p><strong>Prime number</strong>
+An integer $p$ is <em>prime</em> if $p \neq \pm 1$ and its only divisors are $\pm 1$ and $\pm p$.
+Integers that are not prime are called <em>composite</em>.</p></blockquote><hr>
+<h2 id="key-generation">Key Generation<a class="anchor" href="#key-generation">#</a></h2>
+<ol>
+<li>Choose two large distinct prime numbers $p$ and $q$
+(typically hundreds or thousands of bits each)</li>
+</ol>
+<blockquote class='book-hint '>
+<p><strong>Note:</strong></p>
+<p>In 1977, Martin Gardner published a column in Scientific America with a message encrypted using RSA-129 (129 indicating 129-bits). The purpose of the message was to highlight the security of the RSA encryption method. 17 years later, the message was finally decoded. The factorisation was performed over 6 months by a team of 600 volunteer researchers using approximately 1600 computers.</p>
+<pre tabindex="0"><code class="language-RSA-129" data-lang="RSA-129">RSA-129 = 3490529510847650949147849619903898133417764638493387843990820577 * 32769132993266709549961988190834461413177642967992942539798288533</code></pre><p>When decrypted using the factorization the message was revealed to be <em>&ldquo;The Magic Words are Squeamish Ossifrage&rdquo;</em>.</p>
+<p>In 2015, RSA-129 was factored in about one day, with the CADO-NFS open source implementation of number field sieve, using a commercial cloud computing service for about $30.[12]</p>
+<p>Present implementations of RSA use 1024-2048 bits. This would take millions of years to break (many orders of magnitude longer than the age of the universe). <a href="https://www.youtube.com/watch?v=S9JGmA5_unY">This 3Blue1Brown video</a> gives a helpful intuitive explanation of just how large this is.</p></blockquote><ol start="2">
+<li>
+<p>Compute:
+</p>
+$$
+   n = pq
+   $$</li>
+<li>
+<p>Compute Euler’s totient:
+</p>
+$$
+   \varphi(n) = (p-1)(q-1)
+   $$</li>
+<li>
+<p>Choose an integer $e$ such that:
+</p>
+$$
+   1 < e < \varphi(n), \quad \gcd(e, \varphi(n)) = 1
+   $$</li>
+<li>
+<p>Compute $d$ such that:
+</p>
+$$
+   ed \equiv 1 \pmod{\varphi(n)}
+   $$</li>
+</ol>
+<hr>
+<h2 id="encryption-and-decryption">Encryption and Decryption<a class="anchor" href="#encryption-and-decryption">#</a></h2>
+<ul>
+<li><strong>Public key:</strong> $(e, n)$</li>
+<li><strong>Private key:</strong> $(d, n)$</li>
+</ul>
+<h3 id="encryption">Encryption<a class="anchor" href="#encryption">#</a></h3>
+<p>To encrypt a message $m$:</p>
+<ol>
+<li>Encode $m$ as an integer such that $0 \le m < n$</li>
+<li>Compute the ciphertext:
+$$
+   c \equiv m^e \pmod{n}
+   $$</li>
+</ol>
+<h3 id="decryption">Decryption<a class="anchor" href="#decryption">#</a></h3>
+<p>To decrypt a ciphertext $c$:</p>
+$$
+m \equiv c^d \pmod{n}
+$$<p>Correctness follows from Euler’s theorem and the construction of $e$ and $d$.</p>
+<hr>
+<h2 id="security-properties">Security Properties<a class="anchor" href="#security-properties">#</a></h2>
+<ul>
+<li>RSA security depends on the difficulty of factoring $n$ into $p$ and $q$</li>
+<li>Knowledge of $\varphi(n)$ allows recovery of $d$</li>
+<li>Factoring $n$ efficiently breaks RSA</li>
+</ul>
+<blockquote class='book-hint '>
+<p><strong>Important:</strong>
+RSA is deterministic and insecure without padding. Practical implementations use schemes such as <strong>OAEP</strong> for encryption and <strong>PSS</strong> for signatures.</p></blockquote><hr>
+<h2 id="historical-context">Historical Context<a class="anchor" href="#historical-context">#</a></h2>
+<ul>
+<li>Conceptual foundations developed at <strong>GCHQ</strong> in the early 1970s</li>
+<li>First public description by <strong>Rivest, Shamir, and Adleman</strong> (1977)</li>
+<li>Early deployment limited to governments and large institutions</li>
+<li>Popularised via <strong>PGP</strong>, which uses RSA to encrypt symmetric session keys</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Asymmetric Cryptography</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="flex align-center">
+        <span>Eliptic-Curve Cryptography</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#rsa">RSA</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#cryptographic-model">Cryptographic Model</a></li>
+        <li><a href="#mathematical-foundation">Mathematical Foundation</a>
+          <ul>
+            <li><a href="#primes">Primes</a></li>
+          </ul>
+        </li>
+        <li><a href="#key-generation">Key Generation</a></li>
+        <li><a href="#encryption-and-decryption">Encryption and Decryption</a>
+          <ul>
+            <li><a href="#encryption">Encryption</a></li>
+            <li><a href="#decryption">Decryption</a></li>
+          </ul>
+        </li>
+        <li><a href="#security-properties">Security Properties</a></li>
+        <li><a href="#historical-context">Historical Context</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

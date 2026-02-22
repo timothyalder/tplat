@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Polyalphabetic Substitution Cipher# A polyalphabetic substitution cipher uses multiple substitution alphabets during encryption.
+Letter mappings change throughout the message Reduces the effectiveness of frequency analysis Introduces periodic structure Vigenère Cipher# The Vigenère cipher was once called le chiffre indéchiffrable (“the indecipherable cipher”).
+Invented in 1467 Popularized centuries later Uses a repeating keyword Encryption Process# Choose a keyword Align keyword with plaintext Apply Caesar shift per letter Repeat keyword cyclically Cryptanalysis# Claimed unbreakable for centuries Broken by Charles Babbage (unpublished) Publicly broken by Friedrich Kasiski Kasiski Examination# Identify repeated ciphertext sequences Measure distances between repetitions Compute common factors Estimate keyword length Split ciphertext by period Apply frequency analysis to each slice Reconstruct plaintext Notes# Breaks polyalphabetic cipher into multiple monoalphabetic ones Periodicity is the core weakness ">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Polyalphabetic Substitution Cipher">
+  <meta property="og:description" content="Polyalphabetic Substitution Cipher# A polyalphabetic substitution cipher uses multiple substitution alphabets during encryption.
+Letter mappings change throughout the message Reduces the effectiveness of frequency analysis Introduces periodic structure Vigenère Cipher# The Vigenère cipher was once called le chiffre indéchiffrable (“the indecipherable cipher”).
+Invented in 1467 Popularized centuries later Uses a repeating keyword Encryption Process# Choose a keyword Align keyword with plaintext Apply Caesar shift per letter Repeat keyword cyclically Cryptanalysis# Claimed unbreakable for centuries Broken by Charles Babbage (unpublished) Publicly broken by Friedrich Kasiski Kasiski Examination# Identify repeated ciphertext sequences Measure distances between repetitions Compute common factors Estimate keyword length Split ciphertext by period Apply frequency analysis to each slice Reconstruct plaintext Notes# Breaks polyalphabetic cipher into multiple monoalphabetic ones Periodicity is the core weakness">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+
+  <meta itemprop="name" content="Polyalphabetic Substitution Cipher">
+  <meta itemprop="description" content="Polyalphabetic Substitution Cipher# A polyalphabetic substitution cipher uses multiple substitution alphabets during encryption.
+Letter mappings change throughout the message Reduces the effectiveness of frequency analysis Introduces periodic structure Vigenère Cipher# The Vigenère cipher was once called le chiffre indéchiffrable (“the indecipherable cipher”).
+Invented in 1467 Popularized centuries later Uses a repeating keyword Encryption Process# Choose a keyword Align keyword with plaintext Apply Caesar shift per letter Repeat keyword cyclically Cryptanalysis# Claimed unbreakable for centuries Broken by Charles Babbage (unpublished) Publicly broken by Friedrich Kasiski Kasiski Examination# Identify repeated ciphertext sequences Measure distances between repetitions Compute common factors Estimate keyword length Split ciphertext by period Apply frequency analysis to each slice Reconstruct plaintext Notes# Breaks polyalphabetic cipher into multiple monoalphabetic ones Periodicity is the core weakness">
+  <meta itemprop="wordCount" content="125">
+
+<title>Polyalphabetic Substitution Cipher | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+<link rel="alternate" type="application/rss+xml" href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/index.xml" title="tplat" />
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-section book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="active">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Polyalphabetic Substitution Cipher</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#polyalphabetic-substitution-cipher">Polyalphabetic Substitution Cipher</a>
+      <ul>
+        <li><a href="#vigenère-cipher">Vigenère Cipher</a>
+          <ul>
+            <li><a href="#encryption-process">Encryption Process</a></li>
+            <li><a href="#cryptanalysis">Cryptanalysis</a></li>
+            <li><a href="#kasiski-examination">Kasiski Examination</a></li>
+            <li><a href="#notes">Notes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="polyalphabetic-substitution-cipher">Polyalphabetic Substitution Cipher<a class="anchor" href="#polyalphabetic-substitution-cipher">#</a></h1>
+<p>A <strong>polyalphabetic substitution cipher</strong> uses multiple substitution alphabets during encryption.</p>
+<ul>
+<li>Letter mappings change throughout the message</li>
+<li>Reduces the effectiveness of frequency analysis</li>
+<li>Introduces periodic structure</li>
+</ul>
+<hr>
+<h2 id="vigenère-cipher">Vigenère Cipher<a class="anchor" href="#vigen%c3%a8re-cipher">#</a></h2>
+<p>The <strong>Vigenère cipher</strong> was once called <em>le chiffre indéchiffrable</em> (“the indecipherable cipher”).</p>
+<ul>
+<li>Invented in 1467</li>
+<li>Popularized centuries later</li>
+<li>Uses a repeating keyword</li>
+</ul>
+<hr>
+<h3 id="encryption-process">Encryption Process<a class="anchor" href="#encryption-process">#</a></h3>
+<ol>
+<li>Choose a keyword</li>
+<li>Align keyword with plaintext</li>
+<li>Apply Caesar shift per letter</li>
+<li>Repeat keyword cyclically</li>
+</ol>
+<hr>
+<h3 id="cryptanalysis">Cryptanalysis<a class="anchor" href="#cryptanalysis">#</a></h3>
+<ul>
+<li>Claimed unbreakable for centuries</li>
+<li>Broken by <strong>Charles Babbage</strong> (unpublished)</li>
+<li>Publicly broken by <strong>Friedrich Kasiski</strong></li>
+</ul>
+<hr>
+<h3 id="kasiski-examination">Kasiski Examination<a class="anchor" href="#kasiski-examination">#</a></h3>
+<ol>
+<li>Identify repeated ciphertext sequences</li>
+<li>Measure distances between repetitions</li>
+<li>Compute common factors</li>
+<li>Estimate keyword length</li>
+<li>Split ciphertext by period</li>
+<li>Apply frequency analysis to each slice</li>
+<li>Reconstruct plaintext</li>
+</ol>
+<hr>
+<h3 id="notes">Notes<a class="anchor" href="#notes">#</a></h3>
+<ul>
+<li>Breaks polyalphabetic cipher into multiple monoalphabetic ones</li>
+<li>Periodicity is the core weakness</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Monoalphabetic Substitution Cipher</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="flex align-center">
+        <span>Enigma</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#polyalphabetic-substitution-cipher">Polyalphabetic Substitution Cipher</a>
+      <ul>
+        <li><a href="#vigenère-cipher">Vigenère Cipher</a>
+          <ul>
+            <li><a href="#encryption-process">Encryption Process</a></li>
+            <li><a href="#cryptanalysis">Cryptanalysis</a></li>
+            <li><a href="#kasiski-examination">Kasiski Examination</a></li>
+            <li><a href="#notes">Notes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

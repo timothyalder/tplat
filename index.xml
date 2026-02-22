@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tplat</title>
+    <link>/</link>
+    <description>Recent content on tplat</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>/docs/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/test/</guid>
+      <description>&lt;h1 id=&#34;test&#34;&gt;Test&lt;a class=&#34;anchor&#34; href=&#34;#test&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;This is an inline \(a^*=x-b^*\) equation.&lt;/p&gt;&#xA;&lt;p&gt;These are block equations:&lt;/p&gt;&#xA;\[a^*=x-b^*\]\[ a^*=x-b^* \]\[&#xA;a^*=x-b^*&#xA;\]&lt;p&gt;These are also block equations:&lt;/p&gt;&#xA;$$a^*=x-b^*$$$$ a^*=x-b^* $$$$&#xA;a^*=x-b^*&#xA;$$&lt;p&gt;I will give you \$2 if you can solve $y = x^2$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Budgeting App</title>
+      <link>/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/</guid>
+      <description>&lt;h1 id=&#34;budgeting-app&#34;&gt;Budgeting App&lt;a class=&#34;anchor&#34; href=&#34;#budgeting-app&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;This project is a rudimentary budgeting app intending to provide visibility into spending habits.&lt;/p&gt;&#xA;&lt;h2 id=&#34;api&#34;&gt;API&lt;a class=&#34;anchor&#34; href=&#34;#api&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;a class=&#34;anchor&#34; href=&#34;#usage&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Foundational</title>
+      <link>/docs/projects_cryptography_docs_docs.output/foundational/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_cryptography_docs_docs.output/foundational/</guid>
+      <description>&lt;h1 id=&#34;foundational&#34;&gt;Foundational&lt;a class=&#34;anchor&#34; href=&#34;#foundational&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Cryptography&lt;/strong&gt; is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to &lt;strong&gt;conceal a message&lt;/strong&gt; so that only intended recipients can understand it.&lt;/p&gt;&#xA;&lt;h2 id=&#34;on-security&#34;&gt;On Security&lt;a class=&#34;anchor&#34; href=&#34;#on-security&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;The &lt;strong&gt;principles of information security&lt;/strong&gt; provide a framework for protecting data. &lt;strong&gt;Confidentiality&lt;/strong&gt; ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. &lt;strong&gt;Integrity&lt;/strong&gt; guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. &lt;strong&gt;Availability&lt;/strong&gt; ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. &lt;strong&gt;Authentication&lt;/strong&gt; confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. &lt;strong&gt;Non-repudiation&lt;/strong&gt; prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>translate_srt</title>
+      <link>/docs/projects_translate_docs_docs.output/translate_srt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_translate_docs_docs.output/translate_srt/</guid>
+      <description>&lt;h1 id=&#34;translate_srt&#34;&gt;translate_srt&lt;a class=&#34;anchor&#34; href=&#34;#translate_srt&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;Some docs&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Verilog</title>
+      <link>/docs/projects_fpga_docs_docs.output/verilog/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/verilog/</guid>
+      <description>&lt;h1 id=&#34;verilog&#34;&gt;Verilog&lt;a class=&#34;anchor&#34; href=&#34;#verilog&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;keywords&#34;&gt;Keywords&lt;a class=&#34;anchor&#34; href=&#34;#keywords&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;wire&#34;&gt;wire&lt;a class=&#34;anchor&#34; href=&#34;#wire&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;p&gt;&lt;code&gt;wire&lt;/code&gt; keyword represents a physical wire in a circuit and is used to connect gates or modules.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;wire&lt;/code&gt; is a type of net that describes digital signals connecting multiple hardware elements.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;wire&lt;/code&gt; does not store its value but must be driven by a continuous assignment statement &lt;code&gt;assign&lt;/code&gt; or by connecting it to the output of a gate or module.&lt;/p&gt;&#xA;&lt;p&gt;Value of a wire can be read or assigned inside a module but &lt;strong&gt;never inside procedural code&lt;/strong&gt; such as &lt;code&gt;intial&lt;/code&gt; or &lt;code&gt;always&lt;/code&gt; blocks.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>1-bit MUX</title>
+      <link>/docs/projects_fpga_docs_docs.output/mux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/mux/</guid>
+      <description>&lt;h1 id=&#34;1-bit-mux&#34;&gt;1-bit MUX&lt;a class=&#34;anchor&#34; href=&#34;#1-bit-mux&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;A multiplexer (MUX) is an electronic switch that conencts one of several inputs to the output based on a selection signal S. The truth table for a 1-bit MUX is shown in &lt;strong&gt;Table 1&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Table 1:&lt;/strong&gt; Truth table of a 1-bit MUX.&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;X&lt;/th&gt;&#xA;          &lt;th&gt;Y&lt;/th&gt;&#xA;          &lt;th&gt;S&lt;/th&gt;&#xA;          &lt;th&gt;Z&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;xx&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;xx&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;xx&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;xx&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;As shown in Table 1, when the selector signal is 1, the output signal mirrors input signal X. Conversely, when the selector signal is 0 the output signal mirrors the input signal Y.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>1-bit Full Addder</title>
+      <link>/docs/projects_fpga_docs_docs.output/full-adder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/full-adder/</guid>
+      <description>&lt;h1 id=&#34;1-bit-full-addder&#34;&gt;1-bit Full Addder&lt;a class=&#34;anchor&#34; href=&#34;#1-bit-full-addder&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;A full adder is an adder with carry-in and carry-out ports. The truth table for a 1-bit full adder is shown in &lt;strong&gt;Table 1&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Table 1:&lt;/strong&gt; Truth table for a 1-bit full adder.&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;X&lt;/th&gt;&#xA;          &lt;th&gt;Y&lt;/th&gt;&#xA;          &lt;th&gt;C_in&lt;/th&gt;&#xA;          &lt;th&gt;Z&lt;/th&gt;&#xA;          &lt;th&gt;C_out&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;0&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;As shown in Table 1, the output $Z$ is the binary addition of $X + Y + C_{in}$, and the output $C_{out}$ is the&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Hazards</title>
+      <link>/docs/projects_fpga_docs_docs.output/hazards/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/hazards/</guid>
+      <description>&lt;h1 id=&#34;hazards&#34;&gt;Hazards&lt;a class=&#34;anchor&#34; href=&#34;#hazards&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;The &lt;a href=&#34;../mux&#34;&gt;1-bit multiplexer&lt;/a&gt; and &lt;a href=&#34;../full-adder&#34;&gt;1-bit full adder&lt;/a&gt; exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.&lt;/p&gt;&#xA;&lt;blockquote class=&#39;book-hint &#39;&gt;&#xA;&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;blockquote class=&#39;book-hint &#39;&gt;&#xA;&lt;p&gt;All combinational circuits are asynchronous.&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;Consider the previously defined &lt;a href=&#34;../mux&#34;&gt;1-bit multiplexer&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;../mux-schematic.png&#34; alt=&#34;1-bit MUX&#34; /&gt;&#xA;&lt;strong&gt;Figure 1:&lt;/strong&gt; Schematic description of 1-bit MUX.&lt;/p&gt;&#xA;&lt;p&gt;Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Overflow Counter</title>
+      <link>/docs/projects_fpga_docs_docs.output/overflow-counter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/overflow-counter/</guid>
+      <description>&lt;h1 id=&#34;overflow-counter&#34;&gt;Overflow Counter&lt;a class=&#34;anchor&#34; href=&#34;#overflow-counter&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;An overflow counter is a counter that can overflow back to zero when it fills up.&lt;/p&gt;&#xA;&lt;p&gt;In the overflow counter subfolder, a 32-bit overflow counter is implemented for a Basys 3 FPGA board, part number: xc7a35tcpg236-1.&lt;/p&gt;&#xA;&lt;p&gt;The counter has 3 inputs: (1) &lt;code&gt;clk&lt;/code&gt;, (2) &lt;code&gt;reset&lt;/code&gt;, and (3) &lt;code&gt;enable&lt;/code&gt; with the output being a 16-bit bus entity called &lt;code&gt;led&lt;/code&gt;. The counter has the following behaviour:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;At every positive (i.e., rising) edge of the &lt;code&gt;clk&lt;/code&gt; signal, the counter&amp;rsquo;s value increases by 1. This is achieved using a procedural block that will be edge-triggered by the clock. This is specified by the condition &lt;code&gt;posedge clk&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;For condition &lt;code&gt;reset == 1&lt;/code&gt;, the counter&amp;rsquo;s value resets to 0. When &lt;code&gt;reset == 0&lt;/code&gt;, the counter increments.&lt;/li&gt;&#xA;&lt;li&gt;The counter increments when enabled (i.e., &lt;code&gt;enable == 1&lt;/code&gt;) and stops incrementing when disbled (&lt;code&gt;enable == 0&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The full procedural block describing this behaviour is given by:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Clock Division</title>
+      <link>/docs/projects_fpga_docs_docs.output/clock-division/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/clock-division/</guid>
+      <description>&lt;h1 id=&#34;clock-division&#34;&gt;Clock Division&lt;a class=&#34;anchor&#34; href=&#34;#clock-division&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;The &lt;a href=&#34;../overflow-counter&#34;&gt;overflow counter&lt;/a&gt; project uses a 100 MHz clock signal. In many cases, it is necessary to generate clock signals slower than 100 Hz. A very efficient way to do this is to perform clock division using an overflow counter.&lt;/p&gt;&#xA;&lt;h2 id=&#34;clock-division-using-an-overflow-counter&#34;&gt;Clock Division using an Overflow Counter&lt;a class=&#34;anchor&#34; href=&#34;#clock-division-using-an-overflow-counter&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;The simplest way to generate a clock divided by a factor of $2^n$ is to output the (n-1)th  bit of an overflow counter (n-1 because bus indexing starts at 0).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Seven Segment Display</title>
+      <link>/docs/projects_fpga_docs_docs.output/seven-segment-display/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_fpga_docs_docs.output/seven-segment-display/</guid>
+      <description>&lt;h1 id=&#34;seven-segment-display&#34;&gt;Seven Segment Display&lt;a class=&#34;anchor&#34; href=&#34;#seven-segment-display&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;The Basys 3 board features a four-digit common anode seven-segment LED display. Each of the four digits is comprised of seven segments, with an LED embedded in each segment. Segment LEDs can be individually illuminated. Any of the 128 (2^7) patterns can be displayed on a digit by illuminating certain LED segments and leaving the others dark.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;../ssd.png&#34; alt=&#34;Seven segment display&#34; /&gt;&#xA;&lt;strong&gt;Figure 1:&lt;/strong&gt; Seven segment display.&lt;/p&gt;&#xA;&lt;p&gt;The anodes of the seven LED segments are tied together to form one &lt;em&gt;common anode&lt;/em&gt; circuit node. The common anode signals are available as four digit enable input signals (i.e., 1000 will enable the first anode, but not the other three). The cathode circuit connections are shared amongst the four digits. There are only eight cathode signals that are drivable from the FPGA chip, called CA, CB, &amp;hellip;, CG and DP (decimal point), and there are connected to all four digits on the display.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

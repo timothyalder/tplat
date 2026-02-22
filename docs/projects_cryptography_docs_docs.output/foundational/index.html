@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Foundational# Cryptography is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to conceal a message so that only intended recipients can understand it.
+On Security# The principles of information security provide a framework for protecting data. Confidentiality ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. Integrity guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. Availability ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. Authentication confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. Non-repudiation prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/docs/projects_cryptography_docs_docs.output/foundational/">
+  <meta property="og:site_name" content="tplat">
+  <meta property="og:title" content="Foundational">
+  <meta property="og:description" content="Foundational# Cryptography is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to conceal a message so that only intended recipients can understand it.
+On Security# The principles of information security provide a framework for protecting data. Confidentiality ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. Integrity guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. Availability ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. Authentication confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. Non-repudiation prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Foundational">
+  <meta itemprop="description" content="Foundational# Cryptography is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to conceal a message so that only intended recipients can understand it.
+On Security# The principles of information security provide a framework for protecting data. Confidentiality ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. Integrity guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. Availability ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. Authentication confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. Non-repudiation prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.">
+  <meta itemprop="wordCount" content="661">
+
+<title>Foundational | tplat</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="/docs/projects_cryptography_docs_docs.output/foundational/">
+<link rel="stylesheet" href="/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" >
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ef460525f3f3a1cde3dc672b08f9657b67fdd3327432b692f0131ecfb86416fa.js" ></script>
+
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>tplat</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/test/" class="">
+      Test</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/" class="">
+      Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/foundational/" class="active">
+      Foundational</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="">
+      Symmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_monoalphabetic_docs_docs.output/" class="">
+      Monoalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_polyalphabetic_docs_docs.output/" class="">
+      Polyalphabetic Substitution Cipher</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/projects_cryptography_cryptography_symmetric_enigma_docs_docs.output/" class="">
+      Enigma</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/" class="">
+      Asymmetric Cryptography</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_rsa_docs_docs.output/" class="">
+      RSA</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_asymmetric_docs_docs.output/projects_cryptography_cryptography_asymmetric_ecc_docs_docs.output/" class="">
+      Eliptic-Curve Cryptography</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/" class="">
+      FPGA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/verilog/" class="">
+      Verilog</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/mux/" class="">
+      1-bit MUX</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/full-adder/" class="">
+      1-bit Full Addder</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/hazards/" class="">
+      Hazards</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/overflow-counter/" class="">
+      Overflow Counter</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/clock-division/" class="">
+      Clock Division</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_fpga_docs_docs.output/seven-segment-display/" class="">
+      Seven Segment Display</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/" class="">
+      Translate</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/translate_srt/" class="">
+      translate_srt</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/" class="">
+      Budget</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projects_translate_docs_docs.output/projects_budget_docs_docs.output/docs/" class="">
+      Budgeting App</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Foundational</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#foundational">Foundational</a>
+      <ul>
+        <li><a href="#on-security">On Security</a></li>
+        <li><a href="#concealing-a-message">Concealing a Message</a></li>
+        <li><a href="#steganography">Steganography</a></li>
+        <li><a href="#transposition">Transposition</a></li>
+        <li><a href="#encryption">Encryption</a></li>
+        <li><a href="#cipher">Cipher</a></li>
+        <li><a href="#code">Code</a></li>
+      </ul>
+    </li>
+    <li><a href="#cryptanalysis">Cryptanalysis</a>
+      <ul>
+        <li><a href="#determining-the-secret-key">Determining the Secret Key</a></li>
+        <li><a href="#decryption">Decryption</a></li>
+        <li><a href="#crib">Crib</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="foundational">Foundational<a class="anchor" href="#foundational">#</a></h1>
+<p><strong>Cryptography</strong> is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to <strong>conceal a message</strong> so that only intended recipients can understand it.</p>
+<h2 id="on-security">On Security<a class="anchor" href="#on-security">#</a></h2>
+<hr>
+<p>The <strong>principles of information security</strong> provide a framework for protecting data. <strong>Confidentiality</strong> ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. <strong>Integrity</strong> guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. <strong>Availability</strong> ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. <strong>Authentication</strong> confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. <strong>Non-repudiation</strong> prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.</p>
+<hr>
+<h2 id="concealing-a-message">Concealing a Message<a class="anchor" href="#concealing-a-message">#</a></h2>
+<p>There are three historically distinct approaches:</p>
+<ol>
+<li><strong>Hiding the existence of the message</strong></li>
+<li><strong>Obscuring the structure of the message</strong></li>
+<li><strong>Transforming the message into an unreadable form</strong></li>
+</ol>
+<hr>
+<h2 id="steganography">Steganography<a class="anchor" href="#steganography">#</a></h2>
+<p><strong>Steganography</strong> is the practice of hiding a message so that its <em>existence</em> is concealed.</p>
+<ul>
+<li>The message is hidden within another medium (text, image, object).</li>
+<li>If discovered, the message may be readable immediately.</li>
+<li>Security relies on secrecy of the method, not strong mathematics.</li>
+</ul>
+<p><strong>Historical examples:</strong></p>
+<ul>
+<li>Writing a message on a person’s shaved scalp and allowing hair to regrow over it (Herodotus).</li>
+<li>Scraping wax off wooden tablets, writing the message underneath, then recoating with wax.</li>
+<li>Invisible inks, microdots, digital image steganography.</li>
+</ul>
+<p><strong>Key idea:</strong> <em>The attacker should not even suspect a message exists.</em></p>
+<hr>
+<h2 id="transposition">Transposition<a class="anchor" href="#transposition">#</a></h2>
+<p>A <strong>transposition</strong> cipher rearranges the characters of a message according to a fixed system.</p>
+<ul>
+<li>The letters themselves are unchanged.</li>
+<li>Only their positions are permuted.</li>
+<li>Common types include columnar transposition and route ciphers.</li>
+</ul>
+<p><strong>Example 1: Columnar Transposition</strong></p>
+<pre tabindex="0"><code>PLAINTEXT:  ATTACKATDAWN
+TRANSPOSED: TTAWACDATKAN</code></pre><p><strong>Example 2: Scytale (Ancient Greek military)</strong></p>
+<ul>
+<li>A scytale is a cylinder around which a strip of parchment is wound.</li>
+<li>The message is written along the length of the cylinder.</li>
+<li>When unwound, the letters appear scrambled. Only a cylinder of the same diameter can read it correctly.</li>
+</ul>
+<pre tabindex="0"><code>PLAINTEXT:  ATTACKATDAWN
+SCYTALE STRIP (scrambled when flat):
+A C A
+T K T
+T A D
+A W N</code></pre><ul>
+<li>Reading column-wise along the cylinder reconstructs the original message.</li>
+</ul>
+<p><strong>Properties:</strong></p>
+<ul>
+<li>Preserves letter frequency.</li>
+<li>Vulnerable to statistical analysis if used alone.</li>
+<li>Often combined with substitution for added security.</li>
+</ul>
+<hr>
+<h2 id="encryption">Encryption<a class="anchor" href="#encryption">#</a></h2>
+<p><strong>Encryption</strong> is the process of transforming plaintext into ciphertext using an algorithm and a key.</p>
+<ul>
+<li>Comes from the Greek <em>kryptós</em> (hidden or secret).</li>
+<li>Assumes the attacker knows the algorithm but not the key (Kerckhoffs’s Principle).</li>
+<li>Modern cryptography relies on computational hardness, not obscurity.</li>
+</ul>
+<hr>
+<h2 id="cipher">Cipher<a class="anchor" href="#cipher">#</a></h2>
+<p>A <strong>cipher</strong> is a specific algorithm for performing encryption or decryption.</p>
+<ul>
+<li>Operates at the level of <strong>letters, bits, or symbols</strong></li>
+<li>Uses a key to control the transformation</li>
+</ul>
+<p>Ciphers can be classified as:</p>
+<ul>
+<li><strong>Substitution ciphers</strong> (replace symbols)</li>
+<li><strong>Transposition ciphers</strong> (reorder symbols)</li>
+<li><strong>Product ciphers</strong> (combine both)</li>
+</ul>
+<hr>
+<h2 id="code">Code<a class="anchor" href="#code">#</a></h2>
+<p>A <strong>code</strong> replaces entire words or phrases with symbols or numbers.</p>
+<ul>
+<li>Operates at the <em>semantic</em> level (words/phrases), not letters.</li>
+<li>Requires a <strong>codebook</strong>.</li>
+<li>Example: “Attack at dawn” → “4729”</li>
+</ul>
+<p><strong>Differences from ciphers:</strong></p>
+<ul>
+<li>Codes are language-dependent.</li>
+<li>Codebooks are bulky and hard to distribute securely.</li>
+<li>Historically used in diplomacy and military communication.</li>
+</ul>
+<hr>
+<h1 id="cryptanalysis">Cryptanalysis<a class="anchor" href="#cryptanalysis">#</a></h1>
+<p><strong>Cryptanalysis</strong> is the study of methods for breaking cryptographic systems—recovering the plaintext or key without authorization.</p>
+<hr>
+<h2 id="determining-the-secret-key">Determining the Secret Key<a class="anchor" href="#determining-the-secret-key">#</a></h2>
+<p>The primary goal of cryptanalysis is to determine the <strong>secret key</strong> or otherwise recover plaintext.</p>
+<p>Attack models include:</p>
+<ul>
+<li>Ciphertext-only attack</li>
+<li>Known-plaintext attack</li>
+<li>Chosen-plaintext attack</li>
+<li>Brute-force attack</li>
+</ul>
+<hr>
+<h2 id="decryption">Decryption<a class="anchor" href="#decryption">#</a></h2>
+<p><strong>Decryption</strong> is the process of converting ciphertext back into plaintext.</p>
+<ul>
+<li>From the Greek <em>kryptós</em> (hidden) + <em>lýein</em> (to loosen or release).</li>
+<li>Normally requires the secret key.</li>
+<li>Cryptanalysis seeks to decrypt <em>without</em> the key.</li>
+</ul>
+<hr>
+<h2 id="crib">Crib<a class="anchor" href="#crib">#</a></h2>
+<p>A known piece of plaintext appearing within a piece of ciphertext. Turing used a crib when cracking the Enigma machine, knowing that at 06:05 each day the German&rsquo;s transmitted a weather report containing the plaintext &ldquo;wetter&rdquo; (German for weather).</p>
+<hr>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Cryptography</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/projects_cryptography_docs_docs.output/projects_cryptography_cryptography_symmetric_docs_docs.output/" class="flex align-center">
+        <span>Symmetric Cryptography</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#foundational">Foundational</a>
+      <ul>
+        <li><a href="#on-security">On Security</a></li>
+        <li><a href="#concealing-a-message">Concealing a Message</a></li>
+        <li><a href="#steganography">Steganography</a></li>
+        <li><a href="#transposition">Transposition</a></li>
+        <li><a href="#encryption">Encryption</a></li>
+        <li><a href="#cipher">Cipher</a></li>
+        <li><a href="#code">Code</a></li>
+      </ul>
+    </li>
+    <li><a href="#cryptanalysis">Cryptanalysis</a>
+      <ul>
+        <li><a href="#determining-the-secret-key">Determining the Secret Key</a></li>
+        <li><a href="#decryption">Decryption</a></li>
+        <li><a href="#crib">Crib</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

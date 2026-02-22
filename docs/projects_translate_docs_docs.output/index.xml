@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Translate on tplat</title>
+    <link>/docs/projects_translate_docs_docs.output/</link>
+    <description>Recent content in Translate on tplat</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="/docs/projects_translate_docs_docs.output/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>translate_srt</title>
+      <link>/docs/projects_translate_docs_docs.output/translate_srt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_translate_docs_docs.output/translate_srt/</guid>
+      <description>&lt;h1 id=&#34;translate_srt&#34;&gt;translate_srt&lt;a class=&#34;anchor&#34; href=&#34;#translate_srt&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;Some docs&amp;hellip;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

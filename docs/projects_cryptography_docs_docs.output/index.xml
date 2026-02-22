@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cryptography on tplat</title>
+    <link>/docs/projects_cryptography_docs_docs.output/</link>
+    <description>Recent content in Cryptography on tplat</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="/docs/projects_cryptography_docs_docs.output/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Foundational</title>
+      <link>/docs/projects_cryptography_docs_docs.output/foundational/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/docs/projects_cryptography_docs_docs.output/foundational/</guid>
+      <description>&lt;h1 id=&#34;foundational&#34;&gt;Foundational&lt;a class=&#34;anchor&#34; href=&#34;#foundational&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Cryptography&lt;/strong&gt; is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to &lt;strong&gt;conceal a message&lt;/strong&gt; so that only intended recipients can understand it.&lt;/p&gt;&#xA;&lt;h2 id=&#34;on-security&#34;&gt;On Security&lt;a class=&#34;anchor&#34; href=&#34;#on-security&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;The &lt;strong&gt;principles of information security&lt;/strong&gt; provide a framework for protecting data. &lt;strong&gt;Confidentiality&lt;/strong&gt; ensures that information is only accessible to authorized users, for example, encrypting emails so only the intended recipient can read them. &lt;strong&gt;Integrity&lt;/strong&gt; guarantees that data is accurate and unaltered, such as using a checksum to verify a downloaded file has not been tampered with. &lt;strong&gt;Availability&lt;/strong&gt; ensures that information and systems are accessible when needed, like maintaining redundant servers so a website remains online during outages. &lt;strong&gt;Authentication&lt;/strong&gt; confirms the identity of users or systems, for instance, requiring a username and password before accessing an account. &lt;strong&gt;Non-repudiation&lt;/strong&gt; prevents parties from denying their actions, such as using digital signatures to prove the sender authored a document.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
