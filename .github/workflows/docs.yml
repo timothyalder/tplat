@@ -1,0 +1,32 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Bazel
+        uses: bazelbuild/setup-bazelisk@v3
+
+      - name: Build site
+        run: bazel build //projects/docs:docs_site.build
+
+      - name: Copy site output
+        run: |
+          mkdir site
+          cp -r bazel-bin/projects/docs/prepare/* site/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
