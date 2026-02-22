@@ -20,6 +20,11 @@ jobs:
       - name: Build site
         run: bazel build //projects/docs:docs_site.build
 
+      - name: debug
+        run: |
+          ls
+          ls bazel-bin/projects/docs
+
       - name: Copy site output
         run: |
           mkdir site
