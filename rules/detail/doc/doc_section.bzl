@@ -37,11 +37,14 @@ def _doc_section_impl(ctx):
         if DocSectionInfo in dep:
             section = dep[DocSectionInfo].output_dir
             section_files.append(section)
-            script_lines.append("cp -r '{src}' '{output}/{file}/'".format(
+            script_lines.append("'{formatter}' '{src}' '{output}/{file}/' --weight {weight}".format(
+                formatter = formatter.path,
                 src = section.path,
                 output = output_dir.path,
                 file = section.basename,
+                weight = weight,
             ))
+            weight += 10
         else:
             file = dep.files.to_list()[0]
             section_files.append(file)
