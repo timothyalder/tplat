@@ -20,15 +20,10 @@ jobs:
       - name: Build site
         run: bazel build //projects/docs:docs_site.build
 
-      - name: debug
-        run: |
-          ls
-          ls bazel-bin/projects/docs
-
       - name: Copy site output
         run: |
           mkdir site
-          cp -r bazel-bin/projects/docs/public/* site/
+          cp -r bazel-bin/projects/docs/docs_site.build/* site/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
