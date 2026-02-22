@@ -14,7 +14,12 @@ def transform(src: str, *args, **kwargs):
 
 
 def transform_dir(src: str, dest: str, weight: int = 10):
-    shutil.copytree(src, dest, ignore=shutil.ignore_patterns("_index.md"))
+    # Only ignore the _index.md file inside src root
+    def ignore_root_index(dirpath, names):
+        if os.path.abspath(dirpath) == os.path.abspath(src):
+            return ["_index.md"] if "_index.md" in names else []
+        return []
+    shutil.copytree(src, dest, ignore=ignore_root_index)
 
     src_index = os.path.join(src, "_index.md")
     dest_index = os.path.join(dest, "_index.md")
