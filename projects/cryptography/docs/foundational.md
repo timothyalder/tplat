@@ -1,4 +1,4 @@
-# Cryptography
+# Foundational
 
 **Cryptography** is the practice and study of techniques for securing communication in the presence of adversaries. The primary goal is to **conceal a message** so that only intended recipients can understand it.
 
