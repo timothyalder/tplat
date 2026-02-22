@@ -23,7 +23,7 @@ jobs:
       - name: Copy site output
         run: |
           mkdir site
-          cp -r bazel-bin/projects/docs/prepare/* site/
+          cp -r bazel-bin/projects/docs/public/* site/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
