@@ -3,13 +3,13 @@ load("//rules:doc.bzl", "doc_section")
 doc_section(
     name = "docs",
     srcs = [
-        "clock-division.md",
+        "verilog.md",
+        "mux.md",
         "full-adder.md",
         "hazards.md",
-        "mux.md",
         "overflow-counter.md",
+        "clock-division.md",
         "seven-segment-display.md",
-        "verilog.md",
     ],
     data = [
         "//projects/fpga/docs/data",
