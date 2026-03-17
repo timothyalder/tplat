@@ -63,7 +63,6 @@ def _doc_site_build_impl(ctx):
                 out = output_dir.path,
                 file = file.basename,
             ))
-    print(section_files)
     deps = [config_tmpl, ctx.file.index] + section_files + data_files
     ctx.actions.write(
         output = script,

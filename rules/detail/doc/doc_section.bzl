@@ -1,14 +1,6 @@
 load(":_doc_providers.bzl", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
-
-def valid_extension(f):
-    if f.extension in ["md"]:
-        return True
-    return False
-
-def assert_valid_extension(f):
-    if not valid_extension(f):
-        fail("Error %s is not a valid extension for doc_section. Should be .md" % f.path)
+load("//rules/detail/mdl:mdl.bzl", "markdown_lint")
 
 def _doc_section_impl(ctx):
     section_files = []
@@ -18,6 +10,22 @@ def _doc_section_impl(ctx):
     output_dir = ctx.actions.declare_directory(str(ctx.label).replace("@@//", "").replace(":", "_").replace("/", "_") + ".output")
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//", "").replace(":", "_").replace("/", "_") + "_build.sh")
     formatter = ctx.executable._formatter
+
+    # Run linter on markdown files
+    md_files = []
+    for dep in ctx.attr.srcs:
+        if DocSectionInfo not in dep:
+            file = dep.files.to_list()[0]
+            md_files.append(file)
+    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".out", "mdl.out"))
+    ctx.actions.run(
+        executable = ctx.executable._mdl,
+        inputs = md_files,
+        outputs = [output_stamp],
+        arguments = [f.path for f in md_files],
+        mnemonic = "MarkdownLint",
+    )
+
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
@@ -48,7 +56,6 @@ def _doc_section_impl(ctx):
         else:
             file = dep.files.to_list()[0]
             section_files.append(file)
-            assert_valid_extension(file)
             script_lines.append("'{formatter}' '{src}' '{output}/{file}' --weight {weight}".format(
                 formatter = formatter.path,
                 src = file.path,
@@ -84,7 +91,7 @@ def _doc_section_impl(ctx):
         DefaultInfo(
             executable = script,
             runfiles = ctx.runfiles(files = [script]),
-            files = depset([output_dir]),
+            files = depset([output_dir, output_stamp]),
         ),
         DocSectionInfo(output_dir = output_dir),
     ]
@@ -93,6 +100,11 @@ doc_section = rule(
     attrs = DOC_SECTION_ARGS | {
         "_formatter": attr.label(
             default = "//rules/detail/doc/utils:formatter",
+            executable = True,
+            cfg = "exec",
+        ),
+        "_mdl": attr.label(
+            default = Label("//rules/detail/mdl:mdl"),
             executable = True,
             cfg = "exec",
         ),
