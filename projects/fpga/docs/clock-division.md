@@ -43,5 +43,5 @@ Additionally, the clock_divider_HB_2 folder includes an additional parameter ``O
 $D_{heartbeat}=\frac{f_{clk}}{ON\_TIME}$
 
 > **Note:**
-
+>
 > Parameters can be used to declare constants. Parameters are useful to support a powerful coding technique called parameter substitution.

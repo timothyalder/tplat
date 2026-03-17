@@ -3,7 +3,7 @@
 The [1-bit multiplexer](./mux.md) and [1-bit full adder](./full-adder.md) exercises treat circuits as ideal, i.e., with instantaneous signal changes. However, transition times in digital circuits are non-zero. When designing asynchronous digital circuits, attention must be paid to the possible presence of hazards.
 
 > **Note:**
-
+>
 > All combinational circuits are asynchronous.
 
 Consider the previously defined [1-bit multiplexer](./mux.md).
@@ -11,7 +11,7 @@ Consider the previously defined [1-bit multiplexer](./mux.md).
 ![1-bit MUX](data/mux-schematic.png)
 **Figure 1:** Schematic description of 1-bit MUX.
 
-Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards. 
+Not all signal pathways corss the same number of gates, which means they will be affected by varying amounts of delay. This can introduce timing hazards.
 
 The Karnaugh map (**Table 1**) can also confirm the likely presence of hazards. This circuit is implemented as a sum of products. *1-hazards can exist where any two adjacent 1s in the table are not covered by the same prime implicant loop.* This is indeed the case for our MUX.
 
@@ -19,9 +19,9 @@ The Karnaugh map (**Table 1**) can also confirm the likely presence of hazards. 
 | S\XY | 00 | 10 | 11 | 01 |
 | --- | --- | --- | --- | --- |
 | **0** | 0 | 0 | 1 | 1 |
-| **1** | 0 | 1 | 1 | 0 | 
+| **1** | 0 | 1 | 1 | 0 |
 
-In the hazards subfolder, a new project of a MUX with delays is implemented in Vivado for a Basys 3 FPGA board, part number: xc7a35tcpg236-1, to demonstrated the impact of timing hazards. 
+In the hazards subfolder, a new project of a MUX with delays is implemented in Vivado for a Basys 3 FPGA board, part number: xc7a35tcpg236-1, to demonstrated the impact of timing hazards.
 
 In demonstrating the timing hazards, we define the intermediate signals:
 
