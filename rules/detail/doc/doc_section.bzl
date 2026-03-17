@@ -1,6 +1,5 @@
 load(":_doc_providers.bzl", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
-load("//rules/detail/mdl:mdl.bzl", "markdown_lint")
 
 def _doc_section_impl(ctx):
     section_files = []
@@ -17,12 +16,13 @@ def _doc_section_impl(ctx):
         if DocSectionInfo not in dep:
             file = dep.files.to_list()[0]
             md_files.append(file)
-    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".out", "mdl.out"))
+    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".out", ".mdl.out"))
+    mdl_style_file = ctx.attr._mdl_style.files.to_list()[0]
     ctx.actions.run(
         executable = ctx.executable._mdl,
-        inputs = md_files,
+        inputs = md_files + [mdl_style_file],
         outputs = [output_stamp],
-        arguments = [f.path for f in md_files],
+        arguments = [f.path for f in md_files] + ["-s", mdl_style_file.path],
         mnemonic = "MarkdownLint",
     )
 
@@ -91,7 +91,7 @@ def _doc_section_impl(ctx):
         DefaultInfo(
             executable = script,
             runfiles = ctx.runfiles(files = [script]),
-            files = depset([output_dir, output_stamp]),
+            files = depset([output_dir]),
         ),
         DocSectionInfo(output_dir = output_dir),
     ]
@@ -106,6 +106,11 @@ doc_section = rule(
         "_mdl": attr.label(
             default = Label("//rules/detail/mdl:mdl"),
             executable = True,
+            cfg = "exec",
+        ),
+        "_mdl_style": attr.label(
+            default = Label("//rules/detail/mdl:style.rb"),
+            allow_single_file = [".rb"],
             cfg = "exec",
         ),
     },
