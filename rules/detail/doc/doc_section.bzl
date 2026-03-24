@@ -91,7 +91,7 @@ def _doc_section_impl(ctx):
         DefaultInfo(
             executable = script,
             runfiles = ctx.runfiles(files = [script]),
-            files = depset([output_dir]),
+            files = depset([output_dir, output_stamp]),
         ),
         DocSectionInfo(output_dir = output_dir),
     ]
