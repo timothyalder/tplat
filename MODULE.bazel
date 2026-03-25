@@ -23,15 +23,10 @@ bazel_dep(name = "rules_shell", version = "0.6.1")
 
 # Directives related to module extensions
 include("//toolchains/rust:rust.MODULE.bazel")
-
 include("//toolchains/python:python.MODULE.bazel")
-
 include("//toolchains/ruby:ruby.MODULE.bazel")
-
 include("//toolchains/hugo:hugo.MODULE.bazel")
-
 include("//toolchains/js:js.MODULE.bazel")
-
 include("//toolchains/nodejs:nodejs.MODULE.bazel")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
