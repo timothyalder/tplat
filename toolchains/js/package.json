@@ -1,0 +1,11 @@
+{
+  "packageManager": "pnpm@10.13.1",
+  "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  },
+  "devDependencies": {
+    "markdownlint-cli": "0.48.0",
+    "acorn": "8.15.0"
+  }
+}

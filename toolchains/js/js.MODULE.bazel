@@ -1,0 +1,32 @@
+bazel_dep(name = "aspect_rules_js", version = "3.0.3")
+single_version_override(
+    module_name = "aspect_rules_js",
+    version = "3.0.3",
+    patches = [
+        "//toolchains/js:rules_js.patch",
+    ],
+    patch_strip = 1,
+)
+
+# Translate the pnpm-lock.yaml file to bazel targets
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    data = [
+        "//toolchains/js:package.json",
+        "//toolchains/js:pnpm-workspace.yaml",
+    ],
+    npmrc = "//toolchains/js:.npmrc",
+    pnpm_lock = "//toolchains/js:pnpm-lock.yaml",
+    update_pnpm_lock = True,
+)
+use_repo(npm, "npm")
+
+# Allows developers to use the matching pnpm version, for example:
+# bazel run -- @pnpm --dir /home/runner/work/rules_js/rules_js install
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm", dev_dependency = True)
+pnpm.pnpm(
+    name = "pnpm",
+    pnpm_version_from = "//toolchains/js:package.json",
+)
+use_repo(pnpm, "pnpm")

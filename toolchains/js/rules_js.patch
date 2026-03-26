@@ -1,0 +1,13 @@
+diff --git a/npm/private/npm_translate_lock_state.bzl b/npm/private/npm_translate_lock_state.bzl
+index 41503fd5..93af3594 100644
+--- a/npm/private/npm_translate_lock_state.bzl
++++ b/npm/private/npm_translate_lock_state.bzl
+@@ -122,7 +122,7 @@ def _init_root_package(priv):
+     if paths.dirname(pnpm_lock_label.name):
+         msg = "expected pnpm lock file {} to be at the root of a bazel package".format(pnpm_lock_label)
+         fail(msg)
+-    priv["root_package"] = pnpm_lock_label.package
++    priv["root_package"] = ""
+ 
+ def _init_workspace(priv, rctx, is_windows):
+     root_package_json = {}
