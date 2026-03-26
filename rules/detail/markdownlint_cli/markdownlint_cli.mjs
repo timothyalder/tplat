@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { main } from "markdownlint-cli2";
+import { main } from "markdownlint-cli";
 
 async function run() {
   const args = process.argv.slice(2);

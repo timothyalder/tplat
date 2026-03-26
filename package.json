@@ -4,7 +4,8 @@
   "pnpm": {
     "onlyBuiltDependencies": []
   },
-  "dependencies": {
-    "markdownlint-cli2": "^0.13.0"
+  "devDependencies": {
+    "markdownlint-cli": "0.48.0",
+    "acorn": "8.15.0"
   }
 }
