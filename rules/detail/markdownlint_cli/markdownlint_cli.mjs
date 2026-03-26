@@ -1,10 +1,14 @@
 #!/usr/bin/env node
-import { main } from "markdownlint-cli";
+import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 
-async function run() {
-  const args = process.argv.slice(2);
-  const exitCode = await main(args);
-  process.exit(exitCode);
-}
+const require = createRequire(import.meta.url);
 
-run();
+// Find the actual CLI script from the package
+const cli = require.resolve("markdownlint-cli/markdownlint.js");
+
+const child = spawn(process.execPath, [cli, ...process.argv.slice(2)], {
+  stdio: "inherit",
+});
+
+child.on("exit", (code) => process.exit(code));
