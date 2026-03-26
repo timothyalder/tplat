@@ -6,9 +6,9 @@ npm.npm_translate_lock(
     name = "npm",
     data = [
         "//:package.json",
-        "//:pnpm-workspace.yaml",
+        "//toolchains/js:pnpm-workspace.yaml",
     ],
-    npmrc = "//:.npmrc",
+    npmrc = "//toolchains/js:.npmrc",
     pnpm_lock = "//:pnpm-lock.yaml",
     update_pnpm_lock = True,
 )
