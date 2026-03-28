@@ -3,7 +3,7 @@ single_version_override(
     module_name = "aspect_rules_js",
     version = "3.0.3",
     patches = [
-        "//toolchains/js:rules_js.patch",
+        "//toolchains/js:rules_js.patch", # https://github.com/aspect-build/rules_js/discussions/2197
     ],
     patch_strip = 1,
 )

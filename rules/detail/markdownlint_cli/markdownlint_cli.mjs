@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-import { spawn } from "node:child_process";
+
 import { createRequire } from "node:module";
 
+console.error("CWD:", process.cwd());
+console.error("ARGS:", process.argv.slice(2));
 const require = createRequire(import.meta.url);
 
-// Find the actual CLI script from the package
-const cli = require.resolve("markdownlint-cli/markdownlint.js");
+// Resolve the actual CLI
+const cli = require.resolve("markdownlint-cli/markdownlint");
 
-const child = spawn(process.execPath, [cli, ...process.argv.slice(2)], {
-  stdio: "inherit",
-});
-
-child.on("exit", (code) => process.exit(code));
+// Forward execution
+await import(cli);

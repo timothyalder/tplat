@@ -16,14 +16,17 @@ def _doc_section_impl(ctx):
         if DocSectionInfo not in dep:
             file = dep.files.to_list()[0]
             md_files.append(file)
-    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".out", ".mdl.out"))
+    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".output", ".mdl.output"))
     mdl_style_file = ctx.attr._mdl_style.files.to_list()[0]
     ctx.actions.run(
         executable = ctx.executable._mdl,
         inputs = md_files + [mdl_style_file],
         outputs = [output_stamp],
-        arguments = [f.path for f in md_files] + ["-s", mdl_style_file.path],
-        mnemonic = "MarkdownLint",
+        arguments = [f.path for f in md_files] + ["-c", mdl_style_file.path, "-o", output_stamp.path],
+        mnemonic = "markdownlintcli",
+        env = {
+            "BAZEL_BINDIR": ctx.bin_dir.path,
+        },
     )
 
 
@@ -104,13 +107,13 @@ doc_section = rule(
             cfg = "exec",
         ),
         "_mdl": attr.label(
-            default = Label("//rules/detail/mdl:mdl"),
+            default = Label("//rules/detail/markdownlint_cli:markdownlint_cli"),
             executable = True,
             cfg = "exec",
         ),
         "_mdl_style": attr.label(
-            default = Label("//rules/detail/mdl:style.rb"),
-            allow_single_file = [".rb"],
+            default = Label("//rules/detail/markdownlint_cli:style.json"),
+            allow_single_file = [".json"],
             cfg = "exec",
         ),
     },
