@@ -60,7 +60,7 @@ def _doc_section_impl(ctx):
                 output = output_dir.path,
                 file = file.basename,
             ))
-    deps = [ctx.file.index, linter_config] + section_files + data_files + md_files
+    deps = [ctx.file.index, linter_config] + section_files + data_files
     ctx.actions.write(
         output = script,
         content = "\n".join(script_lines),
