@@ -7,9 +7,11 @@ Asymmetric cryptography relies on **one-way mathematical functions**.
 ## One-Way Functions
 
 Regular arithmetic is reversible:
+
 * If $3^x=81$, then $x=log_{3}(81)$.
 
 Modular arithmetic is not:
+
 * Solving $3^x \mod{7} = 1$ is non-trivial
 * The discrete logarithm problem is hard
 

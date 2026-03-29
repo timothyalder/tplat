@@ -15,8 +15,8 @@ The **principles of information security** provide a framework for protecting da
 There are three historically distinct approaches:
 
 1. **Hiding the existence of the message**
-2. **Obscuring the structure of the message**
-3. **Transforming the message into an unreadable form**
+1. **Obscuring the structure of the message**
+1. **Transforming the message into an unreadable form**
 
 ---
 
@@ -46,14 +46,14 @@ A **transposition** cipher rearranges the characters of a message according to a
 * Only their positions are permuted.
 * Common types include columnar transposition and route ciphers.
 
-**Example 1: Columnar Transposition**
+### Example 1: Columnar Transposition
 
 ```
 PLAINTEXT:  ATTACKATDAWN
 TRANSPOSED: TTAWACDATKAN
 ```
 
-**Example 2: Scytale (Ancient Greek military)**
+### Example 2: Scytale (Ancient Greek military)
 
 * A scytale is a cylinder around which a strip of parchment is wound.
 * The message is written along the length of the cylinder.
@@ -119,13 +119,13 @@ A **code** replaces entire words or phrases with symbols or numbers.
 
 ---
 
-# Cryptanalysis
+## Cryptanalysis
 
 **Cryptanalysis** is the study of methods for breaking cryptographic systems—recovering the plaintext or key without authorization.
 
 ---
 
-## Determining the Secret Key
+### Determining the Secret Key
 
 The primary goal of cryptanalysis is to determine the **secret key** or otherwise recover plaintext.
 
@@ -138,7 +138,7 @@ Attack models include:
 
 ---
 
-## Decryption
+### Decryption
 
 **Decryption** is the process of converting ciphertext back into plaintext.
 
@@ -148,7 +148,7 @@ Attack models include:
 
 ---
 
-## Crib
+### Crib
 
 A known piece of plaintext appearing within a piece of ciphertext. Turing used a crib when cracking the Enigma machine, knowing that at 06:05 each day the German's transmitted a weather report containing the plaintext "wetter" (German for weather).
 

@@ -43,11 +43,6 @@ def transform_file(src: str, dest: str, weight: int = 10):
         print(f"ERROR: {src} is empty.")
         sys.exit(1)
 
-    if not lines[0].strip().startswith("# "):
-        print(f"ERROR: {src} must begin with a H1 title (e.g., '# My Title').")
-        print(f"Found: '{lines[0].strip()}'")
-        sys.exit(1)
-
     title = lines[0].strip().replace("# ", "")
 
     front_matter = [

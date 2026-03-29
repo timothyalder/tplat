@@ -27,6 +27,7 @@ wire [9:0] A; // a cable (vector) of 10 wires
 Allows you to connect inputs and output directly, without the need for a procedural block.
 
 Values are immediately updated whenever the input values change. Continuous assignment, meaning:
+
 * order does not matter
 * must avoid feedback
 
@@ -41,6 +42,7 @@ assign K=Y&Z;
 ```
 
 Multiple driver issue:
+
 ```
 wire X, Y;
 assign Y=X;
@@ -48,6 +50,7 @@ assign Y=~X;
 ```
 
 Feedback issue:
+
 ```
 wire Z;
 assign Z=~Z;
@@ -155,7 +158,6 @@ Two types of number specification in Verilog: sized and unsized.
 
 ## Operators
 
-
 Operators are ``unary``, ``binary`` or ``ternary``.
 
 ### Arithmetic Operators
@@ -249,6 +251,7 @@ Sensitivity list is a list of signals. The ``always`` block is executed whenever
 **Left hand terms in assignments inside an ``always`` block are always of type ``reg``.**
 
 Different procedural statements can be include in the ``always`` block:
+
 * ``if ... else``
 * ``case``
 * ``for`` loop
@@ -281,11 +284,12 @@ always @ (negedge <event>)
 ## Blocking and Non-Blocking Assignments
 
 Blocking assignments ``=`` mean the right side expression is evaluated and assigned to the left-hand side variable immediately, blocking any other assignments until complete. The next statement in the procedural block cannot be executed until the blocking assignment is completed.
+
 * Typically used to model combinational logic.
 
 Non-blocking assignments ``<=`` mean the right side expression is evaluated but the value is not assigned until all other assignments in the same procedural block have been evaluated. Other statements can be executed in parallel with the non-blocking assignment.
+
 * Typically used to model sequential logic and concurrent data transfers
 * Used in procedural block of type ``always @ (posedge clk)``
 
 **It is recommended that blocking and non-blocking assignments not be mixed in the same procedural ``always`` block.**
-

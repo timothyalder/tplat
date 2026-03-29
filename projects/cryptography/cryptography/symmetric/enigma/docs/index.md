@@ -23,6 +23,7 @@ Each rotor implements a monoalphabetic substitution. After every keystroke:
 * This creates a polyalphabetic substitution cipher
 
 With three rotors:
+
 * 26³ = 17,576 rotor positions
 * Rotor order increases combinations
 * Plugboard dramatically expands keyspace
@@ -48,6 +49,7 @@ With three rotors:
 ## Key Definition
 
 The **key** consists of:
+
 * Rotor selection
 * Rotor order
 * Initial rotor positions
