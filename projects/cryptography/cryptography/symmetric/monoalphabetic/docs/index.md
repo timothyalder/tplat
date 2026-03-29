@@ -33,7 +33,6 @@ PLAINTEXT: ATTACK
 CIPHERTEXT: DWWDFN
 ```
 
-
 ---
 
 ### Properties
@@ -49,6 +48,7 @@ CIPHERTEXT: DWWDFN
 A **keyword cipher** constructs the substitution alphabet using a keyword.
 
 **Construction:**
+
 1. Choose a keyword
 2. Remove repeated letters
 3. Append remaining alphabet characters
@@ -85,6 +85,6 @@ CIPHERTEXT: XQDAZWWXDFNQZ
 (remove X, Z, Q → DWWDFN)
 ```
 
-> **Note:** 
-> 
+> **Note:**
+>
 > Nulls increase confusion but do not provide cryptographic security.

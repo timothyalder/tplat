@@ -3,6 +3,7 @@
 This repository contains structured notes and experimental implementations developed alongside the study of classical and modern cryptography. The material is largely inspired by historical sources, particularly Simon Singh’s *The Code Book*, and is supplemented with original experimentation and implementations in Python.
 
 The focus is on:
+
 * Classical cryptographic systems and their weaknesses
 * The evolution of cryptanalysis
 * The transition from symmetric to asymmetric cryptography

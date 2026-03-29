@@ -16,6 +16,7 @@ Not all signal pathways corss the same number of gates, which means they will be
 The Karnaugh map (**Table 1**) can also confirm the likely presence of hazards. This circuit is implemented as a sum of products. *1-hazards can exist where any two adjacent 1s in the table are not covered by the same prime implicant loop.* This is indeed the case for our MUX.
 
 **Table 1:** Karnaugh map for 1-bit MUX.
+
 | S\XY | 00 | 10 | 11 | 01 |
 | --- | --- | --- | --- | --- |
 | **0** | 0 | 0 | 1 | 1 |

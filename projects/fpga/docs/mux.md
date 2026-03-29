@@ -3,6 +3,7 @@
 A multiplexer (MUX) is an electronic switch that conencts one of several inputs to the output based on a selection signal S. The truth table for a 1-bit MUX is shown in **Table 1**.
 
 **Table 1:** Truth table of a 1-bit MUX.
+
 | X | Y | S | Z |
 | --- | --- | --- | --- |
 | 0 | xx | 1 | 0 |
@@ -19,6 +20,7 @@ The Karnaugh map for the truth table is shown in Table 2.
 > Karnaugh maps are a graphical method to perform minimisation of a logic function. They can easily be derived by hand for functions of up to 4-variables. To create a Karnaugh map, the input variable values are written next to the table in Grey code and the function value is written inside the cells
 
 **Table 2:** Karnaugh map for Table 1 truth table.
+
 | S\XY | 00 | 10 | 11 | 01 |
 | --- | --- | --- | --- | --- |
 | **0** | 0 | 0 | 1 | 1 |

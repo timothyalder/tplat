@@ -3,10 +3,11 @@
 A full adder is an adder with carry-in and carry-out ports. The truth table for a 1-bit full adder is shown in **Table 1**.
 
 **Table 1:** Truth table for a 1-bit full adder.
+
 | X | Y | C_in | Z | C_out |
 | --- | --- | --- | --- | --- |
-| 0 | 0 | 0| 0 | 0 |
-|0 | 1 | 0 | 1 | 0 |
+| 0 | 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 1 | 0 |
 | 1 | 0 | 0 | 1 | 0 |
 | 1 | 1 | 0 | 0 | 1 |
 | 0 | 0 | 1 | 1 | 0 |
