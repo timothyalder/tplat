@@ -91,13 +91,12 @@ _doc_section = rule(
 def doc_section(name, index, srcs = [], **kwargs):
     md_files = [f for f in srcs if f.endswith(".md")]
     md_files.append(index)
-
+    config = "//rules/detail/markdownlint_cli:style_json"
     mdl_target = name + "_mdl"
     markdownlint.markdownlint_binary(
         name = mdl_target,
-        args = ["$(execpath %s)" % f for f in md_files],
-        data = md_files,
-        # config = "//rules/detail/markdownlint_cli:style.json",
+        args = ["-c", "$(rootpath %s)" % config] + ["$(rootpath %s)" % f for f in md_files],
+        data = md_files + [config],
     )
 
     _doc_section(

@@ -1,13 +1,7 @@
-load("@npm//:markdownlint-cli/package_json.bzl", markdownlint_bin = "bin")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
 
-exports_files([
-    "style.json",
-])
-
-genrule(
-    name = "debug_bin",
-    outs = ["bin.txt"],
-    cmd = """
-    echo "{bin}" > $@
-    """.format(bin = markdownlint_bin),
+js_library(
+    name = "style_json",
+    srcs = ["style.json"],
+    visibility = ["//visibility:public"],
 )
