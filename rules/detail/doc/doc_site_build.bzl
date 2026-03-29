@@ -11,12 +11,21 @@ def _doc_site_build_impl(ctx):
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//", "").replace(":", "_").replace("/", "_") + "_build.sh")
     config = ctx.actions.declare_file("conf/config.yaml")
     formatter = ctx.executable._formatter
+    linter = ctx.executable.linter
+    linter_config = ctx.file.linter_config
     config_tmpl = ctx.file._config_tmpl
+    md_files = [ctx.file.index] + [f for f in ctx.files.srcs if f.extension == "md"]
 
     # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
+        "",
+        "'{linter}' -c '{config}' {files}".format(
+            linter = linter.path,
+            config = linter_config.path,
+            files = " ".join(["'%s'" % f.path for f in md_files]),
+        ),
         "",
         "mkdir -p '{out}'".format(out = output_dir.path),
         "mkdir -p '{out}/data'".format(out = output_dir.path),
@@ -63,7 +72,7 @@ def _doc_site_build_impl(ctx):
                 out = output_dir.path,
                 file = file.basename,
             ))
-    deps = [config_tmpl, ctx.file.index] + section_files + data_files
+    deps = [config_tmpl, ctx.file.index, linter_config] + section_files + data_files
     ctx.actions.write(
         output = script,
         content = "\n".join(script_lines),
@@ -73,9 +82,12 @@ def _doc_site_build_impl(ctx):
         inputs = depset(deps),
         outputs = [output_dir, config],
         executable = script,
-        tools = [formatter],
+        tools = [formatter, linter],
         progress_message = "Building doc_section for %s" % ctx.attr.name,
         use_default_shell_env = True,
+        env = {
+            "BAZEL_BINDIR": '.'
+        }
     )
 
     return [
@@ -99,6 +111,15 @@ doc_site_build = rule(
             default = "//rules/detail/doc/utils:formatter",
             executable = True,
             cfg = "exec",
+        ),
+        "linter": attr.label(
+            default = "//rules/detail/markdownlint_cli:markdownlint_cli",
+            executable = True,
+            cfg = "exec",
+        ),
+        "linter_config": attr.label(
+            default = "//rules/detail/markdownlint_cli:style_json",
+            allow_single_file = True,
         ),
         "_config_tmpl": attr.label(
             default = "//rules/detail/doc/data:config.yaml",
