@@ -1,5 +1,6 @@
 load(":_doc_providers.bzl", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
+load("@npm//:markdownlint-cli/package_json.bzl", markdownlint = "bin")
 
 def _doc_section_impl(ctx):
     section_files = []
@@ -10,41 +11,17 @@ def _doc_section_impl(ctx):
     script = ctx.actions.declare_file(str(ctx.label).replace("@@//", "").replace(":", "_").replace("/", "_") + "_build.sh")
     formatter = ctx.executable._formatter
 
-    # Run linter on markdown files
-    md_files = []
-    for dep in ctx.attr.srcs:
-        if DocSectionInfo not in dep:
-            file = dep.files.to_list()[0]
-            md_files.append(file)
-    output_stamp = ctx.actions.declare_file(output_dir.path.replace(".output", ".mdl.output"))
-    mdl_style_file = ctx.attr._mdl_style.files.to_list()[0]
-    ctx.actions.run(
-        executable = ctx.executable._mdl,
-        inputs = md_files + [mdl_style_file],
-        outputs = [output_stamp],
-        arguments = [f.path for f in md_files] + ["-c", mdl_style_file.path, "-o", output_stamp.path],
-        mnemonic = "markdownlintcli",
-        env = {
-            "BAZEL_BINDIR": ctx.bin_dir.path,
-        },
-    )
-
-
-    # Collect all doc_sections, markdown files, and data from deps
     script_lines = [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         "",
         "mkdir -p '{output}'".format(output = output_dir.path),
         "mkdir -p '{output}/data'".format(output = output_dir.path),
-        # Copy index file
         "'{formatter}' '{index}' '{output}/_index.md'".format(formatter = formatter.path, index = ctx.file.index.path, output = output_dir.path),
-        # "cp '{index}' '{output}/_index.md'".format(index=ctx.file.index.path, output=output_dir.path),
         "",
         "# Copy markdown and data files",
     ]
     for dep in ctx.attr.srcs:
-        # Enable recursion (doc_section target in doc_section srcs)
         if DocSectionInfo in dep:
             section = dep[DocSectionInfo].output_dir
             section_files.append(section)
@@ -67,7 +44,7 @@ def _doc_section_impl(ctx):
                 weight = weight,
             ))
             weight += 10
-    for dep in ctx.attr.data:  # Should be able to use ctx.files to remove unnecessary enumeration
+    for dep in ctx.attr.data:
         for file in dep.files.to_list():
             data_files.append(file)
             script_lines.append("cp '{src}' '{output}/{file}'".format(
@@ -94,29 +71,38 @@ def _doc_section_impl(ctx):
         DefaultInfo(
             executable = script,
             runfiles = ctx.runfiles(files = [script]),
-            files = depset([output_dir, output_stamp]),
+            files = depset([output_dir]),
         ),
         DocSectionInfo(output_dir = output_dir),
     ]
 
-doc_section = rule(
+_doc_section = rule(
     attrs = DOC_SECTION_ARGS | {
         "_formatter": attr.label(
             default = "//rules/detail/doc/utils:formatter",
             executable = True,
             cfg = "exec",
         ),
-        "_mdl": attr.label(
-            default = Label("//rules/detail/markdownlint_cli:markdownlint_cli"),
-            executable = True,
-            cfg = "exec",
-        ),
-        "_mdl_style": attr.label(
-            default = Label("//rules/detail/markdownlint_cli:style.json"),
-            allow_single_file = [".json"],
-            cfg = "exec",
-        ),
     },
     implementation = _doc_section_impl,
     doc = "Declares a section which is a nestable chunk of content.",
 )
+
+def doc_section(name, index, srcs = [], **kwargs):
+    md_files = [f for f in srcs if f.endswith(".md")]
+    md_files.append(index)
+
+    mdl_target = name + "_mdl"
+    markdownlint.markdownlint_binary(
+        name = mdl_target,
+        args = ["$(execpath %s)" % f for f in md_files],
+        data = md_files,
+        # config = "//rules/detail/markdownlint_cli:style.json",
+    )
+
+    _doc_section(
+        name = name,
+        index = index,
+        srcs = srcs,
+        **kwargs
+    )
