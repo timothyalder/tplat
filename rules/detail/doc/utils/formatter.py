@@ -50,6 +50,7 @@ def transform_file(src: str, dest: str, weight: int = 10):
         f"title: {title}",
         "type: docs",
         f"weight: {weight}",
+        "bookCollapseSection: true",
         "---",
         "",
     ]
