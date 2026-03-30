@@ -3,8 +3,9 @@ load("//rules:doc.bzl", "doc_publish")
 doc_publish(
     name = "docs",
     srcs = [
-        "//projects/cryptography/docs",
+        "//projects/threat_modelling/docs",
         "//projects/fpga/docs",
+        "//projects/cryptography/docs",
         "//projects/math/docs",
     ],
     index = "index.md",
