@@ -5,6 +5,7 @@ doc_publish(
     srcs = [
         "//projects/cryptography/docs",
         "//projects/fpga/docs",
+        "//projects/threat_modelling/docs",
     ],
     index = "index.md",
     title = "tplat",
