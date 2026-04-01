@@ -28,9 +28,10 @@ def transform_dir(src: str, dest: str, weight: int = 10):
         lines = f_in.readlines()
 
     with open(dest_index, "w") as f_out:
+        title = lines[0].strip().replace("# ", "")
         for line in lines:
             if line.startswith("weight: "):
-                f_out.write(f"weight: {weight}\n")
+                f_out.write(f"weight: {weight}\nslug: {title.lower().replace(' ', '')}\n") # Doesn't work for _index.md https://github.com/gohugoio/hugo/issues/7124
             else:
                 f_out.write(line)
 
@@ -50,6 +51,7 @@ def transform_file(src: str, dest: str, weight: int = 10):
         f"title: {title}",
         "type: docs",
         f"weight: {weight}",
+        f"slug: {title.lower().replace(' ', '-')}",
         "bookCollapseSection: true",
         "---",
         "",
