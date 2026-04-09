@@ -6,6 +6,11 @@ relativeURLs: true
 canonifyURLs: false
 # themesDir: ../..
 
+# https://github.com/gohugoio/hugo/issues/8523
+# permalinks:
+#   pages: {}
+#   section: {}
+
 # Book configuration
 disablePathToLower: true
 enableGitInfo: false
