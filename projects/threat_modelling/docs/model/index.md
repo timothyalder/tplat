@@ -28,8 +28,8 @@ At this point, it is probably helpful to label data flows.
 
 You should think of threat model diagrams as a part of the development process, so try to keep your diagram in version control with the rest of your project.
 
-## Tips
-
-* Don’t have data sinks: You write the data for a reason. Show who uses it.
-* Data can’t move itself from one data store to another: Show the process that moves it.
-* Keep your diagram simple. For complicated parts of your system (e.g., diode structure), draw a separate diagram that focuses on just that block.
+> **Tips:**
+>
+> * Don’t have data sinks: You write the data for a reason. Show who uses it.
+> * Data can’t move itself from one data store to another: Show the process that moves it.
+> * Keep your diagram simple. For complicated parts of your system (e.g., diode structure), draw a separate diagram that focuses on just that block.

@@ -5,6 +5,7 @@ doc_section(
     srcs = [
         "//projects/threat_modelling/docs/identify/stride",
         "eop.md",
+        "brainstorming.md",
     ],
     index = "index.md",
     visibility = ["//visibility:public"],
