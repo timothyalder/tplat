@@ -1,11 +1,11 @@
 load("//rules:doc.bzl", "doc_section")
 
 doc_section(
-    name = "identify",
+    name = "approaches",
     srcs = [
-        "//projects/threat_modelling/docs/identify/stride",
-        "eop.md",
-        "brainstorming.md",
+        "assets.md",
+        "attackers.md",
+        "software.md",
     ],
     index = "index.md",
     visibility = ["//visibility:public"],
