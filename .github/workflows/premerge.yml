@@ -1,0 +1,22 @@
+name: Toolchains
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  bazel-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bazel
+        uses: bazelbuild/setup-bazelisk@v3
+
+      - name: Run toolchain tests
+        run: bazel test //toolchains/...
