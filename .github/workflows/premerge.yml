@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  Test Toolchains:
+  Toolchains:
     runs-on: ubuntu-latest
 
     steps:
