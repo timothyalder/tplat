@@ -7,3 +7,8 @@ py_binary(
     ],
     main = "main.py",
 )
+
+py_test(
+    name = "test",
+    srcs = ["main.py"],
+)

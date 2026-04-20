@@ -1,4 +1,5 @@
 fn main() -> anyhow::Result<()> {
-    println!("Hello world");
+    let output = your_crate::run()?;
+    println!("{output}");
     Ok(())
 }
