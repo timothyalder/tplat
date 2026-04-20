@@ -1,5 +1,5 @@
 fn main() -> anyhow::Result<()> {
-    let output = your_crate::run()?;
+    let output = rust_lib::run()?;
     println!("{output}");
     Ok(())
 }

@@ -2,13 +2,19 @@ load("@rules_rust//rust:defs.bzl", "rust_library", "rust_binary", "rust_test")
 
 rust_library(
     name = "rust_lib",
-    srcs = ["src/lib.rs"],
+    srcs = ["lib.rs"],
+    deps = [
+        "@crates//:anyhow",
+    ],
 )
 
 rust_binary(
     name = "rust",
-    srcs = ["src/main.rs"],
-    deps = [":rust_lib"],
+    srcs = ["main.rs"],
+    deps = [
+        ":rust_lib",
+        "@crates//:anyhow",
+    ],
 )
 
 rust_test(
