@@ -26,9 +26,9 @@ def _impl(ctx):
             tool_path(name = "objdump", path = "/bin/false"),
         ],
         cxx_builtin_include_directories = [
-            "/usr/include/c++",
             "/usr/include",
-            "/usr/lib/clang",
+            "/usr/include/c++",
+            "/usr/lib/llvm-*/lib/clang/*/include",
         ],
     )
 
