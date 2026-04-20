@@ -17,11 +17,9 @@ They are especially effective because they:
 * Highlight **interactions and trust boundaries**
 * Make it easier to systematically identify **threats along data paths**
 
-## Key Characteristics
+Data flows are typically shown as **one-way arrows**, even though real communication is often bidirectional. This simplification exists because **threats are asymmetric** (e.g., inbound vs outbound data exposure risks differ).
 
-* Data flows are typically shown as **one-way arrows**, even though real communication is often bidirectional.
-* This simplification exists because **threats are asymmetric** (e.g., inbound vs outbound data exposure risks differ).
-* DFDs do **not clearly distinguish** between:
+DFDs do **not clearly distinguish** between:
 
   * Channel security (e.g., TLS, SMTP)
   * Message security (e.g., contents of an email)
