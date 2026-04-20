@@ -21,9 +21,8 @@ Data flows are typically shown as **one-way arrows**, even though real communica
 
 DFDs do **not clearly distinguish** between:
 
-  * Channel security (e.g., TLS, SMTP)
-  * Message security (e.g., contents of an email)
-    → For this distinction, **swim lane diagrams** may be more appropriate.
+* Channel security (e.g., TLS, SMTP)
+* Message security (e.g., contents of an email)
 
 ## Core Elements of a DFD
 
