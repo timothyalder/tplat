@@ -18,5 +18,17 @@ jobs:
       - name: Install Bazel
         uses: bazelbuild/setup-bazelisk@v3
 
+      - name: Debug Compiler
+        run: which clang
+        run: which clang++
+        run: which gcc
+        run: which g++
+        run: clang --version
+        run: clang++ --version
+        run: gcc --version
+        run: echo | clang -E -x c - -v
+        run: echo | clang++ -E -x c++ - -v
+        run: clang -print-resource-dir
+
       - name: Run toolchain tests
         run: bazel test //projects/hello_world/...
