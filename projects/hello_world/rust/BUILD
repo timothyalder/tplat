@@ -9,7 +9,7 @@ rust_library(
 )
 
 rust_binary(
-    name = "rust",
+    name = "rust_bin",
     srcs = ["main.rs"],
     deps = [
         ":rust_lib",

@@ -2,7 +2,7 @@ load("@rules_python//python:defs.bzl", "py_library", "py_binary", "py_test")
 load("@pypi//:requirements.bzl", "requirement")
 
 py_library(
-    name = "main",
+    name = "python_lib",
     srcs = [
         "main.py"
     ],
@@ -11,7 +11,7 @@ py_library(
 )
 
 py_binary(
-    name = "python",
+    name = "python_bin",
     srcs = [
         "main.py",
     ],
@@ -19,7 +19,7 @@ py_binary(
 )
 
 py_test(
-    name = "test",
+    name = "python_test",
     srcs = [
         "test.py",
     ],
