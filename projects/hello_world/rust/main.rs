@@ -1,4 +1,5 @@
 fn main() -> anyhow::Result<()> {
-    println!("Hello world");
+    let output = rust_lib::run()?;
+    println!("{output}");
     Ok(())
 }

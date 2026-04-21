@@ -4,3 +4,8 @@ cc_binary(
     name = "cpp",
     srcs = ["main.cpp"],
 )
+
+cc_test(
+    name = "test",
+    srcs = ["main.cpp"],
+)

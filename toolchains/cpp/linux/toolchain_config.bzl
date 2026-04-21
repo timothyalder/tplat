@@ -26,10 +26,11 @@ def _impl(ctx):
             tool_path(name = "objdump", path = "/bin/false"),
         ],
         cxx_builtin_include_directories = [
-            "/usr/include/c++",
+            "/usr/lib/llvm-18/lib/clang/18/include",
             "/usr/include",
-            "/usr/lib/clang",
-        ],
+            "/usr/include/x86_64-linux-gnu",
+            "/usr/include/c++",
+        ]
     )
 
 cc_toolchain_config = rule(
