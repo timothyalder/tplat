@@ -1,8 +1,8 @@
 # State Diagrams
 
-State diagrams model a system as a set of **states** and **transitions** between those states. They are useful for analysing how a system behaves in response to inputs and how it enforces rules over time.
+State diagrams model a system as a set of **states** and **transitions** between those states. They are useful for analysing how a system behaves in response to inputs and how it enforces rules over time. 
 
-* A system is represented as a **state machine** with:
+A system is represented as a **state machine** with:
 
   * **States** (current condition of the system)
   * **Transitions** (movement between states)
@@ -20,36 +20,29 @@ stateDiagram-v2
     Locked --> Closed: unlock
 ```
 
-* Each **state** is shown as a labeled node
+From a threat modelling perspective, state diagrams can help to evaluate whether **each transition enforces proper validation and security checks**, and to identify:
 
-* Each **transition** is shown as an arrow labeled with the condition or event that triggers it
-
-## Use in Threat Modeling
-
-* Evaluate whether **each transition enforces proper validation and security checks**
-* Identify:
-
-  * Invalid or unexpected transitions
-  * Missing validation on inputs
-  * States that should not be reachable
+* invalid or unexpected transitions
+* missing validation on inputs
+* states that should not be reachable.
 
 This helps uncover logic flaws and state-based vulnerabilities.
 
-### Practical Considerations
+## Key Features
 
-* State diagrams can become **complex quickly** as more states and transitions are added
+* Each **state** is shown as a labeled node.
 
-* Simpler models are generally:
+* Each **transition** is shown as an arrow labeled with the condition or event that triggers it.
 
-  * Easier to reason about
-  * Easier to secure
-  * More reflective of good system design
+## Considerations
 
-* Overly complex state spaces (e.g., ambiguous states like “ajar”) increase:
+State diagrams can become **complex quickly** as more states and transitions are added. Simpler models are generally:
 
-  * Implementation difficulty
-  * Risk of security gaps
+  * easier to reason about
+  * easier to secure
+  * more reflective of good system design.
 
-### Key Takeaway
+Overly complex state spaces (e.g., ambiguous states like “ajar”) increase:
 
-State diagrams help identify **security issues in system behavior and transitions**, ensuring that only valid, properly checked state changes are possible.
+  * implementation difficulty
+  * risk of security gaps.
