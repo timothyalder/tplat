@@ -20,11 +20,12 @@ py_binary(
 
 py_test(
     name = "python_test",
+    main = "test.py",
     srcs = [
         "test.py",
     ],
     deps = [
-        ":main",
+        ":python_lib",
         requirement("pytest"),
     ]
 )
