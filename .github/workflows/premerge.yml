@@ -1,4 +1,4 @@
-name: Premerge Checks
+name: Pre-Merge Checks
 
 on:
   pull_request:
