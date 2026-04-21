@@ -37,4 +37,8 @@ jobs:
           clang -print-resource-dir || true
 
       - name: Run toolchain tests
-        run: bazel test //projects/hello_world/...
+        run: |
+          set -euxo pipefail
+
+          bazel test //projects/hello_world/...
+          bazel test //toolchains/...
