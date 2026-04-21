@@ -18,24 +18,6 @@ jobs:
       - name: Install Bazel
         uses: bazelbuild/setup-bazelisk@v3
 
-      - name: Debug Compiler
-        run: |
-          set -euxo pipefail
-
-          which clang || true
-          which clang++ || true
-          which gcc || true
-          which g++ || true
-
-          clang --version || true
-          clang++ --version || true
-          gcc --version || true
-
-          echo | clang -E -x c - -v || true
-          echo | clang++ -E -x c++ - -v || true
-
-          clang -print-resource-dir || true
-
       - name: Run toolchain tests
         run: |
           set -euxo pipefail
