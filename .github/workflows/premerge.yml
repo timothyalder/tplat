@@ -19,16 +19,22 @@ jobs:
         uses: bazelbuild/setup-bazelisk@v3
 
       - name: Debug Compiler
-        run: which clang
-        run: which clang++
-        run: which gcc
-        run: which g++
-        run: clang --version
-        run: clang++ --version
-        run: gcc --version
-        run: echo | clang -E -x c - -v
-        run: echo | clang++ -E -x c++ - -v
-        run: clang -print-resource-dir
+        run: |
+          set -euxo pipefail
+
+          which clang || true
+          which clang++ || true
+          which gcc || true
+          which g++ || true
+
+          clang --version || true
+          clang++ --version || true
+          gcc --version || true
+
+          echo | clang -E -x c - -v || true
+          echo | clang++ -E -x c++ - -v || true
+
+          clang -print-resource-dir || true
 
       - name: Run toolchain tests
         run: bazel test //projects/hello_world/...
