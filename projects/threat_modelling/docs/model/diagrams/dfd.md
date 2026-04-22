@@ -24,19 +24,11 @@ DFDs do **not clearly distinguish** between:
 * Channel security (e.g., TLS, SMTP)
 * Message security (e.g., contents of an email)
 
-## Core Elements of a DFD
+## Key Features
 
-| Element | Description | Examples |
+| Feature | Description | Examples |
 | --- | --- | --- |
 | **Process** | Any executing code | Application services, APIs |
 | **Data Flow** | Movement of data between components | HTTP requests, RPC calls |
 | **Data Store** | Persistent storage | Databases, files, registries |
 | **External Entity** | Actors outside system control | Users, third-party services |
-
-### Modern DFD Improvements
-
-Compared to classic DFDs, modern diagrams often:
-
-* Use **rounded rectangles** for processes (better readability than circles)
-* Prefer **straight lines** over curved ones (clearer at scale)
-* Introduce **trust boundaries** to highlight security domains

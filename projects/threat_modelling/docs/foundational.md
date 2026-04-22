@@ -15,7 +15,7 @@ In the context of product design, threat modelling offers several advantages; na
 
 Quite often threat modelling will find vulnerabilities that have exponential cost of change curves. Incorporating threat modelling into the requirements analysis phase of a design cycle can lead to significant cost savings in production.
 
-Adam Shostack makes a notable comparison between threat modelling and version control, whereby he postulates that threat modelling should be treated as a fundamental skill (not a specialist discipline), much the same as familiarity with a version control system (e.g., Git) is a fundamental skill for a software developer.
+Shostack makes a notable comparison between threat modelling and version control, whereby he postulates that threat modelling should be treated as a fundamental skill (not a specialist discipline), much the same as familiarity with a version control system (e.g., Git) is a fundamental skill for a software developer.
 
 ## Threat Modelling in Four Steps
 
@@ -29,7 +29,7 @@ Threat modelling can be broken down into four key questions:
 These questions resolve to the following four activities:
 
 1. Model the system you're building, deploying, or changing.
-2. Find threats using that model in conjunction with formal threat identification techniques (e.g. [Stride](identify/index.md)).
+2. Find threats using that model in conjunction with formal threat identification techniques (e.g. [STRIDE](identify/index.md)).
 3. Address threats using formal threat mitigation techniques.
 4. Validate your work for completeness and effectiveness.
 

@@ -11,7 +11,7 @@
   * Behavior diagrams
   * Interaction diagrams
 
-## Challenges
+## Limitations
 
 * **High complexity**: UML includes many symbol conventions, requiring strong familiarity to interpet correctly
 * **Risk of misunderstanding**:
@@ -20,7 +20,7 @@
   * Team members may not realize they are confused
   * Social barriers can prevent clarification (e.g., reluctance to ask questions)
 
-## Practical Guidance
+## Key Takeaway
 
 * Use UML for threat modeling **only if the team is already comfortable with it**
 * Focus on **augmenting diagrams with trust boundaries** rather than increasing detail

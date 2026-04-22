@@ -1,6 +1,6 @@
 # Swim Lane Diagrams
 
-Swim lane diagrams are a visual method for modeling **interactions between participants** in a system or protocol. They are particularly useful for understanding **message flows over time**.
+Swim lane diagrams are a visual method for modeling **interactions between participants** in a system or protocol. They are particularly useful for understanding **message flows over time**, or when modelling human + system interaction.
 
 * Each **participant** (e.g., client, server) is represented by a vertical “lane”
 * **Time flows downward** along each lane
@@ -46,10 +46,3 @@ Swim lane diagrams complement data flow diagrams by emphasising **who communicat
   * What users know
   * What users do
   * Human interactions in security-sensitive processes
-
-## When to Use Swim Lane Diagrams
-
-* When **timing and sequence** of interactions matter
-* When analyzing **protocol behavior**
-* When distinguishing between **participants and their responsibilities**
-* When modeling **human + system interactions**

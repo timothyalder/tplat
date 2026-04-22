@@ -1,6 +1,6 @@
 # Diagrams
 
-Different diagram types are useful in different threat modeling contexts. Diagrams should:
+Different diagram types are useful in different threat modelling contexts. Diagrams should:
 
 * Show the events that drive the system.
 * Show the processes that are driven.
@@ -16,15 +16,9 @@ All diagrams serve the same goal: **establish a shared understanding of how the 
 
 **Disagreements about diagrams often reveal hidden misunderstandings about the system**. Those misunderstandings frequently surface **security issues**.
 
-> **Tips:**
->
-> * Don't cram too much detail into a single diagram. Split your diagram into sub-processes if necessary.
-> * Labels in diagrams should be short and descriptive, while helping to tell the overarching story. Avoid verbs, favour nouns.
-> * Use colors intuitively (e.g. green for safe, red for compromised).
-
 ## Validating Diagrams
 
-Validating a system diagram ensures it is both **accurate** and **useful for threat modeling**.
+Validating a system diagram ensures it is both **accurate** and **useful for threat modelling**.
 
 A good threat modeling diagram is one that is **accurate, complete enough for security analysis, and actively used to align understanding across the team**.
 
@@ -59,19 +53,16 @@ Validation is best done collaboratively with system experts:
 * Avoid needing external or missing information
 * Ensure no diagram changes are required to explain behavior
 
-## Diagram Quality Rules of Thumb
-
-Improve diagrams iteratively using these principles:
-
-* **Clarify ambiguity**: expand “sometimes/also” cases into explicit flows
-* **Show security-relevant detail** when needed
-* **Label trust boundaries clearly**
-* **Include disagreement points** to align team understanding
-* **No data sinks**: show where data is used
-* **Show data movement explicitly** (no implicit transfers)
-* **Show all entry and exit flows for processes**
-* **Include control mechanisms** (e.g. firewalls, permissions)
-* **Avoid overly complex diagrams (“eye charts”)**
-* **Keep diagrams printable and readable**
-
-A process must have both input and output—otherwise it is either incomplete or mischaracterised.
+> ## **Tips:**
+>
+> * **Clarify ambiguity**: expand “sometimes/also” cases into explicit flows
+> * **Show security-relevant detail** when needed
+> * **Label trust boundaries clearly**
+> * **Include disagreement points** to align team understanding
+> * **No data sinks**: show where data is used
+> * **Show data movement explicitly** (no implicit transfers)
+> * **Show all entry and exit flows for processes**
+> * **Include control mechanisms** (e.g. firewalls, permissions)
+> * **Avoid cramming**: split your diagram into sub-processes if necessary.
+> * **Keep labels short and descriptive**, while helping to tell the overarching story. Avoid verbs, favour nouns.
+> * **Use colors intuitively** (e.g., green for safe, red for compromised).
