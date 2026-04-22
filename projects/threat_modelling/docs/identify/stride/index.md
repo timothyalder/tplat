@@ -47,4 +47,4 @@ In practice, it provides a more interaction-centric lens for STRIDE, complementi
 
 ### DESIST
 
-DESIST stands for Dispute, Elevation of privilege, Spoofing, Information disclosure, Service denial, and Tampering. (Dispute replaces repudiation with a less fancy word, and Service denial replaces Denial of Service to make the acronym work.)
+DESIST stands for Dispute, Elevation of privilege, Spoofing, Information disclosure, Service denial, and Tampering. This is similar to STRIDE, except Dispute replaces repudiation with a less fancy word, and Service denial replaces Denial of Service to make the acronym work.
