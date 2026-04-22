@@ -29,7 +29,7 @@ Threat modelling can be broken down into four key questions:
 These questions resolve to the following four activities:
 
 1. Model the system you're building, deploying, or changing.
-2. Find threats using that model in conjunction with formal threat identification techniques (e.g. [Stride](identify/index.md)).
+2. Find threats using that model in conjunction with formal threat identification techniques (e.g. [STRIDE](identify/index.md)).
 3. Address threats using formal threat mitigation techniques.
 4. Validate your work for completeness and effectiveness.
 
