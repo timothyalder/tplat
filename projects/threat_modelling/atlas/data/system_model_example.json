@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "web",
+      "type": "service",
+      "trust_zone": "internal",
+      "exposure": "public",
+      "privileges": "admin",
+      "authn": "password",
+      "authz": "role_based",
+      "data_handling": { "stores_sensitive": false, "processes_sensitive": true }
+    },
+    {
+      "id": "db",
+      "type": "datastore",
+      "trust_zone": "restricted",
+      "exposure": "internal",
+      "privileges": "system",
+      "authn": "token",
+      "authz": "none",
+      "data_handling": { "stores_sensitive": true, "processes_sensitive": true }
+    },
+    {
+      "id": "ext_api",
+      "type": "external",
+      "trust_zone": "external",
+      "exposure": "public",
+      "privileges": "none",
+      "authn": "none",
+      "authz": "none",
+      "data_handling": { "stores_sensitive": false, "processes_sensitive": false }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_client_web",
+      "from": "ext_api",
+      "to": "web",
+      "protocol": "http",
+      "directionality": "request",
+      "data": { "classification": "confidential", "includes_credentials": true },
+      "security": { "transport_encryption": "none", "integrity_protection": false },
+      "invocation": { "authenticated": false, "user_initiated": true },
+      "trust_boundary_crossed": true
+    },
+    {
+      "id": "e_web_db",
+      "from": "web",
+      "to": "db",
+      "protocol": "internal_api",
+      "directionality": "bidirectional",
+      "data": { "classification": "secret", "includes_credentials": false },
+      "security": { "transport_encryption": "tls", "integrity_protection": true },
+      "invocation": { "authenticated": true, "user_initiated": false },
+      "trust_boundary_crossed": true
+    },
+    {
+      "id": "e_web_ext",
+      "from": "web",
+      "to": "ext_api",
+      "protocol": "https",
+      "directionality": "request",
+      "data": { "classification": "secret", "includes_credentials": false },
+      "security": { "transport_encryption": "tls", "integrity_protection": true },
+      "invocation": { "authenticated": true, "user_initiated": false },
+      "trust_boundary_crossed": true
+    }
+  ],
+  "trust_boundaries": [
+    { "id": "tb_external_internal", "from_zone": "external", "to_zone": "internal", "type": "network" },
+    { "id": "tb_internal_restricted", "from_zone": "internal", "to_zone": "restricted", "type": "network" }
+  ],
+  "assets": [
+    {
+      "id": "a_db_data",
+      "owner": "db",
+      "type": "data",
+      "sensitivity": "high",
+      "properties": { "confidentiality": true, "integrity": true, "availability": true }
+    }
+  ]
+}
+
