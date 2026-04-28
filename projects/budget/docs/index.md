@@ -1,3 +1,0 @@
-# Budget
-
-Some docs...

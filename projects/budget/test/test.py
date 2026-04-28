@@ -1,12 +1,12 @@
 import pytest
 from pathlib import Path
-from budget.main import TransactionCategoriser
+from budget.main import main
 
 
 def test_budget():
-    print("Testing the budget TransactionCategoriser class...")
-    spending = TransactionCategoriser(Path(__file__).parent.parent/"docs/data/Transactions_2022-12-01_2023-05-03.csv")
-    assert (spending.categorised['Groceries']-100<0.0001)
+    print("Testing the main categorisation function...")
+    result = main([str(Path(__file__).parent/"data"/"Transactions_2025-05-01_2026-04-28 2.csv")])
+    assert (abs(result['Groceries']["Balance"][-1]+3369.86)<0.0001)
 
 
 if __name__ == "__main__":

@@ -63,10 +63,11 @@ def main(fps: str | List[str], out: bool=False)-> None:
     """
     # read in the data
     fps = list(fps)
+    print(fps)
     df = pd.concat([pd.read_csv(fp) for fp in fps], ignore_index=True)
-    df["Debit amount"].fillna(0, inplace=True)
-    df["Credit amount"].fillna(0, inplace=True)
-    df.fillna("", inplace=True)
+    df["Debit amount"] = df["Debit amount"].fillna(0)
+    df["Credit amount"] = df["Credit amount"].fillna(0)
+    df = df.fillna("")
 
     # first, find out what the description and balance headings are
     t = Transaction(df=df)
@@ -121,15 +122,15 @@ def main(fps: str | List[str], out: bool=False)-> None:
     return xlsx
 
 
-# EXAMPLE'
-result = main(
-    [
-        "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28.csv",        
-        "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28 2.csv",
-        "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28 3.csv",
-    ], 
-    out=True
-)
+if __name__ == "__main__":
+    result = main(
+        [
+            "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28.csv",        
+            "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28 2.csv",
+            "/Users/timothyalder/Documents/tplat/projects/budget/docs/data/Transactions_2025-05-01_2026-04-28 3.csv",
+        ], 
+        out=True
+    )
 
 
 

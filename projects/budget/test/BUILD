@@ -7,7 +7,7 @@ py_test(
         "test.py",
     ],
     data = [
-        "//projects/budget/docs/data",
+        "//projects/budget/test/data",
     ],
     deps = [
         "//projects/budget",
