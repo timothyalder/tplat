@@ -1,1 +1,1 @@
-from budget.main import TransactionCategoriser
+from budget.main import main
