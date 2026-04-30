@@ -1,49 +1,118 @@
-# Regular Expressions
+# Regular Expressions (Regex)
 
-Just use AI...
+Regular Expressions (**regex**) are patterns used to match and filter text. In Linux, they are commonly used with tools like `grep`, `sed`, and `awk`.
+
+> Practical note: Regex is dense but composable—focus on common patterns and reuse.
+
+## Core Constructs
+
+| Pattern | Meaning                         |
+| ------- | ------------------------------- |
+| `.`     | Any character                   |
+| `*`     | 0 or more of previous           |
+| `+`     | 1 or more of previous           |
+| `?`     | 0 or 1 of previous              |
+| `^`     | Start of line                   |
+| `$`     | End of line                     |
+| `\b`    | Word boundary                   |
+| `\w`    | Word character (`[a-zA-Z0-9_]`) |
+| `[]`    | Character class                 |
+| `()`    | Grouping                        |
+| `\|`    | OR operator                     |
+
+## `grep` Modes
+
+| Option    | Description                               |          |
+| --------- | ----------------------------------------- | -------- |
+| `grep`    | Basic regex                               |          |
+| `grep -E` | Extended regex (preferred; enables `+`, ` | `, etc.) |
+| `grep -v` | Invert match                              |          |
 
 ## Exercises
 
-1	Show all lines that do not contain the # character.
+### 1. Exclude Lines Containing `#`
+
 ```bash
 cat /etc/ssh/sshd_config | grep -v "#"
-
-
-Include /etc/ssh/sshd_config.d/*
-...
 ```
 
-2	Search for all lines that contain a word that starts with Permit.
+* `-v` → invert match (exclude comments)
+
+### 2. Words Starting with `Permit`
+
 ```bash
-(base) timothyalder@Timothys-MacBook-Pro ~ % cat /etc/ssh/sshd_config | grep -E '\bPermit\w*'
-#PermitRootLogin prohibit-password
-...
+grep -E '\bPermit\w*' /etc/ssh/sshd_config
 ```
 
-3	Search for all lines that contain a word ending with Authentication.
+* `\bPermit` → word starts with "Permit"
+* `\w*` → remaining characters
+
+### 3. Words Ending with `Authentication`
+
 ```bash
-(base) timothyalder@Timothys-MacBook-Pro ~ % cat /etc/ssh/sshd_config | grep -E '\w*Authentication\b' 
-# Authentication:
-#PubkeyAuthentication yes
-...
+grep -E '\w*Authentication\b' /etc/ssh/sshd_config
 ```
 
-4	Search for all lines containing the word Key.
+* `\w*` → prefix
+* `Authentication\b` → word ends with target
+
+### 4. Lines Containing `Key`
+
 ```bash
-(base) timothyalder@Timothys-MacBook-Pro ~ % cat /etc/ssh/sshd_config | grep 'Key'         
-# unless they are a multivalue option such as HostKey.
-#HostKey /etc/ssh/ssh_host_rsa_key
-...
+grep 'Key' /etc/ssh/sshd_config
 ```
 
-5	Search for all lines beginning with Password and containing yes.
+* Simple substring match (no regex needed)
+
+### 5. Lines Starting with `Password` **and** Containing `yes`
+
+⚠️ Original pattern is incorrect (`^Password|yes` = OR logic)
+
+#### Correct:
+
 ```bash
-(base) timothyalder@Timothys-MacBook-Pro ~ % cat /etc/ssh/sshd_config | grep -E '^Password|yes'
+grep -E '^Password.*yes' /etc/ssh/sshd_config
 ```
 
-6	Search for all lines that end with yes.
+* `^Password` → start of line
+* `.*` → any characters
+* `yes` → must appear later in line
+
+### 6. Lines Ending with `yes`
+
 ```bash
-(base) timothyalder@Timothys-MacBook-Pro ~ % cat /etc/ssh/sshd_config | grep -E 'yes$'            
-#StrictModes yes
-...
+grep -E 'yes$' /etc/ssh/sshd_config
 ```
+
+* `$` → end of line anchor
+
+## Common Patterns
+
+| Use Case                   | Pattern    |
+| -------------------------- | ---------- |
+| Starts with word           | `^word`    |
+| Ends with word             | `word$`    |
+| Contains word              | `word`     |
+| Word boundary              | `\bword\b` |
+| Starts with A, ends with B | `^A.*B$`   |
+| OR condition               | `A\|B`     |
+
+## Best Practices
+
+* Prefer `grep -E` (extended regex)
+* Avoid unnecessary `cat`:
+
+  ```bash
+  grep pattern file
+  ```
+  
+* Build patterns incrementally
+* Validate assumptions (anchors, grouping, precedence)
+
+## Mental Model
+
+* Regex = **pattern → match set**
+* Anchors (`^`, `$`) constrain position
+* Quantifiers (`*`, `+`) control repetition
+* Pipes (`|`) introduce branching logic
+* Most errors come from **incorrect grouping or precedence**

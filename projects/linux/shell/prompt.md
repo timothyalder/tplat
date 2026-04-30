@@ -1,22 +1,104 @@
-# Prompt Description
+# Shell Prompt
+
+The **shell prompt** is the textual indicator that the shell is ready to accept input. It typically encodes contextual information such as the current user, host, and working directory.
+
+## Default Format
 
 ```bash
-<username>@<hostname><current working directory>$
+<username>@<hostname><current-working-directory>$
 ```
 
-~ indicates home directory. $ indicates user
+Example:
 
 ```bash
-<username>@<hostname>[~]$
+user@host[/path/to/dir]$
 ```
 
-\# indicates root
+## Common Symbols
+
+| Symbol | Meaning                 |
+| ------ | ----------------------- |
+| `~`    | User’s home directory   |
+| `$`    | Regular (non-root) user |
+| `#`    | Root (privileged) user  |
+
+### Examples
 
 ```bash
-root@htb[/htb]#
+user@host[~]$
 ```
 
-PS1 variable controls how this looks. PS1 can be customised to change whether user, computer's name, custom folder, ip address, date, time, status of last command, etc. is shown.
+```bash
+root@host[/root]#
+```
+
+## Prompt Configuration (`PS1`)
+
+The prompt is controlled by the `PS1` environment variable.
+
+### Example
+
+```bash
+PS1="\u@\h[\w]\$ "
+```
+
+### Common Escape Sequences
+
+| Sequence     | Description               |
+| ------------ | ------------------------- |
+| `\u`         | Username                  |
+| `\h`         | Hostname (short)          |
+| `\H`         | Hostname (full)           |
+| `\w`         | Current working directory |
+| `\d`         | Date (e.g., Mon Feb 6)    |
+| `\D{format}` | Custom date format        |
+| `\t`         | Time (24-hour)            |
+| `\T`         | Time (12-hour)            |
+| `\@`         | Time (AM/PM format)       |
+| `\j`         | Number of jobs            |
+| `\s`         | Shell name                |
+| `\n`         | Newline                   |
+| `\r`         | Carriage return           |
+
+## Customisation
+
+Prompt configuration is typically defined in:
+
+```bash
+~/.bashrc
+```
+
+Changes can include:
+
+* User and host display
+* Working directory format
+* Time/date stamps
+* Exit status of last command
+* Colour formatting (via ANSI escape codes)
+
+## Command Logging
+
+### History File
+
+Commands are persisted in:
+
+```bash
+~/.bash_history
+```
+
+* Stores previously executed commands
+* Useful for auditing and recall
+
+### Session Recording
+
+```bash
+script
+```
+
+* Records full terminal session (input + output)
+* Useful for documentation and reproducibility
+
+## Minimal Prompts
 
 ```bash
 $
@@ -26,20 +108,15 @@ $
 #
 ```
 
-Using tools like script or reviewing the .bash_history file (located in the user's home directory), you can record all the commands you've used and organize them by date and time, which aids in documentation and analysis.
+Used in:
 
-The prompt can be customized using special characters and variables in the shell’s configuration file (.bashrc for the Bash shell). For example, we can use: the \u character to represent the current username, \h for the hostname, and \w for the current working directory.
+* Documentation
+* Scripts
+* Minimalist environments
 
-Special Character	Description
-\d	Date (Mon Feb 6)
-\D{%Y-%m-%d}	Date (YYYY-MM-DD)
-\H	Full hostname
-\j	Number of jobs managed by the shell
-\n	Newline
-\r	Carriage return
-\s	Name of the shell
-\t	Current time 24-hour (HH:MM:SS)
-\T	Current time 12-hour (HH:MM:SS)
-\@	Current time
-\u	Current username
-\w	Full path of the current working directory
+## Mental Model
+
+* Prompt = **context + readiness indicator**
+* `PS1` = **formatting definition**
+* Symbols (`$`, `#`) = **privilege level**
+* Customisation improves **situational awareness and efficiency**

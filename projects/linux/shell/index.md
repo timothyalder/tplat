@@ -1,13 +1,54 @@
 # Shell
 
-A Linux terminal, also called a shell or command line, provides a text-based input/output (I/O) interface between users and the kernel for a computer system. The term console is also typical but does not refer to a window but a screen in text mode. In the terminal window, commands can be executed to control the system.
+## Overview
+
+A **shell** is a command-line interface (CLI) that mediates between the user and the OS kernel. It accepts commands, executes programs, and manages I/O streams.
+
+> Terminology:
+
+* **Terminal**: Interface for interacting with a shell
+* **Console**: Physical or virtual text display (historically distinct from terminal windows)
 
 ## Terminal Emulators
 
-Terminal emulation is software that emulates the function of a terminal. It allows the use of text-based programs within a graphical user interface (GUI). There are also so-called command-line interfaces (CLI) that run as additional terminals in one terminal. In short, a terminal serves as an interface to the shell interpreter.
+A **terminal emulator** provides a GUI-based environment to run shell sessions.
+
+Examples:
+
+* GNOME Terminal
+* iTerm2
+* Windows Terminal
+
+### Characteristics
+
+* Emulates legacy text terminals
+* Supports multiple sessions (tabs/panes)
+* Provides access to CLI tools within a GUI
 
 ## Shell
 
-The most commonly used shell in Linux is the Bourne-Again Shell (BASH), and is part of the GNU project. Everything we do through the GUI we can do with the shell. The shell gives us many more possibilities to interact with programs and processes to get information faster. Besides, many processes can be easily automated with smaller or larger scripts that make manual work much easier.
+The shell is the **command interpreter** responsible for:
 
-Besides Bash, there also exist other shells like Tcsh/Csh, Ksh, Zsh, Fish shell and others.
+* Parsing user input
+* Executing commands/programs
+* Managing processes and I/O redirection
+
+### Common Shells
+
+| Shell     | Description                                |
+| --------- | ------------------------------------------ |
+| Bash      | Default on most Linux systems; GNU project |
+| Zsh       | Extended Bash with improved UX/features    |
+| Fish      | User-friendly, modern shell                |
+| KornShell | Advanced scripting capabilities            |
+| Tcsh      | C-shell derivative                         |
+
+## Mental Model
+
+* **Terminal emulator** = interface
+* **Shell** = interpreter
+* **Kernel** = execution layer
+
+```
+User -> Terminal -> Shell -> Kernel -> Hardware
+```

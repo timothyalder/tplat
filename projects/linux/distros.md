@@ -1,21 +1,83 @@
-# Linux Distributions
+# Distributions
 
-Linux distributions - or distros - are operating systems based on the Linux kernel.
+A Linux distribution (distro) is an operating system built on the Linux kernel, bundled with userland tools, package management, and system utilities.
 
-Many users choose Linux for their desktop computers because it is free, open source, and highly customizable. Ubuntu and Fedora are two popular choices for desktop Linux and beginners. It is also widely used as a server operating system because it is secure, stable, and reliable and comes with frequent and regular updates. Finally, we, as cybersecurity specialists, often prefer Linux because it is open source, meaning its source code is available for scrutiny and customization. Because of such customization, we can optimize and customize our Linux distribution the way we want and configure it for specific use cases only if necessary.
+There are 600+ distributions, typically differentiated by:
 
-We can use those distros everywhere, including (web) servers, mobile devices, embedded systems, cloud computing, and desktop computing. For cyber security specialists, some of the most popular Linux distributions are but are not limited to:
+* Package management systems (e.g., APT, DNF, Pacman)
+* Default toolchains and utilities
+* Desktop environments / UI
+* Target use case (desktop, server, embedded, security)
 
-ParrotOS	Ubuntu	Debian
-Raspberry Pi OS	CentOS	BackBox
-BlackArch	Pentoo
+## Popular Distributions
 
-The main differences between the various Linux distributions are the included packages, the user interface, and the tools available. Kali Linux is the most popular distribution for cyber security specialists, including a wide range of security-focused tools and packages. Ubuntu is widespread for desktop users, while Debian is popular for servers and embedded systems. Finally, red Hat Enterprise Linux and CentOS are popular for enterprise-level computing.
+### General Purpose
 
-## Debian
+* Ubuntu — beginner-friendly, strong desktop ecosystem
+* Fedora — modern packages, upstream-focused
+* Debian — stability-focused
 
-Debian is a widely used and well-respected Linux distribution known for its stability and reliability. It is used for various purposes, including desktop computing, servers, and embedded system. It uses an Advanced Package Tool (apt) package management system to handle software updates and security patches. The package management system helps keep the system up-to-date and secure by automatically downloading and installing security updates as soon as they are available. This can be executed manually or set up automatically.
+### Enterprise
 
-Debian can have a steeper learning curve than other distributions, but it is widely regarded as one of the most flexible and customizable Linux distros. The configuration and setup can be complex, but it also provides excellent control over the system, which can be good for advanced users. 
+* Red Hat Enterprise Linux — commercial support, enterprise standard
+* CentOS — RHEL-compatible (community-driven variants)
 
-Stability and reliability are key strengths of Debian. The distribution is known for its long-term support releases, which can provide updates and security patches for up to five years. This can be especially important for servers and other systems that must be up and running 24/7. It has had some vulnerabilities, but the development community has quickly released patches and security updates. In addition, Debian has a strong commitment to security and privacy, and the distribution has a well-established security track record.
+### Security / Offensive Tooling
+
+* Kali Linux — extensive preinstalled security tools
+* Parrot OS — security, privacy, development focus
+* BlackArch — large penetration testing toolkit
+* Pentoo — Gentoo-based security distro
+* BackBox — Ubuntu-based security distro
+
+### Specialized / Other
+
+* Raspberry Pi OS — optimized for ARM devices
+
+## Focus: Debian
+
+### Overview
+
+Debian is a widely adopted distribution known for **stability**, **reliability**, and **strict free software principles**. It is commonly used across:
+
+* Servers
+* Desktops
+* Embedded systems
+
+### Package Management
+
+Debian uses the **APT (Advanced Package Tool)** ecosystem:
+
+* Handles installation, upgrades, and dependency resolution
+* Enables automated or manual security updates
+* Backed by large, curated repositories
+
+### Characteristics
+
+| Property       | Details                                          |
+| -------------- | ------------------------------------------------ |
+| Stability      | Highly stable; conservative package updates      |
+| Release Cycle  | Long-term support (≈5 years)                     |
+| Security       | Rapid patching via dedicated security team       |
+| Flexibility    | Highly configurable; minimal default assumptions |
+| Learning Curve | Higher than beginner-focused distros             |
+
+### Trade-offs
+
+* **Pros**
+
+  * Predictable behaviour in production environments
+  * Strong security track record
+  * Extensive package repository
+
+* **Cons**
+
+  * Older package versions (by design)
+  * More manual configuration required
+  * Less beginner-oriented UX compared to Ubuntu
+
+## Mental Model
+
+* Distributions are **opinionated bundles** around the same kernel
+* Choice depends on **operational context** (desktop vs server vs security)
+* Trade-offs typically involve **stability vs freshness** and **ease-of-use vs control**
