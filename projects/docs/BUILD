@@ -6,6 +6,7 @@ doc_publish(
         "//projects/threat_modelling/docs",
         "//projects/fpga/docs",
         "//projects/cryptography/docs",
+        "//projects/linux",
         "//projects/math/docs",
     ],
     index = "index.md",
