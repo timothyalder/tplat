@@ -1,3 +1,5 @@
+load("//rules/detail/doc:_doc_providers.bzl", "DocMenuItem")
+
 DOC_SITE_ARGS = {
     "title": attr.string(mandatory = True, doc = "Title of generated site"),
     "index": attr.label(
@@ -8,5 +10,10 @@ DOC_SITE_ARGS = {
     "theme": attr.string(
         default = "just-the-docs",
         doc = "Theme to be applied to Jekyll site",
+    ),
+    "menu": attr.label_list(
+        providers = [DocMenuItem],
+        mandatory = False,
+        doc = "DocMenuItems to be used for page menu",
     ),
 }
