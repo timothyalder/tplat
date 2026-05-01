@@ -48,7 +48,7 @@ def _doc_site_build_impl(ctx):
     for doc_menu_item in ctx.attr.menu:
         doc_menu_item = doc_menu_item[DocMenuItem]
         script_lines.append(
-            "echo '    - name: {name}\n    - url: {url}\n    - weight: {weight}\n' >> '{config}'".format(
+            "echo '    - name: \"{name}\"\n      url: \"{url}\"\n      weight: {weight}\n' >> '{config}'".format(
                 name = doc_menu_item.name,
                 url = doc_menu_item.url,
                 weight = doc_menu_item.weight,
