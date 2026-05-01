@@ -1,6 +1,7 @@
 load(":_doc_providers.bzl", "DocSectionInfo", "DocSiteInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 load(":_doc_site_args.bzl", "DOC_SITE_ARGS")
+load("//rules/detail/doc:_doc_providers.bzl", "DocMenuItem")
 
 def _doc_site_build_impl(ctx):
     section_files = []
@@ -39,8 +40,21 @@ def _doc_site_build_impl(ctx):
             config = config.path,
             theme = ctx.attr.theme,
         ),
+        "echo 'menu:\n  after:' >> '{config}'".format(
+            config = config.path,
+        ),
         "cp '{index}' '{out}/_index.md'".format(index = ctx.file.index.path, out = output_dir.path),
     ]
+    for doc_menu_item in ctx.attr.menu:
+        doc_menu_item = doc_menu_item[DocMenuItem]
+        script_lines.append(
+            "echo '    - name: {name}\n    - url: {url}\n    - weight: {weight}\n' >> '{config}'".format(
+                name = doc_menu_item.name,
+                url = doc_menu_item.url,
+                weight = doc_menu_item.weight,
+                config = config.path,
+            ),
+        )
     for dep in ctx.attr.srcs:
         if DocSectionInfo in dep:
             section = dep[DocSectionInfo].output_dir

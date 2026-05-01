@@ -1,4 +1,10 @@
-load("//rules:doc.bzl", "doc_publish")
+load("//rules:doc.bzl", "doc_publish", "doc_menu_item")
+
+doc_menu_item(
+    name = "GitHub",
+    url ="https://github.com/timothyalder/tplat",
+    weight=1000,
+)
 
 doc_publish(
     name = "docs",
@@ -10,6 +16,9 @@ doc_publish(
         "//projects/math/docs",
     ],
     index = "index.md",
+    menu = [
+        ":GitHub",
+    ],
     title = "tplat",
     visibility = ["//visibility:public"],
 )
