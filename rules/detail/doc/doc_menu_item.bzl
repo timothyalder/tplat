@@ -12,7 +12,6 @@ def _doc_menu_item_impl(ctx):
 doc_menu_item = rule(
     implementation = _doc_menu_item_impl,
     attrs = {
-        # "name": attr.string(mandatory = True),
         "url": attr.string(mandatory = True),
         "weight": attr.int(default = 0),
     },
