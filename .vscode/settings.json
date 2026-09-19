@@ -1,0 +1,10 @@
+{
+  "idf.currentSetup": "/Users/timothyalder/.espressif/v6.0.2/esp-idf",
+  "idf.customExtraVars": {},
+  "clangd.path": "/Users/timothyalder/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=/Users/timothyalder/Documents/tplat/build"
+  ]
+}

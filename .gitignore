@@ -23,3 +23,55 @@ projects/car
 **/*.wpc
 **/*.xml
 **/*.cache
+
+# ESP-IDF
+.DS_Store
+.AppleDouble
+.LSOverride
+.directory
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+**/build/
+build/
+*.o
+*.a
+*.out
+*.exe # For any host-side utilities compiled on Windows
+*.bin
+*.elf
+*.map
+flasher_args.json # Generated in build directory
+sdkconfig.old
+sdkconfig
+/components/.idf/
+**/components/.idf/
+managed_components/
+.espressif/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.egg-info/
+dist/
+venv/
+.venv/
+env/
+.clangd/
+.ccls-cache/
+compile_commands.json
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.user
+*.workspace # General workspace files, can be from various tools
+*.suo       # Visual Studio Solution User Options
+*.sln.docstates # Visual Studio
