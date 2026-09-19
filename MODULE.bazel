@@ -37,12 +37,18 @@ oci.pull(
     tag = "latest",
 )
 oci.pull(
-    name = "distroless_python_312",
-    image = "gcr.io/distroless/python3-debian12",
+    name = "distroless_python",
+    image = "gcr.io/distroless/python3-debian13",
     platforms = ["linux/amd64"],
-    tag = "3.12",
+    digest = "sha256:f2b206661cee3edb44f132d7f054a9ced96f671d8a973de0db750895c9acb2fb",
 )
-use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_python_312", "distroless_python_312_linux_amd64")
+oci.pull(
+    name = "distroless_nginx",
+    image = "gcr.io/distroless/nginx",
+    platforms = ["linux/amd64"],
+    # digest = "sha256:f2b206661cee3edb44f132d7f054a9ced96f671d8a973de0db750895c9acb2fb",
+)
+use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_python", "distroless_python_linux_amd64")
 
 # Register toolchains
 register_toolchains(
