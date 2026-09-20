@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>IDOR CTF</title></head>
+<body>
+  <h1>Private Notes</h1>
+  <p>Register or log in, then view your notes.</p>
+  <form id="register"><h2>Register</h2><input name="username" placeholder="username" required><input name="password" type="password" placeholder="password" required><button>Register</button></form>
+  <form id="login"><h2>Log in</h2><input name="username" placeholder="username" required><input name="password" type="password" placeholder="password" required><button>Log in</button></form>
+  <button id="notes">My notes</button><pre id="result"></pre>
+  <script>
+    const result = document.querySelector('#result');
+    for (const form of document.querySelectorAll('form')) form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const response = await fetch('/api/' + form.id, {method: 'POST'});
+      result.textContent = await response.text();
+    });
+    document.querySelector('#notes').addEventListener('click', async () => {
+      const response = await fetch('/api/notes');
+      result.textContent = await response.text();
+    });
+  </script>
+</body>
+</html>

@@ -17,12 +17,13 @@ check.
 
 ## Components
 
-- `idor_image`: OCI image containing the challenge service.
-- Application: dependency-free Python web service listening on port `8080`.
-- Data store: resettable seeded data containing normal-user and administrator
-  notes.
-- Smoke test: confirms the service starts and the intended authorization flaw
-  remains present.
+- `idor_image`: OCI image based on `nginxinc/nginx-unprivileged`.
+- HTTPS server: nginx listens on port `8443` with a self-signed certificate
+  generated while the image layer is built.
+- Content: a participant can create a fixed session and is only shown note 2;
+  note 1 is an administrator-owned HTML document containing the synthetic flag.
+- Intended flaw: nginx checks for a session but intentionally does not check
+  that `/api/notes/<id>` belongs to that participant.
 
 ## Safety and lifecycle
 
@@ -38,17 +39,19 @@ Load the image into the configured local container runtime:
 bazel run //projects/ctf/idor:load_idor_image
 ```
 
-Then run it with a loopback-only port binding and a disposable data volume:
+Then run it with a loopback-only port binding:
 
 ```sh
-docker run --rm --name idor-ctf -p 127.0.0.1:8080:8080 idor-ctf:latest
+podman run --rm --name idor-ctf -p 127.0.0.1:8443:8443 idor-ctf:latest
 ```
 
-Open `http://127.0.0.1:8080` and solve the challenge through the running
-service. Stop the container to reset its state.
+Open `https://127.0.0.1:8443` and accept the self-signed certificate warning
+(or use `curl -k`). The TLS private key is held by nginx; a client never needs
+it to establish HTTPS. Stop the container to reset its state.
 
 ## Next steps
 
 1. Build and load `//projects/ctf/idor:idor_image` in a local container runtime.
-2. Start it on an isolated local network and interact with it at port `8080`.
-3. Solve the challenge without reading the application source.
+2. Start it on an isolated local network and interact with it over HTTPS at port `8443`.
+3. Register, then request `/api/notes/1` using the resulting session to observe
+   the intentional IDOR.

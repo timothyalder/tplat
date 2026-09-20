@@ -44,11 +44,12 @@ oci.pull(
 )
 oci.pull(
     name = "distroless_nginx",
-    image = "gcr.io/distroless/nginx",
+    image = "docker.io/nginxinc/nginx-unprivileged",
     platforms = ["linux/amd64"],
-    # digest = "sha256:f2b206661cee3edb44f132d7f054a9ced96f671d8a973de0db750895c9acb2fb",
+    digest = "sha256:e44b470e571b20d935336bfb9f8277c1468d15e1e4d105a12ab5609d0b4682cb",
+    tag = "trixie",
 )
-use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_python", "distroless_python_linux_amd64")
+use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_python", "distroless_python_linux_amd64", "distroless_nginx", "distroless_nginx_linux_amd64")
 
 # Register toolchains
 register_toolchains(

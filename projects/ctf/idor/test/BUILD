@@ -1,12 +1,10 @@
-load("@pypi//:requirements.bzl", "requirement")
-load("@rules_python//python:defs.bzl", "py_test")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
-py_test(
-    name = "idor_test",
-    main = "test.py",
-    srcs = ["test.py"],
-    deps = [
-        "//projects/ctf/idor:server",
-        requirement("pytest"),
+sh_test(
+    name = "nginx_test",
+    srcs = ["nginx_test.sh"],
+    data = [
+        "//projects/ctf/idor:nginx.conf",
+        "//projects/ctf/idor:html/administrator-note.html",
     ],
 )
