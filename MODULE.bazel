@@ -21,6 +21,18 @@ bazel_dep(name = "rules_ruby", version = "0.21.1")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 
+# Versioned source inputs for the intentionally vulnerable, local Heartbleed CTF. The
+# image build is Bazel-native; it never invokes Docker or a package manager.
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+http_file(
+    name = "heartbleed_nginx_source",
+    urls = ["https://nginx.org/download/nginx-1.4.7.tar.gz"],
+)
+http_file(
+    name = "heartbleed_openssl_source",
+    urls = ["https://www.openssl.org/source/old/1.0.1/openssl-1.0.1f.tar.gz"],
+)
+
 # Directives related to module extensions
 include("//toolchains/rust:rust.MODULE.bazel")
 include("//toolchains/python:python.MODULE.bazel")
