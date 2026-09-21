@@ -1,5 +1,0 @@
-FAN KEYWORD1
-highSpeed KEYWORD2
-medSpeed KEYWORD3
-lowSpeed KEYWORD4
-off KEYWORD5
