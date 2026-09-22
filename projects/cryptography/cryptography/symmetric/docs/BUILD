@@ -8,5 +8,6 @@ doc_section(
         "//projects/cryptography/cryptography/symmetric/enigma/docs",
     ],
     index = "index.md",
+    slug = "symmetric-cryptography",
     visibility = ["//visibility:public"],
 )

@@ -11,5 +11,6 @@ doc_section(
     ],
     data = ["//projects/threat_modelling/docs/model/diagrams/data"],
     index = "index.md",
+    slug = "diagrams",
     visibility = ["//visibility:public"],
 )

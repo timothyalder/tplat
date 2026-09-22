@@ -15,5 +15,6 @@ doc_section(
         "//projects/fpga/docs/data",
     ],
     index = "index.md",
+    slug = "fpga",
     visibility = ["//visibility:public"],
 )

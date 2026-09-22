@@ -9,5 +9,6 @@ doc_section(
         "brainstorming.md",
     ],
     index = "index.md",
+    slug = "identify",
     visibility = ["//visibility:public"],
 )

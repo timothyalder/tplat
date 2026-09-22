@@ -7,6 +7,7 @@ doc_section(
         "//projects/threat_modelling/docs/model/diagrams",
     ],
     index = "index.md",
+    slug = "model",
     data = ["//projects/threat_modelling/docs/model/data"],
     visibility = ["//visibility:public"],
 )

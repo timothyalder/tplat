@@ -4,5 +4,6 @@ doc_section(
     name = "mitigate",
     srcs = [],
     index = "index.md",
+    slug = "mitigate",
     visibility = ["//visibility:public"],
 )

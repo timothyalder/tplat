@@ -10,5 +10,6 @@ doc_section(
         "//projects/translate/docs/data",
     ],
     index = "index.md",
+    slug = "translate",
     visibility = ["//visibility:public"],
 )

@@ -6,5 +6,6 @@ doc_section(
         "//projects/math/docs/pure",
     ],
     index = "index.md",
+    slug = "mathematics",
     visibility = ["//visibility:public"],
 )

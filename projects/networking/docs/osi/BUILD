@@ -12,5 +12,6 @@ doc_section(
         "application.md",
     ],
     index = "index.md",
+    slug = "osi-network-model",
     visibility = ["//visibility:public"],
 )

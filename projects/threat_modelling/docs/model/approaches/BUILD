@@ -8,5 +8,6 @@ doc_section(
         "software.md",
     ],
     index = "index.md",
+    slug = "structured-approaches",
     visibility = ["//visibility:public"],
 )

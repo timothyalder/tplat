@@ -9,6 +9,7 @@ doc_section(
     ],
     data = [":data"],
     index = "index.md",
+    slug = "research",
     visibility = ["//visibility:public"],
 )
 

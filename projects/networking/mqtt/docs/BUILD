@@ -6,5 +6,6 @@ doc_section(
         "//projects/networking/mqtt/stress_tester/docs",
     ],
     index = "index.md",
+    slug = "mqtt",
     visibility = ["//visibility:public"],
 )

@@ -9,5 +9,6 @@ doc_section(
         "//projects/budget/docs/data",
     ],
     index = "index.md",
+    slug = "budget",
     visibility = ["//visibility:public"],
 )
