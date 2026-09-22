@@ -4,10 +4,8 @@ In order to protect something, you must first have a understand what that someth
 
 Start with a block diagram of how data flows through the system at the highest possible level.
 
-![Block diagram of data flows](data/diagram.png)
-
 ```mermaid
-block
+block-beta
     browser("Web browser") space server("Web server") space logic("Business Logic") space database("Database")
     browser<-->server
     server<-->logic
