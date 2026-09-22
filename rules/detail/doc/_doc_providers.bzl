@@ -7,7 +7,11 @@ DocSiteInfo = provider(
 )
 DocSectionInfo = provider(
     fields = {
-        "output_dir": "Directory containing built section",
+        "name": "Unique directory slug for this section, derived from its label",
+        "index": "File: this section's own index markdown, untransformed",
+        "srcs": "List of Target: this section's own srcs (nested doc_section deps or leaf markdown file deps), in declared order",
+        "data": "List of File: data files to place alongside this section's content, copied untransformed",
+        "md_files": "Depset of File: markdown files in this section and its nested subtree eligible for linting (respects skip_validation)",
     },
 )
 
