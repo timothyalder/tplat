@@ -26,11 +26,11 @@ filegroup(
     visibility = ["//visibility:public"]
 )
     """,
-    integrity = "sha256-tK2yDQgre9+m741UMQd5jfxjQT5n6d1zzB3CXw0skqs=",
+    integrity = "sha256-OZgP9HZXHY35lwX4qdUwpiiwubma7Muop5Hp2VfsXLg=",
     patch_args = ["-p0"],
     patches = ["//toolchains/hugo:com_github_alex_shpak_hugo_book.patch"],
-    strip_prefix = "hugo-book-13",
-    url = "https://github.com/alex-shpak/hugo-book/archive/refs/tags/v13.tar.gz",
+    strip_prefix = "hugo-book-0.15.0",
+    url = "https://github.com/alex-shpak/hugo-book/archive/refs/tags/v0.15.0.tar.gz",
 )
 
 bazel_dep(name = "com_github_thegeeklab_hugo_geekdoc", version = "0.0.0")
