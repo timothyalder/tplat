@@ -1,12 +1,13 @@
-load(":_doc_common.bzl", "collect_md_files", "unique_name")
+load(":_doc_common.bzl", "collect_md_files", "validate_slug")
 load(":_doc_providers.bzl", "DocSectionInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 
 def _doc_section_impl(ctx):
+    validate_slug(ctx.label, ctx.attr.slug)
     return [
         DefaultInfo(),
         DocSectionInfo(
-            name = unique_name(ctx.label),
+            name = ctx.attr.slug,
             index = ctx.file.index,
             srcs = ctx.attr.srcs,
             data = ctx.files.data,

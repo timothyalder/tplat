@@ -13,5 +13,6 @@ doc_section(
         "//projects/networking/docs/analysis",
     ],
     index = "index.md",
+    slug = "networking",
     visibility = ["//visibility:public"],
 )

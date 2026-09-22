@@ -9,5 +9,6 @@ doc_section(
         "//projects/math/docs/pure/proofs",
     ],
     index = "index.md",
+    slug = "pure-math",
     visibility = ["//visibility:public"],
 )

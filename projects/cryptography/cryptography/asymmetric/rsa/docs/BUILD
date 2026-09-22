@@ -6,5 +6,6 @@ doc_section(
         "//projects/cryptography/cryptography/asymmetric/rsa/docs/data",
     ],
     index = "index.md",
+    slug = "rsa",
     visibility = ["//visibility:public"],
 )

@@ -5,5 +5,6 @@ doc_section(
     srcs = [
     ],
     index = "index.md",
+    slug = "vim",
     visibility = ["//visibility:public"],
 )

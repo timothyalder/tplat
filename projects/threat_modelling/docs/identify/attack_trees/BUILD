@@ -11,5 +11,6 @@ doc_section(
     ],
     data = ["//projects/threat_modelling/docs/identify/attack_trees/data"],
     index = "index.md",
+    slug = "attack-trees",
     visibility = ["//visibility:public"],
 )

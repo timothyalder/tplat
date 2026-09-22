@@ -6,5 +6,6 @@ doc_section(
         "//projects/networking/gopher/crawler/docs",
     ],
     index = "index.md",
+    slug = "gopher",
     visibility = ["//visibility:public"],
 )

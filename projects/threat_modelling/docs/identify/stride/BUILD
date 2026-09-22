@@ -11,5 +11,6 @@ doc_section(
         "eop.md",
     ],
     index = "index.md",
+    slug = "stride",
     visibility = ["//visibility:public"],
 )

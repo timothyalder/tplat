@@ -14,5 +14,6 @@ doc_section(
         "//projects/linux/vim",
     ],
     index = "index.md",
+    slug = "linux",
     visibility = ["//visibility:public"],
 )

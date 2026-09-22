@@ -6,5 +6,6 @@ doc_section(
         "prompt.md",
     ],
     index = "index.md",
+    slug = "shell",
     visibility = ["//visibility:public"],
 )

@@ -9,5 +9,6 @@ doc_section(
         "scheduling.md",
     ],
     index = "index.md",
+    slug = "system-management",
     visibility = ["//visibility:public"],
 )

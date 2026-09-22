@@ -8,5 +8,6 @@ doc_section(
         "//projects/cryptography/cryptography/asymmetric/docs",
     ],
     index = "index.md",
+    slug = "cryptography",
     visibility = ["//visibility:public"],
 )

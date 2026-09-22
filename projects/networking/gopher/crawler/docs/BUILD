@@ -4,5 +4,6 @@ doc_section(
     name = "docs",
     srcs = [],
     index = "index.md",
+    slug = "crawler",
     visibility = ["//visibility:public"],
 )

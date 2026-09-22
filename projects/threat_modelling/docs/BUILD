@@ -10,5 +10,6 @@ doc_section(
         "//projects/threat_modelling/docs/verify",
     ],
     index = "index.md",
+    slug = "threat-modelling",
     visibility = ["//visibility:public"],
 )

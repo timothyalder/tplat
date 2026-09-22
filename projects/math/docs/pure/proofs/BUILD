@@ -8,5 +8,6 @@ doc_section(
         "positive.md",
     ],
     index = "index.md",
+    slug = "proofs",
     visibility = ["//visibility:public"],
 )

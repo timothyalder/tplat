@@ -5,5 +5,6 @@ doc_section(
     srcs = [
     ],
     index = "index.md",
+    slug = "internet-protocol-suite",
     visibility = ["//visibility:public"],
 )

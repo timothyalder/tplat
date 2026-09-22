@@ -7,7 +7,7 @@ DocSiteInfo = provider(
 )
 DocSectionInfo = provider(
     fields = {
-        "name": "Unique directory slug for this section, derived from its label",
+        "name": "This section's declared slug attr - used verbatim as its directory name, which is what determines its URL",
         "index": "File: this section's own index markdown, untransformed",
         "srcs": "List of Target: this section's own srcs (nested doc_section deps or leaf markdown file deps), in declared order",
         "data": "List of File: data files to place alongside this section's content, copied untransformed",
