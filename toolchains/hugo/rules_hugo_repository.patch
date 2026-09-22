@@ -1,17 +1,72 @@
 --- hugo/internal/hugo_repository.bzl
 +++ hugo/internal/hugo_repository.bzl
-@@ -14,11 +14,11 @@
+@@ -13,24 +13,58 @@
+     os_arch = repository_ctx.attr.os_arch
  
      os_name = repository_ctx.os.name.lower()
-     if os_name.startswith("mac os"):
+-    if os_name.startswith("mac os"):
 -        os_arch = "macOS-64bit"
++    is_darwin = os_name.startswith("mac os")
++    if is_darwin:
 +        os_arch = "darwin-universal"
      elif os_name.find("windows") != -1:
 -        os_arch = "Windows-64bit"
 +        os_arch = "windows-amd64"
      else:
 -        os_arch = "Linux-64bit"
+-    
+-    url = "https://github.com/gohugoio/hugo/releases/download/v{version}/{hugo}_{version}_{os_arch}.tar.gz".format(
 +        os_arch = "linux-amd64"
-     
-     url = "https://github.com/gohugoio/hugo/releases/download/v{version}/{hugo}_{version}_{os_arch}.tar.gz".format(
++
++    version = repository_ctx.attr.version
++    base_url = "https://github.com/gohugoio/hugo/releases/download/v{version}/{hugo}_{version}_{os_arch}".format(
          hugo = hugo,
+         os_arch = os_arch,
+-        version = repository_ctx.attr.version,
++        version = version,
+     )
+ 
+-    repository_ctx.download_and_extract(
+-        url = url,
+-        sha256 = repository_ctx.attr.sha256,
+-    )
++    extracted = False
++    if is_darwin:
++        # GitHub stopped publishing a plain darwin-universal archive on newer
++        # Hugo releases (only a .pkg installer). Try the archive first so
++        # older, still-tarball'd versions keep working unchanged, and fall
++        # back to extracting the .pkg with pkgutil (a macOS-native tool)
++        # when it's not there.
++        result = repository_ctx.download_and_extract(
++            url = base_url + ".tar.gz",
++            sha256 = repository_ctx.attr.sha256,
++            allow_fail = True,
++        )
++        extracted = result.success
+ 
++    if not extracted:
++        if is_darwin:
++            pkg = repository_ctx.path("hugo.pkg")
++            repository_ctx.download(
++                url = base_url + ".pkg",
++                output = pkg,
++            )
++            expanded = repository_ctx.path("expanded")
++            result = repository_ctx.execute(["pkgutil", "--expand-full", str(pkg), str(expanded)])
++            if result.return_code != 0:
++                fail("pkgutil --expand-full failed to extract %s: %s" % (pkg, result.stderr))
++            hugo_bin = expanded.get_child("Payload").get_child("hugo")
++            hugo_out = repository_ctx.path("hugo")
++            result = repository_ctx.execute(["cp", str(hugo_bin), str(hugo_out)])
++            if result.return_code != 0:
++                fail("failed to copy hugo binary out of pkg payload: %s" % result.stderr)
++            repository_ctx.execute(["chmod", "+x", str(hugo_out)])
++        else:
++            repository_ctx.download_and_extract(
++                url = base_url + ".tar.gz",
++                sha256 = repository_ctx.attr.sha256,
++            )
++
+     repository_ctx.file("BUILD.bazel", HUGO_BUILD_FILE)
+ 
+ hugo_repository = repository_rule(
