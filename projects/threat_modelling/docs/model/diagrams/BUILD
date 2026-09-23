@@ -9,7 +9,6 @@ doc_section(
         "state.md",
         "tb.md",
     ],
-    data = ["//projects/threat_modelling/docs/model/diagrams/data"],
     index = "index.md",
     slug = "diagrams",
     visibility = ["//visibility:public"],

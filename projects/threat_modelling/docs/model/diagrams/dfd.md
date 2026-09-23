@@ -9,7 +9,41 @@ A Data Flow Diagram (DFD) is a structured representation of how data moves throu
 * **Data flows** (communication paths)
 * **External entities** (outside the system boundary)
 
-![A modern DFD](data/dfd.png)
+```mermaid
+flowchart LR
+    webClients["Web Clients"]
+    sqlClients["SQL Clients"]
+    dba["DBA (Human)"]
+    dbUsers["DB Users (Human)"]
+    logAnalysis["Log Analysis"]
+
+    subgraph dbCluster["DB Cluster"]
+        subgraph sqlAccount["Original SQL Account"]
+            frontend(["Acme Front End(s)"])
+            database(["Database"])
+            dbAdmin(["DB Admin"])
+        end
+        data[("Data")]
+        management[("Management")]
+        logs[("Logs")]
+    end
+
+    webClients <--> frontend
+    sqlClients <--> frontend
+    frontend <--> database
+    database <--> dbAdmin
+    dba <--> database
+    dba <--> dbAdmin
+    dbUsers <--> logAnalysis
+    database <--> data
+    database <--> management
+    database <--> logs
+    logs --> logAnalysis
+    dba <--> logAnalysis
+
+style dbCluster stroke-dasharray: 5 5
+style sqlAccount stroke-dasharray: 5 5
+```
 
 They are especially effective because they:
 
