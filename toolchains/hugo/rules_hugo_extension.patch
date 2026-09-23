@@ -7,7 +7,7 @@
 +    hugo_repository(
 +        name = "hugo",
 +        extended = True,
-+        version = "0.146.7",
++        version = "0.166.0",
 +    )
 +
 +hugo_ext = module_extension(implementation = _hugo_ext_impl)

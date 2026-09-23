@@ -4,11 +4,9 @@ In order to protect something, you must first have a understand what that someth
 
 Start with a block diagram of how data flows through the system at the highest possible level.
 
-![Block diagram of data flows](data/diagram.png)
-
 ```mermaid
-block
-    browser("Web browser") space server("Web server") space logic("Business Logic") space database("Database")
+block-beta
+    browser("Web browser") space server("Web server") space logic("Business logic") space database("Database")
     browser<-->server
     server<-->logic
     logic<-->database
@@ -16,7 +14,24 @@ block
 
 Add *trust boundaries* to show who controls what.
 
-![Block diagram of data flows with trust boundaries marked](data/trust-boundaries.png)
+```mermaid
+flowchart LR
+wb["Web browser"]
+
+subgraph corporate["Corporate data center"]
+    ws["Web server"]
+    bl["Business logic"]
+end
+
+subgraph wso["Web storage (offsite)"]
+    db["Database"]
+end
+
+wb <--> ws <--> bl <--> db 
+
+style corporate stroke-dasharray: 5 5
+style wso stroke-dasharray: 5 5
+```
 
 > **Note:**
 >
@@ -24,7 +39,24 @@ Add *trust boundaries* to show who controls what.
 
 At this point, it is probably helpful to label data flows.
 
-![Block diagram of labelled data flows with trust boundaries marked](data/labelled-data-flows.png)
+```mermaid
+flowchart LR
+wb["Web browser<br>1"]
+
+subgraph corporate["Corporate data center"]
+    ws["Web server<br>3"]
+    bl["Business logic<br>5"]
+end
+
+subgraph wso["Web storage (offsite)"]
+    db["Database<br>7"]
+end
+
+wb <--|2|--> ws <--|4|--> bl <--|6|--> db 
+
+style corporate stroke-dasharray: 5 5
+style wso stroke-dasharray: 5 5
+```
 
 You should think of threat model diagrams as a part of the development process, so try to keep your diagram in version control with the rest of your project.
 

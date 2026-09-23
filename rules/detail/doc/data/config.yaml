@@ -15,6 +15,18 @@ canonifyURLs: false
 disablePathToLower: true
 enableGitInfo: false
 
+# Since Hugo 0.15x, raw .html files are no longer readable as page/leaf
+# resources by default (security.allowContent's default is
+# ['! ^text/html$', '! ^text/org$'] - deny-only entries mean "allow
+# everything else", so a bare positive entry here would instead switch to
+# strict allow-list mode and break markdown too). All our content is
+# first-party (e.g. projects/networking/docs/analysis/tools/data/target.html,
+# a static reference artifact linked from markdown), so just drop the html
+# exclusion and keep the rest of the default behavior.
+security:
+  allowContent:
+    - '! ^text/org$'
+
 # Needed for mermaid/katex shortcodes and latex math
 markup:
   goldmark:
