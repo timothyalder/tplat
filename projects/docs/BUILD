@@ -23,6 +23,7 @@ doc_publish(
         "//projects/cryptography/docs",
         "//projects/networking/docs",
         "//projects/linux",
+        "//projects/cs",
         "//projects/math/docs",
         "//projects/research"
     ],
