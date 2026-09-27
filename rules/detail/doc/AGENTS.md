@@ -14,11 +14,14 @@ tree of `doc_section` targets nested under a `doc_publish`. Key rules:
   Nothing outside this docs subsystem ever consumes a `doc_section` directly — it only ever
   appears nested inside a parent's `srcs`.
 - **`doc_site_build`** (`doc_site_build.bzl`, used inside `doc_publish`) — the *only* rule
-  that runs actions. One pass walks the entire nested `doc_section` tree (iterative
-  worklist, see `_doc_common.bzl`'s `build_content_script`) copying/transforming every
-  markdown file straight to its final nested destination in one content-assembly action,
-  and one separate `markdownlint-cli` action lints every markdown file in the tree in a
-  single invocation (not per-section). Output groups: `config`, `files`, `static`, `lint`.
+  that runs actions, of which it runs three: one pass walks the entire nested
+  `doc_section` tree (iterative worklist, see `_doc_common.bzl`'s
+  `build_content_manifest`) into a JSON manifest that `utils/formatter.py` consumes in a
+  single invocation to place every file at its final nested destination; one
+  `markdownlint-cli` action lints every markdown file in the tree in a single invocation
+  (not per-section); and one writes `config.yaml`. Output groups: `config`, `content`,
+  `static`, `lint` — these names are load-bearing, since `doc_publish` selects them by
+  string and a typo yields a silently empty `filegroup` (see the note below).
 - **`doc_publish`** (`doc_publish.bzl`) — thin macro: wires a `doc_site_build` +
   `hugo_theme` + `hugo_site` + `hugo_serve` together. Doesn't do any formatting/copying
   itself.
@@ -26,27 +29,70 @@ tree of `doc_section` targets nested under a `doc_publish`. Key rules:
   data files (images etc.) go in a sibling `data/` dir with its own `filegroup`, wired via
   the `doc_section`'s `data` attr.
 
-## Known unresolved bug: stale `hugo_site` output
+## Markdown link handling
 
-**`hugo_site` (from the vendored `rules_hugo`, see `toolchains/hugo/`) doesn't reliably
-pick up changes to its `content` input** when that input is a `declare_directory`
-TreeArtifact passed through a `filegroup(output_group=...)` indirection (see
-`hugo_inputs`/`copy_to_dir` in `hugo/internal/hugo_site.bzl` — a generated, non-source
-TreeArtifact is passed straight through as an action input rather than copied per-file).
+Docs are authored against the **source** layout: a link is written relative to the file
+being edited, which is what VS Code generates when you drag one doc onto another. The site
+is assembled into a different layout driven by each `doc_section`'s `slug`, so
+`formatter.py` resolves every relative link against its own file's source directory and
+rewrites it to the target's final site URL. This covers any file type — other markdown
+pages, images, PDFs — and leaves anything carrying a URI scheme, a leading `/`, or a bare
+`#` alone.
 
-Reproduced concretely: rebuilding `//projects/docs:docs_site.prepare` correctly updated
-`bazel-bin/projects/docs/content/.../foo.md` (mtime bumped, new content confirmed by
-reading the file), but a subsequent `bazel build //projects/docs:docs_site.build` reported
-fully up-to-date (zero actions run, empty `--explain=...` log) and its rendered HTML output
-still had the *old* mtime and old content.
+Two constraints make the whole tree get processed in one formatter invocation:
 
-**Do not trust `docs_site.build`/`docs_site.serve` output as reflecting the latest source
-changes just because the build reported success.** Verify by comparing mtimes/content
-directly: `bazel-bin/projects/docs/content/**` (should be fresh after `docs_site.prepare`)
-vs. `bazel-bin/projects/docs/docs_site.build/**` (may be stale). If stale, force a rebuild
-(e.g. touch a file `hugo_site` depends on, or `bazel clean` the affected outputs) rather
-than assuming a green build means fresh output. Root cause not yet fixed or worked around
-upstream — worth revisiting if it keeps costing verification time.
+- **A leaf page's URL segment comes from its own H1**, via front-matter `slug` (a
+  documented no-op for `_index.md` branch bundles, but *not* for leaf pages). Starlark
+  can't read file contents, so the Bazel rule supplies only the section URL prefix and the
+  formatter fills in the leaf segment — which means resolving a cross-section link
+  requires having already read the page being linked to.
+- **`slugify` must agree with Hugo's urlize.** Hugo normalises whatever lands in
+  front-matter `slug`, so the formatter emits an already-urlized value and uses that same
+  value in its link map; the map is then correct by construction rather than by guessing at
+  Hugo's normalisation of titles like `If $x^2>0$, then $x>0$`. `formatter_test.py` pins
+  this against URLs the site actually serves.
+
+Emitted URLs are root-relative; `relativeURLs: true` in `data/config.yaml` turns them into
+correctly-depth-adjusted relative URLs at render time and leaves external URLs untouched.
+
+Two gotchas worth knowing:
+
+- **A relative link that resolves to nothing fails the build**, listing each `file:line`.
+  That is deliberate — the previous regex silently rewrote broken links into plausible
+  404s. If a link legitimately points outside the doc tree, use an absolute URL.
+- **Hugo renders `.html` in a content directory as a page, not a resource**, so
+  `data/target.html` is reachable at `target/`, not `target.html` (see `content_asset_url`).
+  This is the same quirk behind the `security.allowContent` note below.
+
+Two forms are deliberately *not* handled, because neither appears in the tree and both
+would need markdown state the scanner doesn't otherwise track: **4-space indented code
+blocks** (fenced blocks, including inside blockquotes, are handled) and **reference-style
+links** (`[a]: ./foo.md`). An indented literal like `    [x](./foo.md)` would be rewritten
+or fail the build rather than staying literal — use a fence.
+
+Raw HTML (`<img src="...">`) is also not rewritten; only markdown links are. There are two
+such tags: `projects/networking/gopher/crawler/docs/index.md` (its image has never existed
+in the repo) and `projects/qr/docs/docs.md`, which is not in the doc tree at all since
+`projects/qr/docs/` has no BUILD file. If `qr` is ever wired in, its `src="data/qr_code.png"`
+will 404 — assets are flattened out of `data/` into the section directory.
+
+## Fixed: stale `hugo_site` output
+
+This was long recorded here as an unresolved `rules_hugo` caching bug — `docs_site.build`
+reporting up-to-date and serving old HTML after content changed. It was not upstream.
+`doc_site_build` published its content TreeArtifact under an output group named `files`
+while `doc_publish` asked for one named `content`; Bazel returns an *empty* `filegroup` for
+an output group that doesn't exist, so `hugo_site` had **no dependency edge on the content
+at all** and could never be invalidated by it. Hugo still read the directory off the
+filesystem, which is why the site looked populated but arbitrarily stale.
+
+Renaming the group to `content` fixed it; a content edit now propagates to rendered HTML
+with no manual intervention. Diagnosing this class of problem is one command — an output
+group that yields nothing is the tell:
+
+```
+bazel cquery //projects/docs:docs_site.prepare.content --output=files
+```
 
 ## `security.allowContent` (Hugo config)
 
@@ -59,8 +105,11 @@ add/remove negated entries — see `data/config.yaml`.
 
 1. `bazel build //projects/docs:docs_site.prepare` — check `bazel-bin/projects/docs/content/...`
    directly for the expected content (don't just trust "build succeeded").
-2. `bazel build //projects/docs:docs_site.build` — then re-check the final HTML under
-   `bazel-bin/projects/docs/docs_site.build/...` for staleness given the bug above.
+2. `bazel build //projects/docs:docs_site.build` — the rendered HTML lands under
+   `bazel-bin/projects/docs/docs_site.build/...` and now tracks content changes properly
+   (see the output-group note above).
 3. `bazel run //projects/docs:docs_site.serve` for a live server; if it fails with a
    permission error on `public/`, a stale read-only `public/` dir was probably left by an
    earlier `bazel build docs_site.build` — `chmod -R u+w` + `rm -rf` it and retry.
+4. `bazel test //rules/detail/doc/utils:formatter_test` covers link rewriting directly and
+   is far faster than rendering the site.
