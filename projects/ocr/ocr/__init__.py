@@ -1,1 +1,0 @@
-from ocr.main import ocr
