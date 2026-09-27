@@ -10,11 +10,16 @@ _MAX_SECTIONS = 2000
 
 _SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-"
 
+# The one path segment the docs tree hangs off. Used for both the on-disk
+# content layout and the published URLs, which have to agree.
+DOCS_SEGMENT = "docs"
+
 def validate_slug(label, slug):
     """Fails unless slug is a non-empty, lowercase, hyphenated URL path segment.
 
-    doc_section directories are named after this value (see build_content_script),
-    so an invalid slug would leak straight into the site's URLs.
+    doc_section directories are named after this value (see
+    build_content_manifest), so an invalid slug would leak straight into the
+    site's URLs.
     """
     if not slug:
         fail("doc_section %s must specify a non-empty 'slug' (used as its URL path segment)" % label)
@@ -54,45 +59,72 @@ def collect_md_files(ctx):
         ],
     )
 
-def _transform_cmd(formatter, src, dest, weight):
-    return "'{formatter}' '{src}' '{dest}' --weight {weight}".format(
-        formatter = formatter.path,
-        src = src.path,
-        dest = dest,
-        weight = weight,
-    )
+def page_entry(src, dest, url_dir, weight, index, front = True):
+    """Manifest entry for a markdown file the formatter will transform.
 
-def _copy_cmd(src, dest):
-    return "cp '{src}' '{dest}'".format(src = src.path, dest = dest)
+    `url_dir` is the section URL the page lives under. A section index owns
+    that URL outright; a leaf page's own segment is derived from its H1 by the
+    formatter, which is the only thing that reads file contents.
 
-def build_content_script(ctx, formatter, dest_root):
+    `ref` is how links address this file: relative links are authored against
+    the source tree, so they resolve against workspace-relative paths.
+    """
+    return {
+        "src": src.path,
+        "ref": src.short_path,
+        "dest": dest,
+        "url_dir": url_dir,
+        "weight": weight,
+        "index": index,
+        "front": front,
+    }
+
+def asset_entry(src, dest, url):
+    """Manifest entry for a file copied verbatim and linkable at `url`."""
+    return {
+        "src": src.path,
+        "ref": src.short_path,
+        "dest": dest,
+        "url": url,
+    }
+
+# Hugo renders these as pages rather than serving them as page resources, so
+# inside a content directory they are reachable at "<stem>/" - not under their
+# own filename. Anything else (images, PDFs) keeps its name.
+_CONTENT_FORMATS = ["html", "htm", "md", "markdown"]
+
+def content_asset_url(url_dir, f):
+    """Site URL of a non-markdown file placed in a content directory."""
+    if f.extension in _CONTENT_FORMATS:
+        return url_dir + f.basename[:-(len(f.extension) + 1)] + "/"
+    return url_dir + f.basename
+
+def build_content_manifest(ctx, dest_root, url_root):
     """Walks the whole doc_section tree rooted at ctx.attr.srcs in a single pass.
 
-    Returns (script_lines, inputs, mkdirs):
-      - script_lines: formatter/cp commands to assemble every file directly
-        at its final nested destination path under dest_root.
-      - inputs: every File referenced by script_lines (for action inputs).
-      - mkdirs: every destination directory that must exist before
-        script_lines runs (including dest_root itself).
+    Returns (pages, assets, inputs): manifest entries placing every file
+    directly at its final nested destination under dest_root, alongside the
+    site URL it will be reachable at, plus every File referenced (for action
+    inputs).
 
     Each nested doc_section's own srcs are walked with weight starting at 10
     (step 10), matching doc_section's historical numbering; dest_root's own
     direct srcs (ctx.attr.srcs) are walked with weight starting at 1 (step
     1), matching doc_site_build's historical numbering.
     """
-    script_lines = []
+    pages = []
+    assets = []
     inputs = []
-    mkdirs = [dest_root]
 
-    # Worklist entries: (children, dest_dir, weight, weight_step).
-    frames = [(ctx.attr.srcs, dest_root, 1, 1)]
+    # Worklist entries: (children, dest_dir, url_dir, weight, weight_step).
+    frames = [(ctx.attr.srcs, dest_root, url_root, 1, 1)]
 
     done = False
     for _ in range(_MAX_SECTIONS + 1):
         if not frames:
             done = True
             break
-        children, dest_dir, weight, step = frames.pop()
+        children, dest_dir, url_dir, weight, step = frames.pop()
         seen_slugs = {}
         for child in children:
             if DocSectionInfo in child:
@@ -101,20 +133,24 @@ def build_content_script(ctx, formatter, dest_root):
                     fail("doc_section slug '%s' is used by more than one section under '%s' - slugs must be unique among siblings" % (info.name, dest_dir))
                 seen_slugs[info.name] = True
                 child_dir = dest_dir + "/" + info.name
-                mkdirs.append(child_dir)
-                script_lines.append(_transform_cmd(formatter, info.index, child_dir + "/_index.md", weight))
+                child_url = url_dir + info.name + "/"
+                pages.append(page_entry(info.index, child_dir + "/_index.md", child_url, weight, index = True))
                 inputs.append(info.index)
                 for f in info.data:
-                    script_lines.append(_copy_cmd(f, child_dir + "/" + f.basename))
+                    assets.append(asset_entry(f, child_dir + "/" + f.basename, content_asset_url(child_url, f)))
                     inputs.append(f)
-                frames.append((info.srcs, child_dir, 10, 10))
+                frames.append((info.srcs, child_dir, child_url, 10, 10))
             else:
                 f = child.files.to_list()[0]
-                script_lines.append(_transform_cmd(formatter, f, dest_dir + "/" + f.basename, weight))
+                dest = dest_dir + "/" + f.basename
+                if f.extension == "md":
+                    pages.append(page_entry(f, dest, url_dir, weight, index = False))
+                else:
+                    assets.append(asset_entry(f, dest, content_asset_url(url_dir, f)))
                 inputs.append(f)
             weight += step
 
     if not done:
         fail("doc tree has more than %d sections - raise _MAX_SECTIONS in _doc_common.bzl" % _MAX_SECTIONS)
 
-    return script_lines, inputs, mkdirs
+    return pages, assets, inputs

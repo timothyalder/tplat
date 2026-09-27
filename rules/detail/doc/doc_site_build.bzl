@@ -1,19 +1,14 @@
-load(":_doc_common.bzl", "build_content_script", "collect_md_files", "unique_name")
+load(":_doc_common.bzl", "DOCS_SEGMENT", "asset_entry", "build_content_manifest", "collect_md_files", "page_entry", "unique_name")
 load(":_doc_providers.bzl", "DocMenuItem", "DocSiteInfo")
 load(":_doc_section_args.bzl", "DOC_SECTION_ARGS")
 load(":_doc_site_args.bzl", "DOC_SITE_ARGS")
 
 def _doc_site_build_impl(ctx):
-    static_files = []
-    data_files = []
-
     name = unique_name(ctx.label)
     content_dir = ctx.actions.declare_directory("content")
     static_dir = ctx.actions.declare_directory("static")
-    script = ctx.actions.declare_file(name + "_build.sh")
     config = ctx.actions.declare_file("conf/config.yaml")
     lint_stamp = ctx.actions.declare_file(name + "_lint.ok")
-    formatter = ctx.executable._formatter
     linter = ctx.executable.linter
     linter_config = ctx.file.linter_config
     config_tmpl = ctx.file._config_tmpl
@@ -50,20 +45,66 @@ def _doc_site_build_impl(ctx):
         }
     )
 
-    # Single pass over every file in the whole tree, writing each directly to
-    # its final nested destination.
-    content_script_lines, content_inputs, mkdirs = build_content_script(
+    # Single pass over every file in the whole tree, recording where each one
+    # lands and the URL it becomes reachable at. The formatter needs the whole
+    # tree at once: a link into another section can only be resolved once the
+    # page it points at has been read.
+    pages, assets, inputs = build_content_manifest(
         ctx,
-        formatter,
-        content_dir.path + "/docs",
+        content_dir.path + "/" + DOCS_SEGMENT,
+        "/" + DOCS_SEGMENT + "/",
     )
 
-    script_lines = [
+    # The site index is the repo README, published at the site root. It keeps
+    # its own heading rather than being given docs front matter, since it is
+    # the landing page rather than a page in the docs menu.
+    pages.append(page_entry(
+        ctx.file.index,
+        content_dir.path + "/_index.md",
+        "/",
+        0,
+        index = True,
+        front = False,
+    ))
+    inputs.append(ctx.file.index)
+
+    static_srcs = []
+    for dep in ctx.attr.data:
+        static_srcs.extend(dep.files.to_list())
+    for doc_menu_item in ctx.attr.menu:
+        for dep in doc_menu_item[DocMenuItem].data:
+            static_srcs.extend(dep.files.to_list())
+    for f in static_srcs:
+        assets.append(asset_entry(f, static_dir.path + "/" + f.basename, "/" + f.basename))
+        inputs.append(f)
+
+    manifest = ctx.actions.declare_file(name + "_manifest.json")
+    ctx.actions.write(
+        output = manifest,
+        content = json.encode({
+            "roots": [content_dir.path, static_dir.path],
+            "pages": pages,
+            "assets": assets,
+        }),
+    )
+    ctx.actions.run(
+        inputs = depset(inputs + [manifest, lint_stamp]),
+        outputs = [content_dir, static_dir],
+        executable = ctx.attr._formatter[DefaultInfo].files_to_run,
+        arguments = [manifest.path],
+        progress_message = "Assembling doc content for %s" % ctx.attr.name,
+        use_default_shell_env = True,
+        env = {
+            "BAZEL_BINDIR": "."
+        }
+    )
+
+    config_script = ctx.actions.declare_file(name + "_config.sh")
+    config_lines = [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         "",
-        "mkdir -p '{out}'".format(out = content_dir.path),
-        "mkdir -p '{out}'".format(out = static_dir.path),
+        "mkdir -p '{dir}'".format(dir = config.dirname),
         "cp '{tmpl}' '{config}'".format(
             tmpl = config_tmpl.path,
             config = config.path,
@@ -77,19 +118,10 @@ def _doc_site_build_impl(ctx):
         "echo 'menu:\n  after:' >> '{config}'".format(
             config = config.path,
         ),
-        "cp '{index}' '{out}/_index.md'".format(index = ctx.file.index.path, out = content_dir.path),
     ]
     for doc_menu_item in ctx.attr.menu:
         doc_menu_item = doc_menu_item[DocMenuItem]
-        for dep in doc_menu_item.data:
-            for file in dep.files.to_list():
-                static_files.append(file)
-                script_lines.append("cp '{src}' '{out}/{file}'".format(
-                    src = file.path,
-                    out = static_dir.path,
-                    file = file.basename,
-                ))
-        script_lines.append(
+        config_lines.append(
             "echo '    - name: \"{name}\"\n      {link}: \"{dest}\"\n      weight: {weight}' >> '{config}'".format(
                 name = doc_menu_item.name,
                 link = "url" if doc_menu_item.url else "pageRef",
@@ -98,44 +130,26 @@ def _doc_site_build_impl(ctx):
                 config = config.path,
             ),
         )
-    for dir in mkdirs:
-        script_lines.append("mkdir -p '{dir}'".format(dir = dir))
-    script_lines.extend(content_script_lines)
-    for dep in ctx.attr.data:
-        for file in dep.files.to_list():
-            data_files.append(file)
-            script_lines.append("cp '{src}' '{out}/{file}'".format(
-                src = file.path,
-                out = static_dir.path,
-                file = file.basename,
-            ))
-    deps = [config_tmpl, ctx.file.index, lint_stamp] + content_inputs + data_files + static_files
     ctx.actions.write(
-        output = script,
-        content = "\n".join(script_lines),
+        output = config_script,
+        content = "\n".join(config_lines),
         is_executable = True,
     )
     ctx.actions.run(
-        inputs = depset(deps),
-        outputs = [content_dir, config, static_dir],
-        executable = script,
-        tools = [formatter],
-        progress_message = "Building doc_section for %s" % ctx.attr.name,
+        inputs = depset([config_tmpl]),
+        outputs = [config],
+        executable = config_script,
+        progress_message = "Writing Hugo config for %s" % ctx.attr.name,
         use_default_shell_env = True,
-        env = {
-            "BAZEL_BINDIR": '.'
-        }
     )
 
     return [
         DefaultInfo(
-            executable = script,
             files = depset([content_dir, config, static_dir]),
-            runfiles = ctx.runfiles(files = [script]),
         ),
         OutputGroupInfo(
             config = depset([config]),
-            files = depset([content_dir]),
+            content = depset([content_dir]),
             static = depset([static_dir]),
             lint = depset([lint_stamp]),
         ),
