@@ -39,6 +39,15 @@ the Hugo docs-site build pipeline.
   its `archive_override`/patches is still being actively edited, not a caching bug to route
   around.
 
+## Code review workflow
+
+- When doing new feature development or a code refactor, run the
+  `voltagent-qa-sec:code-reviewer` subagent to get feedback before considering the work
+  done. Scope the review to only the additions and removals introduced by the change
+  (e.g. the current diff/branch vs. `main`), not the whole file or surrounding
+  pre-existing code. Use the subagent's findings to decide whether the change needs
+  further iteration; address findings that matter before wrapping up.
+
 ## General workflow notes
 
 - To tell whether an odd build/runtime symptom is a regression from an in-progress change
