@@ -9,7 +9,7 @@ RSA provides:
 * **Confidentiality** via public-key encryption
 * **Authentication and non-repudiation** via digital signatures
 
-It is a canonical example of a **trapdoor one-way function** (see [Asymmetric Cryptography](../index.md)).
+It is a canonical example of a **trapdoor one-way function** (see [Asymmetric Cryptography](../../docs/index.md)).
 
 ---
 
