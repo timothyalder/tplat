@@ -101,3 +101,11 @@ flowchart TB
 Unlike the stack, `compute()`'s blocks are scattered non-contiguously across the heap, wherever free space is available, and `compute()` keeps a pointer to each one. The grayed-out blocks are memory in use by other parts of the program; the dashed blocks are free.
 
 Unlike the stack, data in the heap does not automatically clear upon use. This memory must be allocated and freed upon the conclusion of the program. When data is not properly freed, memory leaks occur and the device will eventually crash. Some languages, such as Python, include a garbage collector that will automatically perform this memory allocation and free for you.
+
+## Processes
+
+A process has it's own dedicated memory that is managed by the kernel. Processes do not share memory. If some data is to be shared between two processes, two copies of that data will be created - one in each of the processes memory.
+
+## Threads
+
+When a process is doing some compute intensive work, it may spin up multiple threads to conduct the work across different cores in parallel. These threads can access the memory assigned to the spawning process, so there is no unnecessary duplication of memory resources.
