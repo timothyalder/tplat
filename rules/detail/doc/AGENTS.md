@@ -113,3 +113,14 @@ add/remove negated entries — see `data/config.yaml`.
    earlier `bazel build docs_site.build` — `chmod -R u+w` + `rm -rf` it and retry.
 4. `bazel test //rules/detail/doc/utils:formatter_test` covers link rewriting directly and
    is far faster than rendering the site.
+
+## Mermaid diagrams
+
+The theme bundles Mermaid 11.17.2 (`static/mermaid.min.js` in the hugo-book repo).
+`mermaid.parse` in a Node + jsdom harness catches syntax errors but not layout mistakes,
+so look at the rendered page as well (serve `bazel-bin/projects/docs/docs_site.build`
+with `python3 -m http.server`). One mistake that parses fine but renders wrong: in a
+`gantt` with `dateFormat X`, a task written `: 1, 2` reads `1` as the task id, and
+`: a2, 1, 2` still ignores the numeric start, so every bar starts at 0. Use
+`after <id>` with durations (`: a2, after a1, 1s`) instead, plus `tickInterval 1second`
+to avoid duplicated axis labels.
