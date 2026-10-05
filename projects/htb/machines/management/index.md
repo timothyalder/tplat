@@ -34,6 +34,33 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 The `ldap` service looks promising...
 
+### LDAP primer
+
+LDAP (Lightweight Directory Access Protocol) is a protocol for reading and writing entries
+in a hierarchical directory — think usernames, groups, and machine records rather than
+arbitrary files. Every entry has a **Distinguished Name** (DN), a path like
+`cn=admin,dc=management,dc=htb` built from the directory's naming contexts (`dc=...`
+components, one per domain label). A server also exposes a special entry called the
+**RootDSE** (Root DSA-Specific Entry) at the empty DN (`""`) — querying it doesn't require
+auth and reveals server metadata: vendor, supported LDAP versions/controls, and — usefully
+for enumeration — the `namingContexts` the server actually holds data under. Servers can be
+configured to allow **anonymous bind** (unauthenticated read access to some or all of the
+directory), which nmap already flagged above.
+
+Annotating the `ldapsearch` commands below:
+
+* `-x` — use simple authentication instead of SASL (here, anonymous, since no `-D`/`-w`
+  bind credentials are given).
+* `-H ldap://host:port` — target server.
+* `-b <base DN>` — the search base, i.e. where in the tree to start. `""` means "the
+  RootDSE itself."
+* `-s base` — search scope: only the base entry, not its children (`sub` would recurse the
+  whole subtree, `one` would search one level down).
+* `"(objectClass=*)"` — the search filter; `objectClass=*` matches any entry, so combined
+  with `-s base` this just fetches the base entry's own attributes.
+* `"*" "+"` — attribute selectors: `*` requests all normal (user) attributes, `+` requests
+  all operational attributes (server-managed metadata not returned by default).
+
 ```
 (base) timothyalder@Timothys-MacBook-Pro ~ % ldapsearch -x -H ldap://10.129.244.176:50389 -b "" -s base "(objectClass=*)" "*" "+"
 # extended LDIF
@@ -121,6 +148,10 @@ result: 0 Success
 # numEntries: 1
 ```
 
+The RootDSE confirms this is an OpenDJ server (`vendorVersion: OpenDJ Server 5.0.3`) and,
+more importantly, tells us where the actual directory data lives:
+`namingContexts: dc=management,dc=htb`. That's the base DN to search next.
+
 ```
 (base) timothyalder@Timothys-MacBook-Pro ~ % ldapsearch -x -H ldap://10.129.244.176:50389 -b "dc=management,dc=htb" "*" "+"
 # extended LDIF
@@ -137,6 +168,11 @@ result: 0 Success
 
 # numResponses: 1
 ```
+
+No `-s` here, so it defaults to `sub` (the whole subtree under that base) — a broad search
+for anything under `dc=management,dc=htb`. `numEntries` is absent and `numResponses: 1` (just
+the "search done" marker), meaning zero entries came back, even though the search itself
+succeeded.
 
 ```
 (base) timothyalder@Timothys-MacBook-Pro ~ %    ldapsearch -x -H ldap://10.129.244.176:50389 -b "dc=management,dc=htb" -s base "*" "+"
@@ -155,6 +191,28 @@ result: 0 Success
 # numResponses: 1
 ```
 
+This time `-s base` targets the naming context entry itself (`dc=management,dc=htb`), rather
+than its subtree — and it comes back empty too. So the anonymous bind can read the RootDSE
+(server metadata), but the actual directory entry — even the naming context's own entry —
+isn't readable anonymously. Anonymous access here is effectively read-only on metadata, not
+data.
+
 Hmmm... seems to be a dead end.
 
+### Java RMI primer
+
+Java RMI (Remote Method Invocation) lets a Java program call methods on an object living in
+another JVM as if it were local — the client gets a *stub* that serializes the method call,
+sends it over the network, and deserializes the result. Discovery normally goes through an
+**RMI registry**, a naming service (commonly on port `1099`, though nmap found it on `1689`
+and `37999` here) that maps human-readable names to remote object references. A client looks
+up a name in the registry, gets back a stub, and that stub tells it a *second* port to
+actually talk to the remote object on — which is why RMI often shows up as multiple open
+ports for what's conceptually one service. Because both the registry and the objects behind
+it deserialize attacker-supplied data by default, RMI endpoints are a classic target for Java
+deserialization exploits (e.g. via `ysoserial`) once you can reach the registry and enumerate
+what's bound to it.
+
 Taking a look at `java-rmi`.
+
+Installed and built [`remote-method-guesser`](https://github.com/qtc-de/remote-method-guesser). Can run the built `.JAR` with `java -jar /Users/timothyalder/Documents/tplat/projects/htb/machines/management/remote-method-guesser/target/rmg-5.1.0-jar-with-dependencies.jar ...`
